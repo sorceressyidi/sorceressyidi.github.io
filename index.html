@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yidi Zhang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #6b6270;
+      --paper: #fdf8f8;
+      --cream: #faf0f0;
+      --blush: #f5e6e8;
+      --accent: #c9a9a9;
+      --accent-dark: #a88585;
+      --mist: #ebe0e0;
+      --sage: #b5c4a8;
+      --rose: #d4a5a5;
+      --slate: #7a7a7a;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+      font-size: 14px;
+    }
+    ::selection {
+      background: var(--blush);
+      color: var(--ink);
+    }
+    .cursor-glow {
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(201, 169, 169, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+    }
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 0.9rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: linear-gradient(to bottom, var(--paper) 0%, transparent 100%);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent));
+      transition: width 0.35s var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    .hero {
+      padding: 5rem 6% 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 60%; height: 140%;
+      background: radial-gradient(ellipse at center, var(--blush) 0%, transparent 65%);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeSlideUp 1s ease-out;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-greeting {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--accent-dark);
+      margin-bottom: 0.4rem;
+      animation: fadeSlideUp 1s ease-out 0.2s both;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 0.3rem;
+      animation: fadeSlideUp 1s ease-out 0.4s both;
+    }
+    .hero-name-cn {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--slate);
+      margin-bottom: 1rem;
+      letter-spacing: 0.3em;
+      animation: fadeSlideUp 1s ease-out 0.5s both;
+    }
+    .hero-interests {
+      font-size: 0.75rem;
+      color: var(--accent-dark);
+      margin-bottom: 0.8rem;
+      animation: fadeSlideUp 1s ease-out 0.55s both;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .hero-tagline {
+      font-size: 0.85rem;
+      color: var(--slate);
+      max-width: 480px;
+      margin-bottom: 1.2rem;
+      animation: fadeSlideUp 1s ease-out 0.6s both;
+      line-height: 1.65;
+    }
+    .hero-tagline a {
+      color: var(--accent-dark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      transition: color 0.3s;
+    }
+    .hero-tagline a:hover {
+      color: var(--ink);
+    }
+    .hero-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      animation: fadeSlideUp 1s ease-out 0.8s both;
+    }
+    .hero-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      border: 1px solid var(--mist);
+      color: var(--ink);
+      border-radius: 20px;
+      transition: transform 0.3s var(--ease-out), color 0.25s, background 0.25s, border-color 0.25s, box-shadow 0.3s;
+    }
+    .hero-link:hover {
+      background: var(--ink);
+      color: var(--paper);
+      border-color: var(--ink);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(107, 98, 112, 0.2);
+    }
+    .hero-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .hero-link svg { width: 12px; height: 12px; }
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeSlideUp 1.2s ease-out 0.3s both;
+    }
+    .portrait-container {
+      position: relative;
+      width: 240px;
+      height: 310px;
+    }
+    .portrait-frame {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border: 1px solid var(--accent);
+      border-radius: 150px 150px 18px 18px;
+      transform: translate(12px, 12px);
+      box-shadow: 0 12px 40px rgba(168, 133, 133, 0.15);
+    }
+    .portrait-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 150px 150px 18px 18px;
+      filter: grayscale(15%) contrast(1.02);
+      transition: filter 0.5s;
+    }
+    .portrait-container:hover .portrait-img { filter: grayscale(0%) contrast(1); }
+    .floating-badges {
+      position: absolute;
+      top: 12%; right: -25px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .floating-badge {
+      background: var(--paper);
+      padding: 0.4rem 0.75rem;
+      border-radius: 18px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.05);
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    .floating-badge:nth-child(2) { animation-delay: 0.5s; }
+    .floating-badge .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+    }
+    .dot-sage { background: var(--sage); }
+    .dot-rose { background: var(--rose); }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    section { padding: 2.5rem 6%; position: relative; }
+    .section-header { text-align: center; margin-bottom: 1.8rem; }
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      border-radius: 1px;
+    }
+
+    #research { background: linear-gradient(180deg, var(--paper) 0%, var(--cream) 100%); padding: 1.85rem 6%; }
+    #research .section-header { margin-bottom: 1.2rem; }
+    .research-grid { display: grid; gap: 1.1rem; max-width: 920px; margin: 0 auto; }
+    .research-card {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.95rem 1rem;
+      background: var(--paper);
+      border-radius: 12px;
+      border: 1px solid transparent;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.8) inset;
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.3s;
+    }
+    .research-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.08), 0 1px 0 rgba(255,255,255,0.8) inset;
+      border-color: var(--mist);
+    }
+    .research-media {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      max-height: 115px;
+    }
+    .research-media video, .research-media img { width: 100%; height: 100%; object-fit: cover; }
+    .research-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+      margin-bottom: 0.3rem;
+    }
+    .research-status::before {
+      content: '';
+      width: 3px; height: 3px;
+      background: var(--sage);
+      border-radius: 50%;
+    }
+    .research-status.ongoing::before { background: var(--rose); }
+    .research-status.research-badge {
+      padding: 0.28rem 0.65rem;
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+      color: var(--paper);
+      border-radius: 20px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+    .research-status.research-badge::before { display: none; }
+    .research-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+    .research-title a { color: inherit; text-decoration: none; transition: color 0.3s; }
+    .research-title a:hover { color: var(--accent-dark); }
+    .research-authors { font-size: 0.68rem; color: var(--slate); margin-bottom: 0.3rem; }
+    .research-authors strong { color: var(--ink); }
+    .research-desc { font-size: 0.73rem; color: var(--slate); margin-bottom: 0.55rem; line-height: 1.52; }
+    .research-links { display: flex; gap: 0.45rem; }
+    .research-link {
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 0.28rem 0.6rem;
+      border: 1px solid var(--mist);
+      border-radius: 12px;
+      transition: color 0.25s, background 0.25s, border-color 0.25s, transform 0.2s var(--ease-out);
+    }
+    .research-link:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); transform: translateY(-1px); }
+    .research-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    #news { padding: 1.5rem 6%; background: var(--cream); }
+    #news .section-header { margin-bottom: 0.6rem; }
+    #news .section-title { font-size: clamp(1.25rem, 2.5vw, 1.6rem); }
+    .news-box {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      background: var(--paper);
+      border: 1px solid var(--mist);
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.9) inset;
+    }
+    .news-box .news-list {
+      max-height: 140px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+    .news-list::-webkit-scrollbar { width: 6px; }
+    .news-list::-webkit-scrollbar-track { background: var(--cream); border-radius: 3px; }
+    .news-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+    .news-line {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      line-height: 1.6;
+      padding: 0.2rem 0;
+    }
+    .news-line .news-date {
+      color: var(--accent-dark);
+      margin-right: 0.5rem;
+    }
+    .news-line a {
+      color: var(--accent-dark);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .news-line a:hover { color: var(--ink); border-color: var(--ink); }
+
+    #journey { background: var(--cream); }
+    .timeline { max-width: 800px; margin: 0 auto; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 50%; top: 0.8rem;
+      width: 7px; height: 7px;
+      background: var(--paper);
+      border: 2px solid var(--accent-dark);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+    .timeline-content {
+      padding: 0.9rem 1.1rem;
+      background: var(--paper);
+      border-radius: 12px;
+      border: 1px solid transparent;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.05);
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.3s;
+    }
+    .timeline-content:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,0.07); border-color: var(--mist); }
+    .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; text-align: right; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: 2; }
+    .timeline-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      font-style: italic;
+      color: var(--accent-dark);
+      margin-bottom: 0.2rem;
+    }
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.15rem;
+    }
+    .timeline-item:nth-child(odd) .timeline-header { flex-direction: row-reverse; }
+    .timeline-logo { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+    .timeline-title a { color: inherit; text-decoration: none; }
+    .timeline-title a:hover { color: var(--accent-dark); }
+    .timeline-role { font-size: 0.63rem; color: var(--slate); margin-bottom: 0.2rem; }
+    .timeline-desc { font-size: 0.68rem; color: var(--slate); line-height: 1.5; }
+
+    #about { background: var(--paper); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .about-card {
+      padding: 1.2rem;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--paper) 100%);
+      border-radius: 12px;
+      border: 1px solid transparent;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.3s;
+    }
+    .about-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); border-color: var(--mist); }
+    .about-icon {
+      width: 38px; height: 38px;
+      margin: 0 auto 0.8rem;
+      background: var(--paper);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 18px rgba(0,0,0,0.04);
+    }
+    .about-icon svg { width: 18px; height: 18px; stroke: var(--accent-dark); }
+    .about-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+    }
+    .about-card p { font-size: 0.72rem; color: var(--slate); line-height: 1.55; }
+    .about-card a { color: var(--accent-dark); text-decoration: none; }
+    .about-card a:hover { text-decoration: underline; }
+
+    .quote-section {
+      padding: 2.5rem 6%;
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+    }
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+      font-style: italic;
+      font-weight: 300;
+      max-width: 650px;
+      margin: 0 auto 0.7rem;
+      line-height: 1.5;
+    }
+    .quote-author {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 2rem 6%;
+      background: var(--blush);
+      text-align: center;
+    }
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .footer-copy { font-size: 0.65rem; color: var(--slate); }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .research-card.reveal { transition-delay: 0s; }
+    .research-card.reveal:nth-child(1) { transition-delay: 0.05s; }
+    .research-card.reveal:nth-child(2) { transition-delay: 0.1s; }
+    .research-card.reveal:nth-child(3) { transition-delay: 0.15s; }
+
+    .spatialpi-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+    .spatialpi-placeholder span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: white;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 80px; }
+      .hero-content { order: 2; }
+      .hero-visual { order: 1; margin-bottom: 1.2rem; }
+      .hero-tagline { margin-left: auto; margin-right: auto; }
+      .hero-links { justify-content: center; }
+      .portrait-container { width: 200px; height: 260px; }
+      .floating-badges { right: -15px; }
+      .research-card { grid-template-columns: 1fr; }
+      .research-media { max-height: none; aspect-ratio: 4/3; }
+      .timeline::before { left: 0; }
+      .timeline-item { grid-template-columns: 1fr; padding-left: 1rem; }
+      .timeline-item::before { left: 0; }
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content { grid-column: 1; text-align: left; }
+      .timeline-item:nth-child(odd) .timeline-header { flex-direction: row; }
+      .about-grid { grid-template-columns: 1fr; }
+      nav { padding: 0.8rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 2rem 4%; }
+      #research { padding: 1.25rem 4%; }
+      #news { padding: 1.25rem 4%; }
+      .nav-links a { font-size: 0.65rem; }
+      .floating-badges { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <nav>
+    <a href="#" class="nav-logo">Y.Z.</a>
+    <div class="nav-links">
+      <a href="#news">News</a>
+      <a href="#research">Research</a>
+      <a href="#journey">Journey</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-greeting">Hello, I'm</p>
+      <h1 class="hero-name">Yidi Zhang</h1>
+      <p class="hero-name-cn">张 祎 迪</p>
+      <p class="hero-interests">Research Interests: Robotics · Computer Vision · Embodied AI</p>
+      <p class="hero-tagline">
+        I am a senior undergraduate majoring in Computer Science and Technology at <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a>, privileged to be supervised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I also spent a wonderful semester as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a> in Spring 2025. I am currently working on Real2Sim transformation to better train/evaluate VLA models, supervised by <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a>.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:zhangyidi.lily@gmail.com" class="hero-link">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+          </svg>
+          Email
+        </a>
+        <a href="https://scholar.google.com/citations?user=gjtK3rUAAAAJ&hl=en" class="hero-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.022A48.64 48.64 0 0 1 12 20.904a48.64 48.64 0 0 1 8.232-4.735 60.46 60.46 0 0 0-.491-6.022m-15.482 0a50.573 50.573 0 0 0 2.126 5.686m15.356 0a50.573 50.573 0 0 1 2.126 5.686m-15.356 0a50.573 50.573 0 0 1 2.126-5.686m15.356 0a50.573 50.573 0 0 0 2.126-5.686M12 3.375c-2.21 0-4.016 1.79-4.016 4.018 0 2.21 1.79 4.016 4.016 4.016 2.21 0 4.016-1.79 4.016-4.016 0-2.21-1.79-4.018-4.016-4.018z" />
+          </svg>
+          Google Scholar
+        </a>
+        <a href="https://github.com/sorceressyidi/" class="hero-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://note.zhangyidi.tech/" class="hero-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+          </svg>
+          Notebook
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="portrait-container">
+        <div class="portrait-frame"></div>
+        <img src="images/pro.jpg" alt="Yidi Zhang" class="portrait-img">
+        <div class="floating-badges">
+          <div class="floating-badge">
+            <span class="dot dot-sage"></span>
+            Robotics
+          </div>
+          <div class="floating-badge">
+            <span class="dot dot-rose"></span>
+            Computer Vision
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news">
+    <div class="section-header reveal">
+      <h2 class="section-title">Recent News</h2>
+    </div>
+    <div class="news-box reveal">
+      <div class="news-list">
+        <p class="news-line"><span class="news-date">Jan 26, 2026.</span> ✨ <a href="https://robotarenainf.github.io/" target="_blank" rel="noopener noreferrer">RobotArena ∞</a> has been accepted to <a href="https://iclr.cc/" target="_blank" rel="noopener noreferrer">ICLR 2026</a>.</p>
+        <p class="news-line"><span class="news-date">Jan 12, 2026.</span> 🏢 Joined <a href="https://ailab.tencent.com/ailab/en/index/" target="_blank" rel="noopener noreferrer">Tencent AI Lab</a> as research intern.</p>
+        <p class="news-line"><span class="news-date">Jun 24, 2025.</span> 🏙️ Began summer research in Pittsburgh at <a href="https://www.cmu.edu/" target="_blank" rel="noopener noreferrer">Carnegie Mellon University</a>.</p>
+        <p class="news-line"><span class="news-date">Jan 15, 2025.</span> 📚 Started exchange at <a href="https://www.berkeley.edu/" target="_blank" rel="noopener noreferrer">UC Berkeley</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="section-header reveal">
+      <h2 class="section-title">Research</h2>
+    </div>
+    <div class="research-grid">
+      <article class="research-card reveal">
+        <div class="research-media">
+          <video muted autoplay loop playsinline>
+            <source src="images/research/arena.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="research-info">
+          <p class="research-status research-badge">Accepted at ICLR 2026</p>
+          <h3 class="research-title">
+            <a href="https://robotarenainf.github.io/">RobotArena ∞: Scalable Robot Benchmarking via Real-to-Sim Translation</a>
+          </h3>
+          <p class="research-authors">Yash Jangir, <strong>Yidi Zhang*</strong>, Kashu Yamazaki*, Chenyu Zhang*, Kuan-Hsun Tu, Tsung-Wei Ke, Lei Ke, Yonatan Bisk, Katerina Fragkiadaki</p>
+          <p class="research-desc">A scalable benchmark for real-world-trained robot policies, converting video demonstrations into simulated environments with automated vision-language scoring.</p>
+          <div class="research-links">
+            <a href="https://openreview.net/forum?id=OutljIofvS" class="research-link" target="_blank" rel="noopener noreferrer">OpenReview</a>
+            <a href="https://arxiv.org/pdf/2510.23571" class="research-link">arXiv</a>
+            <a href="https://robotarenainf.github.io/" class="research-link">Project</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="research-card reveal">
+        <div class="research-media">
+          <video muted autoplay loop playsinline>
+            <source src="images/dreamor.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="research-info">
+          <p class="research-status">Course Project · UC Berkeley CS 280</p>
+          <h3 class="research-title">
+            <a href="https://jingfeng0705.github.io/DREAMoR/dreamor.html">DREAMoR: Diffusion-based REconstruction and Motion prioR</a>
+          </h3>
+          <p class="research-authors">Sihan Ren, Jiashen Du, Jingfeng Yang, <strong>Yidi Zhang</strong></p>
+          <p class="research-desc">A diffusion-based motion prior framework that reconstructs physically plausible human motion from corrupted monocular sequences.</p>
+          <div class="research-links">
+            <a href="PDF/DREAMoR.pdf" class="research-link">PDF</a>
+            <a href="https://jingfeng0705.github.io/DREAMoR/dreamor.html" class="research-link">Project</a>
+            <a href="https://github.com/Jingfeng0705/DREAMoR" class="research-link">Code</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="research-card reveal">
+        <div class="research-media">
+          <div class="spatialpi-placeholder">
+            <span>SpatialPi</span>
+          </div>
+        </div>
+        <div class="research-info">
+          <p class="research-status ongoing">Ongoing Project</p>
+          <h3 class="research-title">
+            <a href="https://zhangyidi.tech/SpatialPi">SpatialPi: 3D-Enhanced Robot Learning with Point Cloud Representations</a>
+          </h3>
+          <p class="research-authors"><strong>Yidi Zhang</strong>*, Yash Jangir*</p>
+          <p class="research-desc">Bridging raw robot demonstrations and 3D-enhanced learning.</p>
+          <div class="research-links">
+            <a href="https://zhangyidi.tech/SpatialPi" class="research-link">Project</a>
+            <a href="https://github.com/offjangir/SpatialPi" class="research-link">Code</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="journey">
+    <div class="section-header reveal">
+      <p class="section-label">Education & Experience</p>
+      <h2 class="section-title">My Journey</h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <p class="timeline-date">Jan 2026 — Present</p>
+          <div class="timeline-header">
+            <img src="images/tencent.png" alt="Tencent" class="timeline-logo">
+            <h3 class="timeline-title"><a href="https://ailab.tencent.com/ailab/en/index/">Tencent AI Lab</a></h3>
+          </div>
+          <p class="timeline-role">Research Intern</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <p class="timeline-date">Jan 2025 — Nov 2025</p>
+          <div class="timeline-header">
+            <img src="images/cmu.png" alt="CMU" class="timeline-logo">
+            <h3 class="timeline-title"><a href="https://www.cmu.edu/">Carnegie Mellon University</a></h3>
+          </div>
+          <p class="timeline-role">Research Intern, supervised by Prof. Katerina Fragkiadaki</p>
+          <p class="timeline-desc">Had an amazing experience interning at CMU during the summer! The projects, people, and atmosphere were truly inspiring!</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <p class="timeline-date">Jan — May 2025</p>
+          <div class="timeline-header">
+            <img src="images/berkeley.png" alt="Berkeley" class="timeline-logo">
+            <h3 class="timeline-title"><a href="https://www.berkeley.edu/">UC Berkeley</a></h3>
+          </div>
+          <p class="timeline-role">Exchange Student</p>
+          <p class="timeline-desc">Spent a wonderful semester at UC Berkeley. Go Bears!</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <p class="timeline-date">Sep 2022 — Present</p>
+          <div class="timeline-header">
+            <img src="images/Zhejiang_University_Logo.svg" alt="ZJU" class="timeline-logo">
+            <h3 class="timeline-title"><a href="https://www.zju.edu.cn/english/">Zhejiang University</a></h3>
+          </div>
+          <p class="timeline-role">B.Eng. Computer Science · Turing Class</p>
+          <p class="timeline-desc">Chu Kochen Honors College, supervised by Prof. Sida Peng.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-header reveal">
+      <p class="section-label">Beyond Research</p>
+      <h2 class="section-title">A Little More About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <div class="about-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+          </svg>
+        </div>
+        <h3>Music</h3>
+        <p>Piano, choir alto. Love Chopin, Queen, The Beatles, Eagles, G-Dragon and David Tao and so many more</p>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+          </svg>
+        </div>
+        <h3>Literature</h3>
+        <p>Love Camus, Eileen Chang, Lu Xun. Pieces of <a href="https://note.zhangyidi.tech/大侠/">My writing</a>.</p>
+      </div>
+      <div class="about-card reveal">
+        <div class="about-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+          </svg>
+        </div>
+        <h3>Journaling</h3>
+        <p>Daily reflections, ideas, and sketches.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote-section">
+    <p class="quote-text reveal">"One must imagine Sisyphus happy."</p>
+    <p class="quote-author reveal">— Albert Camus</p>
+  </section>
+
+  <footer>
+    <p class="footer-name">Yidi Zhang · 张祎迪</p>
+    <p class="footer-copy">© 2026 Yidi Zhang</p>
+  </footer>
+
+  <script>
+    const cursorGlow = document.getElementById('cursorGlow');
+    let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+    function animateCursor() {
+      glowX += (mouseX - glowX) * 0.1;
+      glowY += (mouseY - glowY) * 0.1;
+      cursorGlow.style.left = glowX + 'px';
+      cursorGlow.style.top = glowY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      revealElements.forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>

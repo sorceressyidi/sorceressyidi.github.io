@@ -1,0 +1,311 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAXC-qNiXg7Q.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_FQftx9897sxZ.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_Gwftx9897g.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+a {
+  color: #1772d0;
+  text-decoration: none;
+}
+
+a:focus,
+a:hover {
+  color: #f09228;
+  text-decoration: none;
+}
+
+body,
+td,
+th,
+tr,
+p,
+a {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+strong {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+h2 {
+  margin: 0;
+  font-weight: normal;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 22px;
+}
+
+.papertitle {
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.name {
+  padding-top: 20px;
+  margin: 0;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-size: 32px;
+}
+
+.one {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.two {
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  transition: opacity .2s ease-in-out;
+  -moz-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
+}
+
+.fade {
+  transition: opacity .2s ease-in-out;
+  -moz-transition: opacity .2s ease-in-out;
+  -webkit-transition: opacity .2s ease-in-out;
+}
+
+span.highlight {
+  background-color: #ffffd0;
+}
+
+/* 
+  Container for the entire experience section. 
+  Centers content, limits max width, and adds padding.
+*/
+.experience-section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* 
+  Section heading styling.
+  Larger font, bottom border for separation.
+*/
+.experience-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+
+/* 
+  Timeline container: stacks items vertically with a consistent gap.
+*/
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* vertical space between each card */
+  /* Note: we rely on gap, so no need for margin-bottom on individual items for spacing */
+}
+
+/* 
+  Each timeline item as a “card”.
+  Uses flexbox: logo on the left, text on the right.
+  Adds border, rounded corners, background, padding, and subtle shadow.
+*/
+.timeline-item {
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid #ddd;              /* light border around card */
+  border-radius: 8px;                  /* rounded corners */
+  background-color: #fff;              /* white background */
+  padding: 1rem;                       /* inner spacing */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* subtle shadow for elevation */
+  /* Optional: add a colored left border for emphasis, e.g.: 
+     border-left: 4px solid #1a73e8;
+  */
+  /* Optional hover effect can be added separately if desired */
+}
+
+/* 
+  Logo container: fixed width, centers the logo image.
+*/
+.logo-container {
+  flex: 0 0 80px;                      /* fixed width for logos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 
+  Logo image constraints: ensure it fits within the container.
+*/
+.logo-container img {
+  max-width: 100%;
+  max-height: 80px;                   /* keep logos from growing too tall */
+  object-fit: contain;                /* preserve aspect ratio */
+}
+
+/* 
+  Text content area to the right of the logo.
+  margin-left separates from logo; flex:1 allows it to fill remaining space.
+*/
+.content {
+  margin-left: 1rem;
+  flex: 1;
+}
+
+/* 
+  Institution or project name styling.
+  Slightly larger font, bold color.
+*/
+.content .title {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #1a2b5c;                      /* primary text color; adjust to match theme */
+}
+
+/* 
+  If the title includes a link, remove default underline and inherit color.
+*/
+.content .title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.content .title a:hover {
+  text-decoration: underline;         /* underline on hover for clarity */
+}
+
+/* 
+  Subtitle (e.g., department, school) styling.
+  Italicized and muted color.
+*/
+.content .subtitle {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  font-style: italic;
+  color: #555;
+}
+
+/* 
+  Date range styling.
+  Smaller font and muted color to de-emphasize relative to title and role.
+*/
+.content .date-range {
+  font-size: 0.9rem;
+  margin: 0.2rem 0;
+  color: #777;
+}
+
+/* 
+  Role or position styling (e.g., Research Intern, Exchange Student).
+  Bold font-weight to stand out.
+*/
+.content .role {
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 
+  Additional info: advisor, notes, description.
+  Normal font-size, slightly muted color.
+*/
+.content .advisor,
+.content .note,
+.content .description {
+  font-size: 0.95rem;
+  margin: 0.2rem 0;
+  color: #444;
+}
+
+/* 
+  Links inside advisor section (e.g., advisor name) get a theme color.
+*/
+.content .advisor a {
+  color: #0066cc;                     /* link color; adjust to theme */
+  text-decoration: none;
+}
+
+.content .advisor a:hover {
+  text-decoration: underline;
+}
+
+/* 
+  Responsive adjustments: on small screens, stack logo above content and center-align.
+*/
+@media (max-width: 600px) {
+  .timeline-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .logo-container {
+    margin-bottom: 0.5rem;
+  }
+  .content {
+    margin-left: 0;
+  }
+  .content .title {
+    font-size: 1.2rem;                /* slightly smaller on narrow screens */
+  }
+}
