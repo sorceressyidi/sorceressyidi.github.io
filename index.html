@@ -142,6 +142,7 @@
     .nav-links a:nth-child(2) { animation-delay: 0.2s; }
     .nav-links a:nth-child(3) { animation-delay: 0.3s; }
     .nav-links a:nth-child(4) { animation-delay: 0.4s; }
+    .nav-links a:nth-child(5) { animation-delay: 0.5s; }
     @keyframes navFadeIn {
       from { opacity: 0; transform: translateY(-8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -677,7 +678,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.04);
       transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.3s;
     }
-    .about-card:hover { box-shadow: 0 16px 40px rgba(0,0,0,0.07); border-color: var(--accent); }
+    .about-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); border-color: var(--accent); }
     .about-icon {
       width: 38px; height: 38px;
       margin: 0 auto 0.8rem;
@@ -846,6 +847,7 @@
       <a href="#research">Research</a>
       <a href="#journey">Journey</a>
       <a href="#about">About</a>
+      <a href="PDF/CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
     </div>
     <div class="theme-switcher" aria-label="Color style">
       <button type="button" class="theme-btn active" data-theme="default" title="Default"></button>
@@ -863,7 +865,7 @@
       <h1 class="hero-name">Yidi Zhang</h1>
       <p class="hero-name-cn">张 祎 迪</p>
       <div class="hero-tagline">
-        <p>I am a senior undergraduate majoring in Computer Science and Technology at <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a>, privileged to be supervised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I also spent a wonderful semester as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a> in Spring 2025. I am currently working on Real2Sim transformation to better train/evaluate VLA models, supervised by <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a>.</p>
+        <p>I am a senior undergraduate majoring in Computer Science and Technology at <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a>, privileged to be supervised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I spent a wonderful semester as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a> in Spring 2025, and interned at <a href="https://www.cmu.edu/">Carnegie Mellon University</a> working on Real2Sim transformation to train and evaluate VLA models with <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a>. </p>
         <p>Broadly, I am interested in building generalist agents that can perceive, reason, and act intelligently across digital and physical worlds. I'm always happy to chat about research or exchange ideas—please feel free to say hi!</p>
       </div>
       <div class="hero-links">
@@ -873,12 +875,12 @@
           </svg>
           Email
         </a>
-        <a href="https://scholar.google.com/citations?user=gjtK3rUAAAAJ&hl=en" class="hero-link" target="_blank" rel="noopener noreferrer">
+        <!-- <a href="https://scholar.google.com/citations?user=gjtK3rUAAAAJ&hl=en" class="hero-link" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.022A48.64 48.64 0 0 1 12 20.904a48.64 48.64 0 0 1 8.232-4.735 60.46 60.46 0 0 0-.491-6.022m-15.482 0a50.573 50.573 0 0 0 2.126 5.686m15.356 0a50.573 50.573 0 0 1 2.126 5.686m-15.356 0a50.573 50.573 0 0 1 2.126-5.686m15.356 0a50.573 50.573 0 0 0 2.126-5.686M12 3.375c-2.21 0-4.016 1.79-4.016 4.018 0 2.21 1.79 4.016 4.016 4.016 2.21 0 4.016-1.79 4.016-4.016 0-2.21-1.79-4.018-4.016-4.018z" />
           </svg>
           Google Scholar
-        </a>
+        </a> -->
         <a href="https://github.com/sorceressyidi/" class="hero-link" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -890,6 +892,12 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
           </svg>
           Notebook
+        </a>
+        <a href="PDF/CV.pdf" class="hero-link" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+          </svg>
+          CV
         </a>
       </div>
     </div>
@@ -951,8 +959,8 @@
           <p class="research-desc">A scalable benchmark for real-world-trained robot policies, converting video demonstrations into simulated environments with automated vision-language scoring.</p>
           <div class="research-links">
             <a href="https://openreview.net/forum?id=OutljIofvS" class="research-link" target="_blank" rel="noopener noreferrer">OpenReview</a>
-            <a href="https://arxiv.org/pdf/2510.23571" class="research-link">arXiv</a>
-            <a href="https://robotarenainf.github.io/" class="research-link">Project</a>
+            <a href="https://arxiv.org/pdf/2510.23571" class="research-link" target="_blank" rel="noopener noreferrer">arXiv</a>
+            <a href="https://robotarenainf.github.io/" class="research-link" target="_blank" rel="noopener noreferrer">Project</a>
           </div>
         </div>
       </article>
@@ -972,8 +980,8 @@
           <p class="research-desc">A diffusion-based motion prior framework that reconstructs physically plausible human motion from corrupted monocular sequences.</p>
           <div class="research-links">
             <a href="PDF/DREAMoR.pdf" class="research-link">PDF</a>
-            <a href="https://jingfeng0705.github.io/DREAMoR/dreamor.html" class="research-link">Project</a>
-            <a href="https://github.com/Jingfeng0705/DREAMoR" class="research-link">Code</a>
+            <a href="https://jingfeng0705.github.io/DREAMoR/dreamor.html" class="research-link" target="_blank" rel="noopener noreferrer">Project</a>
+            <a href="https://github.com/Jingfeng0705/DREAMoR" class="research-link" target="_blank" rel="noopener noreferrer">Code</a>
           </div>
         </div>
       </article>
@@ -992,8 +1000,8 @@
           <p class="research-authors"><strong>Yidi Zhang</strong>*, Yash Jangir*</p>
           <p class="research-desc">Bridging raw robot demonstrations and 3D-enhanced learning.</p>
           <div class="research-links">
-            <a href="https://zhangyidi.tech/SpatialPi" class="research-link">Project</a>
-            <a href="https://github.com/offjangir/SpatialPi" class="research-link">Code</a>
+            <a href="https://zhangyidi.tech/SpatialPi" class="research-link" target="_blank" rel="noopener noreferrer">Project</a>
+            <a href="https://github.com/offjangir/SpatialPi" class="research-link" target="_blank" rel="noopener noreferrer">Code</a>
           </div>
         </div>
       </article>
@@ -1018,7 +1026,7 @@
       </div>
       <div class="timeline-item reveal">
         <div class="timeline-content">
-          <p class="timeline-date">Jan 2025 — Nov 2025</p>
+          <p class="timeline-date">Jan 2025 — Jan 2026</p>
           <div class="timeline-header">
             <img src="images/cmu.png" alt="CMU" class="timeline-logo">
             <h3 class="timeline-title"><a href="https://www.cmu.edu/">Carnegie Mellon University</a></h3>
@@ -1134,6 +1142,7 @@
     // Constellation canvas
     (function() {
       const canvas = document.getElementById('constellation');
+      if (getComputedStyle(canvas).display === 'none') return;
       const hero = document.querySelector('.hero');
       const ctx = canvas.getContext('2d');
       let w, h, particles = [], mouse = { x: -999, y: -999 };
