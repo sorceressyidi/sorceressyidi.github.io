@@ -902,7 +902,7 @@
       <h1 class="hero-name">Yidi Zhang</h1>
       <p class="hero-name-cn">张 祎 迪</p>
       <div class="hero-tagline">
-        <p>I am a senior undergraduate majoring in Computer Science and Technology at <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a>, privileged to be supervised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I spent Spring 2025 as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a>, and interned at <a href="https://www.cmu.edu/">Carnegie Mellon University</a> working on Real2Sim transformation to train and evaluate VLA models with <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a>.</p>
+        <p>I am a Master's student in Robotics at <a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a> (Fall 2026–2028), and just graduated from <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a> with a B.Eng. in Computer Science and Technology, advised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I spent Spring 2025 as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a>, and previously interned at CMU working on Real2Sim transformation to train and evaluate VLA models with <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a>.</p>
         <p>Broadly, I am interested in building generalist agents that can perceive, reason, and act intelligently across digital and physical worlds. I'm always happy to chat about research or exchange ideas—please feel free to say hi!</p>
       </div>
       <div class="hero-links">
@@ -1027,12 +1027,24 @@
     <div class="timeline">
       <div class="timeline-item reveal">
         <div class="timeline-content">
-          <p class="timeline-date">Jan 2026 — Present <span class="timeline-current">Current</span></p>
+          <p class="timeline-date">Fall 2026 — 2028 <span class="timeline-current">Current</span></p>
+          <div class="timeline-header">
+            <img src="images/cmu.png" alt="CMU" class="timeline-logo">
+            <h3 class="timeline-title"><a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a></h3>
+          </div>
+          <p class="timeline-role">M.S. in Robotics</p>
+          <p class="timeline-desc">Master's student at the Robotics Institute.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-content">
+          <p class="timeline-date">Jan 2026 — Jun 2026</p>
           <div class="timeline-header">
             <img src="images/tencent.png" alt="Tencent" class="timeline-logo">
-            <h3 class="timeline-title"><a href="https://ailab.tencent.com/ailab/en/index/">Tencent AI Lab</a></h3>
+            <h3 class="timeline-title"><a href="https://ailab.tencent.com/ailab/en/index/">Tencent</a></h3>
           </div>
           <p class="timeline-role">Research Intern</p>
+          <p class="timeline-desc">Worked on generalist GUI agents for perception and planning in complex software environments.</p>
         </div>
       </div>
       <div class="timeline-item reveal">
@@ -1059,7 +1071,7 @@
       </div>
       <div class="timeline-item reveal">
         <div class="timeline-content">
-          <p class="timeline-date">Sep 2022 — Present</p>
+          <p class="timeline-date">Sep 2022 — Jun 2026</p>
           <div class="timeline-header">
             <img src="images/Zhejiang_University_Logo.svg" alt="ZJU" class="timeline-logo">
             <h3 class="timeline-title"><a href="https://www.zju.edu.cn/english/">Zhejiang University</a></h3>
@@ -1115,9 +1127,8 @@
       });
     })();
 
-    // Portrait photo switcher
+    // Portrait photo switcher — always starts on 1.jpg
     (function() {
-      const KEY = 'yidi-portrait';
       const photos = [
         { src: 'images/lily/1.jpg', position: 'center 18%' },
         { src: 'images/lily/2.jpg', position: '72% 35%' },
@@ -1129,10 +1140,6 @@
       if (!img || !btn) return;
 
       let index = 0;
-      try {
-        const saved = parseInt(localStorage.getItem(KEY), 10);
-        if (!isNaN(saved) && saved >= 0 && saved < photos.length) index = saved;
-      } catch (e) {}
 
       function applyPhoto(i, animate) {
         const photo = photos[i];
@@ -1151,10 +1158,10 @@
         } else {
           swap();
         }
-        try { localStorage.setItem(KEY, String(i)); } catch (e) {}
       }
 
-      applyPhoto(index, false);
+      applyPhoto(0, false);
+      try { localStorage.removeItem('yidi-portrait'); } catch (e) {}
       photos.forEach(p => { const preload = new Image(); preload.src = p.src; });
 
       btn.addEventListener('click', () => {
