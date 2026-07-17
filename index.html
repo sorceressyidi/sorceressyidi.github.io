@@ -319,6 +319,12 @@
       align-items: center;
       animation: heroReveal 1s var(--ease-out) 0.4s both;
     }
+    .portrait-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+    }
     .portrait-container {
       position: relative;
       width: 240px;
@@ -336,11 +342,43 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 20%;
       border-radius: 150px 150px 18px 18px;
       filter: grayscale(15%) contrast(1.02);
-      transition: filter 0.5s;
+      transition: filter 0.5s, opacity 0.35s var(--ease-out);
     }
+    .portrait-img.is-fading { opacity: 0; }
     .portrait-container:hover .portrait-img { filter: grayscale(0%) contrast(1); }
+    .portrait-swap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0;
+      border: none;
+      background: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-dark);
+      cursor: pointer;
+      transition: color 0.25s, transform 0.25s var(--ease-out);
+    }
+    .portrait-swap:hover {
+      color: var(--ink);
+      transform: translateX(2px);
+    }
+    .portrait-swap:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+    .portrait-swap svg {
+      width: 12px;
+      height: 12px;
+      transition: transform 0.4s var(--ease-out);
+    }
+    .portrait-swap:hover svg { transform: rotate(90deg); }
+    .portrait-swap.is-spinning svg { transform: rotate(180deg); }
     .floating-badges {
       position: absolute;
       top: 12%;
@@ -907,25 +945,33 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="portrait-container">
-        <div class="portrait-frame"></div>
-        <img src="images/pro.jpg" alt="Yidi Zhang" class="portrait-img">
-        <div class="floating-badges-left">
-          <div class="floating-badge">
-            <span class="dot dot-accent"></span>
-            Embodied AI
+      <div class="portrait-stack">
+        <div class="portrait-container">
+          <div class="portrait-frame"></div>
+          <img src="images/lily/1.jpg" alt="Yidi Zhang" class="portrait-img" id="portraitImg" width="480" height="620">
+          <div class="floating-badges-left">
+            <div class="floating-badge">
+              <span class="dot dot-accent"></span>
+              Embodied AI
+            </div>
+          </div>
+          <div class="floating-badges">
+            <div class="floating-badge">
+              <span class="dot dot-sage"></span>
+              Robotics
+            </div>
+            <div class="floating-badge">
+              <span class="dot dot-rose"></span>
+              Computer Vision
+            </div>
           </div>
         </div>
-        <div class="floating-badges">
-          <div class="floating-badge">
-            <span class="dot dot-sage"></span>
-            Robotics
-          </div>
-          <div class="floating-badge">
-            <span class="dot dot-rose"></span>
-            Computer Vision
-          </div>
-        </div>
+        <button type="button" class="portrait-swap" id="portraitSwap" aria-label="Show another profile photo">
+          check another
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
+          </svg>
+        </button>
       </div>
     </div>
   </section>
@@ -1066,6 +1112,54 @@
       if (saved) setTheme(saved);
       btns.forEach(btn => {
         btn.addEventListener('click', () => setTheme(btn.getAttribute('data-theme')));
+      });
+    })();
+
+    // Portrait photo switcher
+    (function() {
+      const KEY = 'yidi-portrait';
+      const photos = [
+        { src: 'images/lily/1.jpg', position: 'center 18%' },
+        { src: 'images/lily/2.jpg', position: '72% 35%' },
+        { src: 'images/lily/3.jpg', position: '55% 30%' },
+        { src: 'images/lily/4.jpg', position: 'center 22%' }
+      ];
+      const img = document.getElementById('portraitImg');
+      const btn = document.getElementById('portraitSwap');
+      if (!img || !btn) return;
+
+      let index = 0;
+      try {
+        const saved = parseInt(localStorage.getItem(KEY), 10);
+        if (!isNaN(saved) && saved >= 0 && saved < photos.length) index = saved;
+      } catch (e) {}
+
+      function applyPhoto(i, animate) {
+        const photo = photos[i];
+        const swap = () => {
+          img.src = photo.src;
+          img.style.objectPosition = photo.position;
+          img.classList.remove('is-fading');
+        };
+        if (animate) {
+          img.classList.add('is-fading');
+          btn.classList.add('is-spinning');
+          setTimeout(() => {
+            swap();
+            setTimeout(() => btn.classList.remove('is-spinning'), 400);
+          }, 220);
+        } else {
+          swap();
+        }
+        try { localStorage.setItem(KEY, String(i)); } catch (e) {}
+      }
+
+      applyPhoto(index, false);
+      photos.forEach(p => { const preload = new Image(); preload.src = p.src; });
+
+      btn.addEventListener('click', () => {
+        index = (index + 1) % photos.length;
+        applyPhoto(index, true);
       });
     })();
 
@@ -1273,12 +1367,12 @@
 
     // Smooth parallax
     const heroEl = document.querySelector('.hero');
-    const portrait = document.querySelector('.portrait-container');
+    const portrait = document.querySelector('.portrait-stack');
     function updateParallax() {
       const scrollY = window.scrollY;
       if (scrollY < heroEl.offsetHeight * 1.5) {
         heroEl.style.setProperty('--parallax-y', scrollY * 0.15 + 'px');
-        portrait.style.transform = 'translateY(' + scrollY * 0.06 + 'px)';
+        if (portrait) portrait.style.transform = 'translateY(' + scrollY * 0.06 + 'px)';
       }
     }
     window.addEventListener('scroll', updateParallax, { passive: true });
