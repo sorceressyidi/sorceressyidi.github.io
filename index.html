@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yidi Zhang</title>
+  <link rel="icon" href="images/favicon/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -193,6 +194,8 @@
 
     .hero {
       padding: 3.5rem 6% 2rem;
+      max-width: 1240px;
+      margin: 0 auto;
       min-height: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -244,12 +247,8 @@
       font-weight: 400;
       line-height: 1.28;
       margin-bottom: 0.05rem;
-      background: linear-gradient(120deg, var(--ink) 0%, var(--accent-dark) 25%, var(--rose) 50%, var(--accent-dark) 75%, var(--ink) 100%);
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: heroReveal 0.8s var(--ease-out) 0.3s both, gradientShift 8s ease-in-out infinite;
+      color: var(--ink);
+      animation: heroReveal 0.8s var(--ease-out) 0.3s both;
     }
     .hero-name-cn {
       font-family: 'Cormorant Garamond', serif;
@@ -902,7 +901,7 @@
       <h1 class="hero-name">Yidi Zhang</h1>
       <p class="hero-name-cn">张 祎 迪</p>
       <div class="hero-tagline">
-        <p>I am a Master's student in Robotics at <a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a> (Fall 2026–2028), and just graduated from <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a> with a B.Eng. in Computer Science and Technology, advised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I spent Spring 2025 as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a>, and previously interned at CMU working on Real2Sim transformation to train and evaluate VLA models with <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a>.</p>
+        <p>I am a Master's student in Robotics at <a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a> (Fall 2026–2028). I recently graduated from <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a> with a B.Eng. in Computer Science and Technology, advised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I spent Spring 2025 as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a>, and previously interned at CMU with <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a> on Real2Sim transformation for training and evaluating VLA models.</p>
         <p>Broadly, I am interested in building generalist agents that can perceive, reason, and act intelligently across digital and physical worlds. I'm always happy to chat about research or exchange ideas—please feel free to say hi!</p>
       </div>
       <div class="hero-links">
@@ -912,12 +911,12 @@
           </svg>
           Email
         </a>
-        <!-- <a href="https://scholar.google.com/citations?user=gjtK3rUAAAAJ&hl=en" class="hero-link" target="_blank" rel="noopener noreferrer">
+        <a href="https://scholar.google.com/citations?user=gjtK3rUAAAAJ&hl=en" class="hero-link" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.022A48.64 48.64 0 0 1 12 20.904a48.64 48.64 0 0 1 8.232-4.735 60.46 60.46 0 0 0-.491-6.022m-15.482 0a50.573 50.573 0 0 0 2.126 5.686m15.356 0a50.573 50.573 0 0 1 2.126 5.686m-15.356 0a50.573 50.573 0 0 1 2.126-5.686m15.356 0a50.573 50.573 0 0 0 2.126-5.686M12 3.375c-2.21 0-4.016 1.79-4.016 4.018 0 2.21 1.79 4.016 4.016 4.016 2.21 0 4.016-1.79 4.016-4.016 0-2.21-1.79-4.018-4.016-4.018z" />
           </svg>
           Google Scholar
-        </a> -->
+        </a>
         <a href="https://github.com/sorceressyidi/" class="hero-link" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -929,12 +928,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
           </svg>
           Notebook
-        </a>
-        <a href="https://note.zhangyidi.tech/%E5%A4%A7%E4%BE%A0/" class="hero-link" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
-          </svg>
-          Writings
         </a>
         <a href="PDF/CV.pdf" class="hero-link" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -967,7 +960,7 @@
           </div>
         </div>
         <button type="button" class="portrait-swap" id="portraitSwap" aria-label="Show another profile photo">
-          check another
+          another photo
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
           </svg>
@@ -983,7 +976,7 @@
     <div class="news-box reveal">
       <div class="news-list">
         <p class="news-line"><span class="news-date">Jan 26, 2026.</span> <a href="https://robotarenainf.github.io/" target="_blank" rel="noopener noreferrer">RobotArena ∞</a> has been accepted to <a href="https://iclr.cc/" target="_blank" rel="noopener noreferrer">ICLR 2026</a>.</p>
-        <p class="news-line"><span class="news-date">Jan 12, 2026.</span> Joined <a href="https://ailab.tencent.com/ailab/en/index/" target="_blank" rel="noopener noreferrer">Tencent AI Lab</a> as research intern.</p>
+        <p class="news-line"><span class="news-date">Jan 12, 2026.</span> Joined <a href="https://ailab.tencent.com/ailab/en/index/" target="_blank" rel="noopener noreferrer">Tencent</a> as research intern.</p>
         <p class="news-line"><span class="news-date">Jun 24, 2025.</span> Began summer research in Pittsburgh at <a href="https://www.cmu.edu/" target="_blank" rel="noopener noreferrer">Carnegie Mellon University</a>.</p>
         <p class="news-line"><span class="news-date">Jan 15, 2025.</span> Started exchange at <a href="https://www.berkeley.edu/" target="_blank" rel="noopener noreferrer">UC Berkeley</a>.</p>
       </div>
@@ -1016,6 +1009,26 @@
         </div>
       </article>
 
+      <article class="research-card reveal">
+        <div class="research-media">
+          <video muted autoplay loop playsinline>
+            <source src="images/dreamor.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="research-info">
+          <p class="research-status">Course Project · UC Berkeley CS 280</p>
+          <h3 class="research-title">
+            <a href="https://jingfeng0705.github.io/DREAMoR/dreamor.html">DREAMoR: Diffusion-based REconstruction and Motion prioR</a>
+          </h3>
+          <p class="research-authors">Sihan Ren, Jiashen Du, Jingfeng Yang, <strong>Yidi Zhang</strong></p>
+          <p class="research-desc">A diffusion-based motion prior framework that reconstructs physically plausible human motion from corrupted monocular sequences.</p>
+          <div class="research-links">
+            <a href="PDF/DREAMoR.pdf" class="research-link" target="_blank" rel="noopener noreferrer">PDF</a>
+            <a href="https://jingfeng0705.github.io/DREAMoR/dreamor.html" class="research-link" target="_blank" rel="noopener noreferrer">Project</a>
+            <a href="https://github.com/Jingfeng0705/DREAMoR" class="research-link" target="_blank" rel="noopener noreferrer">Code</a>
+          </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -1033,7 +1046,7 @@
             <h3 class="timeline-title"><a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a></h3>
           </div>
           <p class="timeline-role">M.S. in Robotics</p>
-          <p class="timeline-desc">Master's student at the Robotics Institute.</p>
+          <p class="timeline-desc">Robotics Institute, School of Computer Science.</p>
         </div>
       </div>
       <div class="timeline-item reveal">
@@ -1044,7 +1057,7 @@
             <h3 class="timeline-title"><a href="https://ailab.tencent.com/ailab/en/index/">Tencent</a></h3>
           </div>
           <p class="timeline-role">Research Intern</p>
-          <p class="timeline-desc">Worked on generalist GUI agents for perception and planning in complex software environments.</p>
+          <p class="timeline-desc">Generalist GUI agents for perception and planning in complex software environments.</p>
         </div>
       </div>
       <div class="timeline-item reveal">
@@ -1055,7 +1068,7 @@
             <h3 class="timeline-title"><a href="https://www.cmu.edu/">Carnegie Mellon University</a></h3>
           </div>
           <p class="timeline-role">Research Intern, supervised by Prof. Katerina Fragkiadaki</p>
-          <p class="timeline-desc">Worked on real-to-sim transformation for robot learning and evaluation at CMU.</p>
+          <p class="timeline-desc">Real-to-sim transformation for robot learning and evaluation.</p>
         </div>
       </div>
       <div class="timeline-item reveal">
@@ -1077,7 +1090,7 @@
             <h3 class="timeline-title"><a href="https://www.zju.edu.cn/english/">Zhejiang University</a></h3>
           </div>
           <p class="timeline-role">B.Eng. Computer Science · Turing Class</p>
-          <p class="timeline-desc">Chu Kochen Honors College, supervised by Prof. Sida Peng.</p>
+          <p class="timeline-desc">Chu Kochen Honors College, advised by Prof. Sida Peng.</p>
         </div>
       </div>
     </div>
@@ -1256,36 +1269,6 @@
         requestAnimationFrame(draw);
       }
       draw();
-    })();
-
-    // Text scramble effect on hero name
-    (function() {
-      const el = document.querySelector('.hero-name');
-      if (!el) return;
-      const finalText = el.textContent;
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-      let frame = 0;
-      const totalFrames = 30;
-      function scramble() {
-        let result = '';
-        for (let i = 0; i < finalText.length; i++) {
-          if (finalText[i] === ' ') { result += ' '; continue; }
-          if (frame >= totalFrames * (i / finalText.length) + 8) {
-            result += finalText[i];
-          } else {
-            result += chars[Math.floor(Math.random() * chars.length)];
-          }
-        }
-        el.textContent = result;
-        frame++;
-        if (frame < totalFrames + 12) {
-          requestAnimationFrame(scramble);
-        } else {
-          el.textContent = finalText;
-        }
-      }
-      // Start after page load animation
-      setTimeout(scramble, 400);
     })();
 
     // Reveal on scroll
