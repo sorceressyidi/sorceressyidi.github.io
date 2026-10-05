@@ -4,10 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yidi Zhang</title>
+  <meta name="description" content="Yidi Zhang (张祎迪) — M.S. in Robotics student at Carnegie Mellon University, working on embodied AI, robotics and computer vision.">
+  <meta name="author" content="Yidi Zhang">
+  <meta name="theme-color" content="#fdf8f8">
+  <link rel="canonical" href="https://zhangyidi.tech/">
+  <!-- how the link looks when shared (WeChat, Slack, iMessage, X…) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zhangyidi.tech/">
+  <meta property="og:title" content="Yidi Zhang · 张祎迪">
+  <meta property="og:description" content="M.S. in Robotics at Carnegie Mellon University. Embodied AI, robotics and computer vision — plus a map of places I have been and books I have lived in.">
+  <meta property="og:image" content="https://zhangyidi.tech/images/lily/1.jpg">
+  <meta name="twitter:card" content="summary">
   <link rel="icon" href="images/favicon/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #6b6270;
@@ -815,6 +826,10 @@
       margin: 0.6rem auto;
     }
     .footer-copy { font-size: 0.62rem; color: var(--slate); letter-spacing: 0.05em; }
+    .footer-links { font-size: 0.72rem; letter-spacing: 0.08em; margin-top: 0.5rem; }
+    .footer-links a { color: var(--slate); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent-dark); }
+    .footer-links span { color: var(--accent); margin: 0 0.6rem; }
 
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -904,55 +919,49 @@
     .travel-map-box.mode-reading .for-travel,
     .travel-map-box.mode-reading #travelMap,
     .travel-map-box.mode-reading .travel-map-controls { display: none; }
-    #readingSky { display: none; position: relative; border-radius: 14px; overflow: hidden; background: #140f22; }
+    #readingSky { display: none; position: relative; border-radius: 14px; overflow: hidden; }
     .travel-map-box.mode-reading #readingSky { display: block; }
     #readingSky svg { display: block; width: 100%; height: auto; }
-    #readingSky .drift { transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
-    #readingSky .twinkle { animation: twinkle var(--tw, 4s) ease-in-out infinite; animation-delay: var(--td, 0s); }
-    @keyframes twinkle { 0%, 100% { opacity: var(--lo, 0.25); } 50% { opacity: 1; } }
-    #readingSky .const { transition: opacity 0.5s ease; }
-    #readingSky .const .c-line { transition: stroke-opacity 0.4s ease, stroke-width 0.4s ease; }
-    #readingSky .sky-stage.focus .const:not(.on) { opacity: 0.4; }
-    #readingSky .const.on .c-line { stroke-opacity: 0.6; stroke-width: 0.8; }
-    #readingSky .star { cursor: pointer; outline: none; }
-    #readingSky .star .s-body { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
-    #readingSky .star:hover .s-body, #readingSky .star:focus-visible .s-body { transform: scale(1.25); }
-    #readingSky .star .s-spikes { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-    #readingSky .star:hover .s-spikes, #readingSky .star:focus-visible .s-spikes { transform: rotate(45deg) scale(1.15); }
-    #readingSky .star-title {
-      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; fill: #fff4f6;
-      paint-order: stroke; stroke: rgba(20, 15, 34, 0.85); stroke-width: 4px;
-      pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    #readingSky .region { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s; transform-box: fill-box; transform-origin: center; }
+    #readingSky .region:hover { transform: translateY(-4px); }
+    #readingSky .world.focus .region:not(.on), #readingSky .world.focus .boat-wrap:not(.on) { opacity: 0.5; }
+    #readingSky .book { cursor: pointer; outline: none; }
+    #readingSky .book .b-shape { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); transform-box: fill-box; transform-origin: center bottom; }
+    #readingSky .book:hover .b-shape, #readingSky .book:focus-visible .b-shape { transform: translateY(-3px) rotate(-8deg) scale(1.2); }
+    #readingSky .b-title {
+      font-family: 'Caveat', cursive; font-size: 18px; pointer-events: none; opacity: 0; transition: opacity 0.25s;
+      paint-order: stroke; stroke-width: 5px; stroke-linejoin: round;
     }
-    #readingSky .star:hover .star-title, #readingSky .star:focus-visible .star-title { opacity: 1; }
-    #readingSky .theme-name {
-      font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
-      fill: rgba(255, 226, 236, 0.46); transition: fill 0.4s;
-    }
-    #readingSky .const.on .theme-name { fill: rgba(255, 236, 243, 0.85); }
-    #readingSky .theme-name.has-note { cursor: pointer; outline: none; }
-    #readingSky .theme-mark { fill: rgba(240, 200, 150, 0.7); font-size: 9px; letter-spacing: 0; }
-    #readingSky .const.now .c-line { stroke-dasharray: 2 5; stroke: #f0c896; stroke-opacity: 0.4; }
-    #readingSky .const.now .theme-name { fill: rgba(240, 200, 150, 0.6); }
-    #readingSky .const.now .s-body > circle:first-of-type { fill: none; stroke: #f0c896; stroke-width: 0.8; animation: breathe 3.6s ease-in-out infinite; }
-    #readingSky .const.now .s-body > circle:last-of-type { fill: #f6dcb8; }
-    @keyframes breathe { 0%, 100% { opacity: 0.35; transform: scale(0.85); } 50% { opacity: 0.9; transform: scale(1.15); } }
-    #readingSky .meteor { opacity: 0; }
-    #readingSky .meteor.fly { animation: meteor 1.4s ease-out forwards; }
-    @keyframes meteor {
-      0% { opacity: 0; transform: translate(0, 0); }
-      12% { opacity: 1; }
-      100% { opacity: 0; transform: translate(-260px, 150px); }
-    }
+    #readingSky .book:hover .b-title, #readingSky .book:focus-visible .b-title { opacity: 1; }
+    #readingSky .r-label { font-family: 'Caveat', cursive; font-weight: 600; font-size: 22px; paint-order: stroke; stroke-width: 5px; stroke-linejoin: round; }
+    #readingSky .r-label.has-note { cursor: pointer; outline: none; }
+    #readingSky .eileen { cursor: pointer; outline: none; }
+    #readingSky .eileen .e-fig { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); transform-box: fill-box; transform-origin: center bottom; }
+    #readingSky .eileen:hover .e-fig, #readingSky .eileen:focus-visible .e-fig { transform: translateY(-3px) rotate(-4deg) scale(1.1); }
+    #readingSky .e-label { font-family: 'Caveat', cursive; font-weight: 600; font-size: 15px; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+    #readingSky .boat { animation: bob 4.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center bottom; }
+    @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-4px) rotate(2deg); } }
+    #readingSky .waves { animation: drift 8s ease-in-out infinite alternate; }
+    @keyframes drift { from { transform: translateX(-5px); } to { transform: translateX(5px); } }
+    #readingSky .doodle-text { font-family: 'Caveat', cursive; }
     #readingSky .sky-hint {
-      position: absolute; right: 14px; top: 12px; pointer-events: none;
-      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; color: rgba(255, 226, 236, 0.55);
+      position: absolute; right: 16px; top: 12px; pointer-events: none;
+      font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--slate);
     }
     @media (prefers-reduced-motion: reduce) {
-      #readingSky .twinkle, #readingSky .meteor.fly, #readingSky .const.now .s-body > circle { animation: none; }
-      #readingSky .drift { transition: none; }
+      #readingSky .boat, #readingSky .waves { animation: none; }
+      #readingSky .region, #readingSky .book .b-shape { transition: none; }
     }
-    @media (max-width: 640px) { #readingSky .sky-hint { display: none; } }
+    @media (max-width: 640px) {
+      #readingSky .sky-hint { display: none; }
+      /* keep the islands big enough to tap: the map scrolls sideways instead of shrinking */
+      #readingSky { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      #readingSky::-webkit-scrollbar { display: none; }
+      #readingSky svg { width: 780px; max-width: none; }
+      .reading-swipe { display: block !important; }
+    }
+    .reading-swipe { display: none; text-align: center; margin-top: 0.6rem; font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--slate); }
+    .travel-map-box:not(.mode-reading) + .reading-swipe { display: none !important; }
     .travel-map-box {
       position: relative;
       max-width: 940px;
@@ -986,6 +995,56 @@
       display: flex; flex-direction: column; gap: 0.4rem; pointer-events: none;
     }
     .travel-badges .floating-badge:nth-child(2) { animation-delay: 0.5s; }
+    .travel-badges .floating-badge:nth-child(3) { animation-delay: 1s; }
+    /* My Journey: a story mode on the travel map */
+    .journey-toggle {
+      position: absolute; left: 1.4rem; top: 1.2rem; z-index: 3;
+      font: inherit; font-size: 0.78rem; letter-spacing: 0.06em; color: var(--accent-dark);
+      background: var(--paper); border: 1px solid var(--mist); border-radius: 999px; padding: 0.42rem 1rem;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.07); cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s;
+    }
+    .journey-toggle:hover { border-color: var(--accent); }
+    .journey-toggle[aria-pressed="true"] { background: var(--accent-dark); color: var(--paper); border-color: var(--accent-dark); }
+    .travel-map-box.mode-reading .journey-toggle, .travel-map-box.mode-reading .journey-card { display: none; }
+    #travelMap .journey-layer { display: none; }
+    .journey-on #travelMap .journey-layer { display: inline; }
+    #travelMap .city, #travelMap .place, #travelMap .area, #travelMap .area-minor, #travelMap .area-country, #travelMap .blush-layer { transition: opacity 0.6s ease; }
+    .journey-on #travelMap .city, .journey-on #travelMap .place, .journey-on #travelMap .area,
+    .journey-on #travelMap .area-minor, .journey-on #travelMap .area-country, .journey-on #travelMap .blush-layer { opacity: 0.07; pointer-events: none; }
+    .journey-on .travel-badges { opacity: 0; }
+    #travelMap .j-stop { cursor: pointer; }
+    #travelMap .j-stop .j-dot { transition: fill 0.4s; }
+    #travelMap .j-stop.past .j-dot { fill: var(--accent-dark); }
+    #travelMap .j-stop.now .j-ring { animation: jPulse 1.8s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes jPulse { from { transform: scale(0.6); opacity: 0.9; } to { transform: scale(2.2); opacity: 0; } }
+    #travelMap .j-num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; pointer-events: none; }
+    .journey-card {
+      position: absolute; left: 50%; bottom: 1.1rem; transform: translateX(-50%); z-index: 3;
+      width: min(400px, calc(100% - 2rem)); background: var(--paper); border-radius: 14px;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.12); padding: 0.75rem 1rem 0.85rem;
+      animation: jcIn 0.5s var(--ease-out);
+    }
+    @keyframes jcIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+    .jc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.45rem; }
+    .jc-step { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent-dark); }
+    .jc-controls { display: flex; gap: 0.2rem; }
+    .jc-controls button {
+      width: 26px; height: 26px; border-radius: 50%; border: none; background: var(--blush); color: var(--ink);
+      font-size: 0.85rem; line-height: 1; cursor: pointer; transition: background 0.2s;
+    }
+    .jc-controls button:hover { background: var(--mist); }
+    #jcPlay { font-size: 0.55rem; letter-spacing: -0.05em; }
+    .jc-body { display: flex; align-items: center; gap: 0.75rem; }
+    .jc-logo { width: 34px; height: 34px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; background: var(--cream); color: var(--rose); font-size: 1.1rem; }
+    .jc-logo img { width: 24px; height: 24px; object-fit: contain; }
+    .jc-text { flex: 1; min-width: 0; }
+    .jc-role { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--ink); line-height: 1.25; }
+    .jc-place { font-size: 0.74rem; color: var(--slate); margin-top: 0.1rem; }
+    .jc-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.92rem; color: var(--ink); margin-top: 0.15rem; }
+    .jc-note:empty { display: none; }
+    .jc-years { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--accent-dark); white-space: nowrap; align-self: flex-start; }
+    @media (prefers-reduced-motion: reduce) { #travelMap .j-stop.now .j-ring { animation: none; } .journey-card { animation: none; } }
     .travel-map-controls {
       position: absolute; right: 1.4rem; bottom: 1.2rem;
       display: flex; background: var(--paper); border-radius: 18px;
@@ -1074,7 +1133,11 @@
     .city-text { text-align: center; padding: 0.9rem 0.4rem 0; width: 0; min-width: 100%; box-sizing: border-box; }
     .city-text h3 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 1.45rem; }
     .city-meta { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent-dark); margin-top: 0.15rem; }
-    .city-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--ink); margin-top: 0.45rem; }
+    .chapter { display: flex; align-items: center; gap: 0.5rem; font-size: 0.74rem; color: var(--ink); text-align: left; }
+    .chapter img { width: 18px; height: 18px; object-fit: contain; flex-shrink: 0; }
+    .chapter b { font-weight: 500; }
+    .chapter em { margin-left: auto; font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--accent-dark); white-space: nowrap; padding-left: 0.6rem; }
+    .city-note { white-space: pre-line; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--ink); margin-top: 0.45rem; }
     .city-caption { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--slate); margin-top: 0.25rem; min-height: 1.2em; }
     .city-polaroid.book-card {
       width: min(640px, calc(100vw - 32px)); max-width: none;
@@ -1127,7 +1190,6 @@
     <div class="nav-links">
       <a href="#news">News</a>
       <a href="#research">Research</a>
-      <a href="#journey">Journey</a>
       <a href="#travels">Life Maps</a>
       <a href="PDF/CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
     </div>
@@ -1215,6 +1277,7 @@
     </div>
     <div class="news-box reveal">
       <div class="news-list">
+        <p class="news-line"><span class="news-date">Aug 2026.</span> Started my M.S. in Robotics at <a href="https://www.ri.cmu.edu/" target="_blank" rel="noopener noreferrer">Carnegie Mellon University</a>.</p>
         <p class="news-line"><span class="news-date">Jan 26, 2026.</span> <a href="https://robotarenainf.github.io/" target="_blank" rel="noopener noreferrer">RobotArena ∞</a> has been accepted to <a href="https://iclr.cc/" target="_blank" rel="noopener noreferrer">ICLR 2026</a>.</p>
         <p class="news-line"><span class="news-date">Jan 12, 2026.</span> Joined <a href="https://ailab.tencent.com/ailab/en/index/" target="_blank" rel="noopener noreferrer">Tencent</a> as research intern.</p>
         <p class="news-line"><span class="news-date">Jun 24, 2025.</span> Began summer research in Pittsburgh at <a href="https://www.cmu.edu/" target="_blank" rel="noopener noreferrer">Carnegie Mellon University</a>.</p>
@@ -1272,69 +1335,6 @@
     </div>
   </section>
 
-  <section id="journey">
-    <div class="section-header reveal">
-      <p class="section-label">Education & Experience</p>
-      <h2 class="section-title">My Journey</h2>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-content">
-          <p class="timeline-date">Fall 2026 — 2028 <span class="timeline-current">Current</span></p>
-          <div class="timeline-header">
-            <img src="images/cmu.png" alt="CMU" class="timeline-logo">
-            <h3 class="timeline-title"><a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a></h3>
-          </div>
-          <p class="timeline-role">M.S. in Robotics</p>
-          <p class="timeline-desc">Robotics Institute, School of Computer Science, advised by Prof. Max Simchowitz.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-content">
-          <p class="timeline-date">Jan 2026 — Jun 2026</p>
-          <div class="timeline-header">
-            <img src="images/tencent.png" alt="Tencent" class="timeline-logo">
-            <h3 class="timeline-title"><a href="https://ailab.tencent.com/ailab/en/index/">Tencent</a></h3>
-          </div>
-          <p class="timeline-role">Research Intern</p>
-          <p class="timeline-desc">Generalist GUI agents for perception and planning in complex software environments.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-content">
-          <p class="timeline-date">Jan 2025 — Jan 2026</p>
-          <div class="timeline-header">
-            <img src="images/cmu.png" alt="CMU" class="timeline-logo">
-            <h3 class="timeline-title"><a href="https://www.cmu.edu/">Carnegie Mellon University</a></h3>
-          </div>
-          <p class="timeline-role">Research Intern, supervised by Prof. Katerina Fragkiadaki</p>
-          <p class="timeline-desc">Real-to-sim transformation for robot learning and evaluation.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-content">
-          <p class="timeline-date">Jan — May 2025</p>
-          <div class="timeline-header">
-            <img src="images/berkeley.png" alt="Berkeley" class="timeline-logo">
-            <h3 class="timeline-title"><a href="https://www.berkeley.edu/">UC Berkeley</a></h3>
-          </div>
-          <p class="timeline-role">Exchange Student</p>
-          <p class="timeline-desc">Spent Spring 2025 at UC Berkeley as an exchange student.</p>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-content">
-          <p class="timeline-date">Sep 2022 — Jun 2026</p>
-          <div class="timeline-header">
-            <img src="images/Zhejiang_University_Logo.svg" alt="ZJU" class="timeline-logo">
-            <h3 class="timeline-title"><a href="https://www.zju.edu.cn/english/">Zhejiang University</a></h3>
-          </div>
-          <p class="timeline-role">B.Eng. Computer Science · Turing Class</p>
-          <p class="timeline-desc">Chu Kochen Honors College, advised by Prof. Sida Peng.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
 
   <section id="travels">
@@ -1350,6 +1350,26 @@
     <div class="travel-map-box reveal">
       <div id="travelMap"><div class="travel-map-loading">drawing the map…</div></div>
       <div id="readingSky"></div>
+      <button type="button" class="journey-toggle for-travel" id="journeyToggle" aria-pressed="false">✦ My Journey</button>
+      <div class="journey-card" id="journeyCard" hidden aria-live="polite">
+        <div class="jc-top">
+          <span class="jc-step" id="jcStep"></span>
+          <span class="jc-controls">
+            <button type="button" id="jcPrev" aria-label="Previous stop">‹</button>
+            <button type="button" id="jcPlay" aria-label="Pause">❚❚</button>
+            <button type="button" id="jcNext" aria-label="Next stop">›</button>
+          </span>
+        </div>
+        <div class="jc-body">
+          <span class="jc-logo" id="jcLogo"></span>
+          <div class="jc-text">
+            <p class="jc-role" id="jcRole"></p>
+            <p class="jc-place" id="jcPlace"></p>
+            <p class="jc-note" id="jcNote"></p>
+          </div>
+          <span class="jc-years" id="jcYears"></span>
+        </div>
+      </div>
       <div class="travel-badges for-travel" aria-hidden="true">
         <div class="floating-badge"><span class="dot dot-rose"></span>places I've been</div>
         <div class="floating-badge"><span class="dot dot-accent"></span>tap a city for photos</div>
@@ -1365,6 +1385,7 @@
         <button type="button" class="travel-map-btn" id="travelZoomIn" aria-label="Zoom in">+</button>
       </div>
     </div>
+    <p class="reading-swipe" aria-hidden="true">← swipe to explore Bookland →</p>
     <p class="travel-credit">map idea inspired by <a href="https://pandaliza.github.io/travels/" target="_blank" rel="noopener noreferrer">Liza Dahiya</a></p>
     <div class="travel-tooltip" id="travelTooltip"></div>
     <div class="city-modal" id="cityModal" role="dialog" aria-modal="true" aria-labelledby="cityTitle">
@@ -1400,6 +1421,12 @@
   </div>
   <footer>
     <p class="footer-name">Yidi Zhang · 张祎迪</p>
+    <p class="footer-links">
+      <a href="mailto:zhangyidi.lily@gmail.com">Email</a><span>·</span>
+      <a href="https://scholar.google.com/citations?user=gjtK3rUAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Scholar</a><span>·</span>
+      <a href="https://github.com/sorceressyidi/" target="_blank" rel="noopener noreferrer">GitHub</a><span>·</span>
+      <a href="PDF/CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+    </p>
     <div class="footer-divider"></div>
     <p class="footer-copy">© 2026 Yidi Zhang</p>
   </footer>
@@ -1661,6 +1688,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"></script>
   <script>
     // Travels map — soft blush where I've been, click a city for photos
     (function() {
@@ -1683,7 +1711,7 @@
         { name: 'Yunnan', country: 'China', at: [102.71, 25.04],
           photos: [{ src: 'images/travel/yunan1.jpg' }], area: ['yunnan'] },
         { name: 'Xinjiang', country: 'China', at: [87.62, 43.83], note: '平阔疆野，遍漫山河',
-          photos: [{ src: 'images/travel/xinijang1.jpg' }, { src: 'images/travel/xinjiang2.jpg' }, { src: 'images/travel/xinjiang3.jpg' }], area: ['xinjiang'] },
+          photos: [{ src: 'images/travel/xinijang1.jpg' }, { src: 'images/travel/xinjiang2.jpg' }, { src: 'images/travel/xinjiang3.jpg' }, { src: 'images/travel/xinjiang4.jpg' }], area: ['xinjiang'] },
         { name: 'Dunhuang', country: 'China', at: [94.66, 40.14],
           photos: [{ src: 'images/travel/dunhuang.jpg' }], area: ['dunhuang'] },
         { name: 'Qinghai', country: 'China', at: [101.78, 36.62],
@@ -1728,6 +1756,15 @@
       // Whole-country outlines (drawn faintly under the city outlines)
       const COUNTRY_AREAS = { 'Mexico': 'country-mexico', 'Singapore': 'country-singapore', 'Brazil': 'country-brazil',
                               'Japan': 'country-japan', 'South Korea': 'country-korea', 'Australia': 'country-australia', 'Türkiye': 'country-turkey' };
+      // My Journey — played as a little story when the button is pressed (in order)
+      const JOURNEY = [
+        { city: 'Tianjin', at: [117.20, 39.13], role: 'Hometown', place: 'Tianjin', years: 'until 2022', note: 'where I grew up with family and friends' },
+        { city: 'Hangzhou', at: [120.16, 30.27], logo: 'images/Zhejiang_University_Logo.svg', role: 'B.Eng. in Computer Science', place: 'Zhejiang University · Chu Kochen Honors College', years: '2022 – 2026' },
+        { city: 'Berkeley', at: [-122.27, 37.87], logo: 'images/berkeley.png', role: 'Exchange Student', place: 'UC Berkeley', years: 'Spring 2025' },
+        { city: 'Pittsburgh', at: [-79.99, 40.44], logo: 'images/cmu.png', role: 'Research Intern', place: 'Carnegie Mellon University', years: 'Summer 2025', note: 'with Prof. Katerina Fragkiadaki' },
+        { city: 'Beijing', at: [116.40, 39.90], logo: 'images/tencent.png', role: 'Research Intern', place: 'Tencent', years: 'Jan – Jun 2026' },
+        { city: 'Pittsburgh', at: [-79.99, 40.44], logo: 'images/cmu.png', role: 'M.S. in Robotics', place: 'Carnegie Mellon University', years: 'Fall 2026 – 2028', note: 'advised by Prof. Max Simchowitz' }
+      ];
       // Other places I've been — small dots, no photos
       const PLACES = [
         { name: 'Hong Kong', country: 'China', at: [114.17, 22.32], area: ['hongkong'] },
@@ -1735,9 +1772,9 @@
         { name: 'Shaoxing',  country: 'China', at: [120.58, 30.00], area: ['shaoxing'] },
         { name: 'Jinhua',    country: 'China', at: [119.65, 29.08], area: ['jinhua'] },
         { name: 'Shanghai',  country: 'China', at: [121.47, 31.23], area: ['shanghai'] },
-        { name: 'Beijing',   country: 'China', at: [116.40, 39.90], area: ['beijing'] },
         { name: 'Nanjing',   country: 'China', at: [118.80, 32.06], area: ['nanjing'] },
         { name: 'Jinan',     country: 'China', at: [117.00, 36.65], area: ['jinan'] },
+        { name: 'Beijing',   country: 'China', at: [116.40, 39.90], area: ['beijing'] },
         { name: 'San Francisco', country: 'United States', at: [-122.42, 37.77], area: ['sanfrancisco'] },
         { name: 'Tokyo',     country: 'Japan', at: [139.69, 35.69], area: ['tokyo'] },
         { name: 'Seoul',     country: 'South Korea', at: [126.98, 37.57], area: ['seoul'] },
@@ -1773,8 +1810,7 @@
       const BOOKS = [
         { title: 'The Plague', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/plague.jpg',
           quote: 'At midnight, sometimes, in the deep silence of the deserted town, as he went to bed for too short a sleep, the doctor would turn on his radio. And from the ends of the earth, across thousands of miles, unknown and fraternal voices tried clumsily to speak their solidarity — and did speak it, yet showed at the same time the terrible powerlessness of every man to truly share a pain he cannot see. “Oran! Oran!” … No, thought the doctor: to love or to die together — there is no other way. They are too far.',
-          note: 'I read this during the pandemic. From outside the storm, sympathy at a distance is never quite enough; from inside it, all you can do is keep pushing the rock — and imagine Sisyphus happy.',
-          ledTo: 'The English Patient' },   // The Plague is also read as an allegory of the occupation
+          note: 'I read this during the pandemic. From outside the storm, sympathy at a distance is never quite enough; from inside it, all you can do is keep pushing the rock — and imagine Sisyphus happy.', },
         { title: 'The Stranger', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/stranger.jpg' },
         { title: 'The Myth of Sisyphus', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/sisyphus.jpg',
           note: 'I read it too young, in high school, and I mean to return to it as I grow older. Still, it gave me something I have kept ever since: every moment I am living, here and now, is all that I am.' },
@@ -1803,14 +1839,16 @@
         { title: 'Brave New World', author: 'Aldous Huxley', theme: 'Futures That Warn', cover: 'images/books/bravenewworld.jpg' },
         { title: 'The Three-Body Problem', author: 'Liu Cixin', theme: 'Futures That Warn', cover: 'images/books/threebody.jpg' },
         { title: 'The Gods Themselves', author: 'Isaac Asimov', theme: 'Futures That Warn', cover: 'images/books/godsthemselves.jpg' },
+        { title: 'Do Androids Dream of Electric Sheep?', author: 'Philip K. Dick', theme: 'Futures That Warn', cover: 'images/books/androids.jpg' },
         { title: 'Frankenstein', author: 'Mary Shelley', theme: 'Futures That Warn', cover: 'images/books/frankenstein.jpg',
           note: 'The first time, it simply frightened me. Then it stayed with me as a question: what it means to create something — and what we owe to what we have created.' },
-        { title: 'No Longer Human', author: 'Osamu Dazai', theme: 'The Absurd', cover: 'images/books/nolongerhuman.jpg' },
         { title: 'The Hunchback of Notre-Dame', author: 'Victor Hugo', theme: 'Fate and Conscience', cover: 'images/books/notredame.jpg' },
         { title: 'Resurrection', author: 'Leo Tolstoy', theme: 'Fate and Conscience', cover: 'images/books/resurrection.jpg' },
         { title: 'The Gadfly', author: 'Ethel Lilian Voynich', theme: 'Fate and Conscience', cover: 'images/books/gadfly.jpg' },
+        { title: 'Rashōmon', author: 'Ryūnosuke Akutagawa', theme: 'Fate and Conscience', cover: 'images/books/rashomon.jpg' },
+        { title: 'The Dancing Girl', author: 'Mori Ōgai', theme: 'Fate and Conscience', cover: 'images/books/dancinggirl.jpg' },
         { title: 'Sapiens: A Brief History of Humankind', author: 'Yuval Noah Harari', theme: 'Big Questions', cover: 'images/books/sapiens.jpg' },
-        { title: 'From the Soil: The Foundations of Chinese Society', author: 'Fei Xiaotong', theme: 'Big Questions', cover: 'images/books/xiangtu.jpg',
+        { title: 'From the Soil: The Foundations of Chinese Society', author: 'Fei Xiaotong', theme: 'Pages from Home', cover: 'images/books/xiangtu.jpg',
           note: 'A fascinating way to understand where so much of our culture comes from — what makes it so particular, and so much our own.' },
         // Currently reading — drawn as faint, breathing stars that have not fully lit up yet
         { title: 'Thinking, Fast and Slow', author: 'Daniel Kahneman', theme: 'Now Reading', cover: 'images/books/thinkingfast.jpg' },
@@ -1822,17 +1860,8 @@
         { title: 'Memories of Peking: South Side Stories', author: 'Lin Haiyin', theme: 'Pages from Home', cover: 'images/books/chengnan.jpg' },
         { title: 'Border Town', author: 'Shen Congwen', theme: 'Pages from Home', cover: 'images/books/biancheng.jpg',
           note: 'A small, lovely hill town by the river, the sound of a bamboo flute drifting over the water, and a story that trails off as softly as the music.' },
-        // Eileen Chang — her own constellation. The Golden Cangue, Aloeswood Incense and Jasmine Tea
-        // are collected in the same volume as Love in a Fallen City, so they share its cover.
-        { title: 'Love in a Fallen City', author: 'Eileen Chang', theme: 'Eileen Chang', bright: 3, cover: 'images/books/fallencity.jpg' },
-        { title: 'The Golden Cangue', author: 'Eileen Chang', theme: 'Eileen Chang', bright: 3, cover: 'images/books/fallencity.jpg' },
-        { title: 'Red Rose, White Rose', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/redrose.jpg' },
-        { title: 'Half a Lifelong Romance', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/halflifelong.jpg' },
-        { title: 'Lust, Caution', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/lustcaution.jpg' },
-        { title: 'Aloeswood Incense: The First Brazier', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/fallencity.jpg' },
-        { title: 'The Rouge of the North', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/rouge.jpg' },
-        { title: 'Little Reunions', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/littlereunions.jpg' },
-        { title: 'Jasmine Tea', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/fallencity.jpg' }
+        // Eileen Chang: one special figure on the island; tapping her opens all her covers and my note
+        { title: 'Eileen Chang', theme: 'Pages from Home', special: 'eileen' }
       ];
       // A few words about a whole constellation — shown when its name is tapped
       const THEME_NOTES = {
@@ -1958,219 +1987,258 @@
         if (e.key === 'ArrowLeft') step(-1);
       });
 
-      // ---- Reading sky: a real night sky — every book a star, every theme a constellation ----
-      (function drawSky() {
-        const sky = document.getElementById('readingSky');
-        if (!sky || typeof d3 === 'undefined') return;
-        const W = 1000, H = 600;
-        let seed = 11;
-        const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-        const svg = d3.select(sky).append('svg').attr('viewBox', `0 0 ${W} ${H}`)
-          .attr('role', 'img').attr('aria-label', 'A night sky of books I have read, grouped into constellations by theme');
-        sky.insertAdjacentHTML('beforeend', '<div class="sky-hint">hover a constellation · tap a star</div>');
-        const defs = svg.append('defs');
-
-        // Night gradient: plum-indigo overhead, a dusky rose glow along the horizon
-        const night = defs.append('linearGradient').attr('id', 'nightGrad').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
-        [[0, '#100c1f'], [0.45, '#1d1533'], [0.78, '#33223f'], [1, '#5b3850']].forEach(([o, c]) => night.append('stop').attr('offset', o).attr('stop-color', c));
-        const horizon = defs.append('radialGradient').attr('id', 'horizonGlow').attr('cx', '50%').attr('cy', '100%').attr('r', '70%');
-        horizon.append('stop').attr('offset', 0).attr('stop-color', '#d99aa8').attr('stop-opacity', 0.2);
-        horizon.append('stop').attr('offset', 1).attr('stop-color', '#d99aa8').attr('stop-opacity', 0);
-        // Milky Way: soft nebula texture, shaped into a diagonal band
-        const neb = defs.append('filter').attr('id', 'nebula').attr('x', 0).attr('y', 0).attr('width', '100%').attr('height', '100%');
-        neb.append('feTurbulence').attr('type', 'fractalNoise').attr('baseFrequency', '0.012 0.03').attr('numOctaves', 4).attr('seed', 7).attr('result', 'n');
-        neb.append('feColorMatrix').attr('in', 'n').attr('type', 'matrix')
-          .attr('values', '0 0 0 0 0.93  0 0 0 0 0.80  0 0 0 0 0.90  0 0 0 1.35 -0.42');
-        const band = defs.append('linearGradient').attr('id', 'bandMask').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
-        [[0, 0], [0.38, 0.85], [0.5, 1], [0.62, 0.85], [1, 0]].forEach(([o, a]) => band.append('stop').attr('offset', o).attr('stop-color', '#fff').attr('stop-opacity', a));
-        defs.append('mask').attr('id', 'milkyMask').append('rect')
-          .attr('x', -200).attr('y', 120).attr('width', W + 400).attr('height', 300).attr('fill', 'url(#bandMask)')
-          .attr('transform', `rotate(-17 ${W / 2} ${H / 2})`);
-        defs.append('filter').attr('id', 'softBlur').attr('x', '-50%').attr('y', '-50%').attr('width', '200%').attr('height', '200%')
-          .append('feGaussianBlur').attr('stdDeviation', 22);
-        defs.append('filter').attr('id', 'starBlur').attr('x', '-150%').attr('y', '-150%').attr('width', '400%').attr('height', '400%')
-          .append('feGaussianBlur').attr('stdDeviation', 3.2);
-        const halo = defs.append('radialGradient').attr('id', 'starHalo');
-        [[0, '#fff3f6', 0.7], [0.3, '#f6c6d3', 0.22], [1, '#f6c6d3', 0]].forEach(([o, c, a]) => halo.append('stop').attr('offset', o).attr('stop-color', c).attr('stop-opacity', a));
-        const spike = defs.append('linearGradient').attr('id', 'spikeGrad');
-        [[0, 0], [0.5, 1], [1, 0]].forEach(([o, a]) => spike.append('stop').attr('offset', o).attr('stop-color', '#fff8fa').attr('stop-opacity', a));
-
-        svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'url(#nightGrad)');
-        svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'url(#horizonGlow)');
-
-        const back = svg.append('g').attr('class', 'drift');      // slow parallax layer
-        back.append('rect').attr('width', W).attr('height', H).attr('filter', 'url(#nebula)').attr('mask', 'url(#milkyMask)').attr('opacity', 0.26);
-        back.append('ellipse').attr('cx', W * 0.46).attr('cy', H * 0.47).attr('rx', 420).attr('ry', 70)
-          .attr('transform', `rotate(-17 ${W * 0.46} ${H * 0.47})`).attr('fill', '#e9b8cc').attr('opacity', 0.06).attr('filter', 'url(#softBlur)');
-        back.append('ellipse').attr('cx', W * 0.62).attr('cy', H * 0.40).attr('rx', 200).attr('ry', 46)
-          .attr('transform', `rotate(-17 ${W * 0.62} ${H * 0.40})`).attr('fill', '#b9a8e6').attr('opacity', 0.05).attr('filter', 'url(#softBlur)');
-
-        // Faint star-atlas arcs, like an old celestial chart
-        const grid = back.append('g').attr('fill', 'none').attr('stroke', '#ffe3ec').attr('stroke-opacity', 0.045).attr('stroke-width', 0.6);
-        [760].forEach(r => grid.append('circle').attr('cx', W / 2).attr('cy', H + 380).attr('r', r));
-
-        // Background stars: many faint, a few bright; denser inside the Milky Way band
-        const tilt = -17 * Math.PI / 180;
-        const bgStars = d3.range(230).map(i => {
-          let x = rand() * W, y = rand() * H;
-          if (i < 90) {                                    // pull these into the band
-            const t = rand() * 1.3 - 0.15, off = (rand() + rand() + rand() - 1.5) * 70;
-            x = W * t; y = H * 0.47 + (x - W * 0.46) * Math.tan(tilt) + off;
-          }
-          const m = Math.pow(rand(), 3);
-          const tint = rand();
-          return { x, y, r: 0.3 + m * 1.05, o: 0.18 + m * 0.6, c: tint < 0.12 ? '#d6defc' : tint < 0.24 ? '#ffe0e8' : '#ffffff', tw: rand() < 0.18 };
-        }).filter(d => d.y > -5 && d.y < H + 5);
-        back.append('g').selectAll('circle').data(bgStars).join('circle')
-          .attr('class', d => d.tw ? 'twinkle' : null)
-          .attr('cx', d => d.x).attr('cy', d => d.y).attr('r', d => d.r).attr('fill', d => d.c).attr('opacity', d => d.o)
-          .style('--tw', () => `${(2.5 + rand() * 4).toFixed(1)}s`).style('--td', () => `${(rand() * 5).toFixed(1)}s`)
-          .style('--lo', d => (d.o * 0.35).toFixed(2));
-
-        // A shooting star, now and then
-        const meteor = svg.append('g').attr('class', 'meteor');
-        const meteorLine = meteor.append('line').attr('stroke', 'url(#spikeGrad)').attr('stroke-width', 0.9).attr('stroke-linecap', 'round');
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          (function shoot() {
-            const x = W * (0.45 + Math.random() * 0.5), y = H * (0.04 + Math.random() * 0.25);
-            meteorLine.attr('x1', x).attr('y1', y).attr('x2', x + 90).attr('y2', y - 52);
-            const el = meteor.node(); el.classList.remove('fly'); void el.getBBox(); el.classList.add('fly');
-            setTimeout(shoot, 14000 + Math.random() * 16000);
-          })();
-        }
-
-        const stage = svg.append('g').attr('class', 'sky-stage');
-
-        // ---- Constellations: organic placement, figure templates, sized by how many books ----
-        const FIGURES = [
-          { nodes: [[-0.05, -0.05], [0.55, -0.55], [-0.75, 0.35], [0.25, 0.5], [-0.45, -0.7], [0.95, -0.1], [-1, -0.2], [0.6, 0.85], [0.05, -1]],
-            edges: [[6, 2], [2, 0], [0, 4], [4, 8], [0, 1], [1, 5], [0, 3], [3, 7]] },                                 // a swan in flight
-          { nodes: [[-0.6, -0.3], [0.1, 0.05], [0.7, -0.45], [-1, 0.45], [0.35, 0.75], [1, 0.2], [-0.2, -0.85], [-0.25, 0.65], [0.8, 0.95]],
-            edges: [[3, 0], [0, 1], [1, 2], [2, 5], [0, 6], [1, 7], [7, 4], [4, 8]] },                                 // a little dipper
-          { nodes: [[0, -0.3], [-0.55, 0.35], [0.55, 0.35], [0, -1], [-0.95, -0.15], [0.95, -0.15], [-0.3, 0.95], [0.3, 0.95], [0, 0.2]],
-            edges: [[3, 0], [0, 4], [0, 5], [0, 8], [8, 1], [8, 2], [1, 6], [2, 7]] },                                 // a lyre
-          { nodes: [[-0.85, 0.1], [-0.35, -0.45], [0.2, 0.05], [0.75, -0.5], [1, 0.3], [-0.15, 0.75], [0.45, 0.85], [-1, -0.75], [0.5, -1]],
-            edges: [[7, 0], [0, 1], [1, 2], [2, 3], [3, 4], [2, 5], [5, 6], [3, 8]] },                                  // a winding river
-          { nodes: [[0, 0], [-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5], [0, -1], [1, 0], [0, 1], [-1, 0]],
-            edges: [[5, 1], [1, 8], [8, 4], [4, 7], [7, 3], [3, 6], [6, 2], [2, 5], [1, 0], [0, 3]] },                  // a crown
-          { nodes: [[-0.2, 0.1], [0.4, -0.3], [-0.7, -0.4], [0.9, -0.75], [-0.95, 0.5], [0.15, 0.7], [0.7, 0.45], [-0.35, -0.95], [0.05, -0.55]],
-            edges: [[4, 0], [0, 1], [1, 3], [0, 2], [2, 7], [7, 8], [8, 1], [0, 5], [5, 6], [6, 1]] }                   // a kite
-        ];
-        // loosely scattered anchors, most prominent first; bigger constellations get the central ones
-        const SLOTS = [[0.44, 0.52], [0.16, 0.27], [0.8, 0.25], [0.49, 0.17], [0.82, 0.7], [0.16, 0.74], [0.63, 0.83], [0.92, 0.47], [0.37, 0.87], [0.07, 0.5]];
-        // fixed homes, so the sky stays put as books are added; new themes take the free slots
+      // ---- Reading map: a hand-drawn world of books — every theme an island ----
+      (function drawBookWorld() {
+        const box = document.getElementById('readingSky');
+        if (!box || typeof d3 === 'undefined' || typeof rough === 'undefined') return;
+        const W = 1000, H = 620;
+        // where each island sits (fractions of the map); new themes drift into the open sea
         const HOMES = {
-          'Eileen Chang': [0.5, 0.47], 'The Absurd': [0.3, 0.36], 'What War Leaves Behind': [0.5, 0.2],
-          'Futures That Warn': [0.7, 0.3], 'Teenage Worlds': [0.71, 0.58], 'Pages from Home': [0.29, 0.63],
-          'Fate and Conscience': [0.5, 0.75], 'Quiet Seekers': [0.13, 0.5], 'Big Questions': [0.12, 0.22],
-          'Now Reading': [0.88, 0.78]
+          'Pages from Home': [0.5, 0.47], 'The Absurd': [0.21, 0.27], 'What War Leaves Behind': [0.48, 0.15],
+          'Futures That Warn': [0.76, 0.21], 'Teenage Worlds': [0.76, 0.7],
+          'Fate and Conscience': [0.53, 0.82], 'Quiet Seekers': [0.24, 0.78], 'Big Questions': [0.93, 0.44],
+          'Now Reading': [0.08, 0.47]
         };
-        const themes = [...new Set(BOOKS.map(b => b.theme))];
-        const freeSlots = SLOTS.filter(([x, y]) => !Object.values(HOMES).some(([hx, hy]) => Math.hypot(hx - x, hy - y) < 0.12));
-        let nextFree = 0;
-        const pos = {}, figs = [];
-        themes.forEach((t, ti) => {
-          const [ax, ay] = HOMES[t] || freeSlots[nextFree++ % Math.max(freeSlots.length, 1)] || SLOTS[ti % SLOTS.length];
-          const members = BOOKS.filter(b => b.theme === t);
-          const grow = Math.min(1.3, 0.62 + members.length * 0.075);
-          const cx = W * ax, cy = H * ay, sx = 70 * grow, sy = 46 * grow;
-          const fig = FIGURES[ti % FIGURES.length];
-          const rot = (rand() - 0.5) * 0.7, cs = Math.cos(rot), sn = Math.sin(rot);
-          let pts = fig.nodes.map(([x, y]) => [cx + (x * cs - y * sn) * sx, cy + (x * sn + y * cs) * sy]);
-          // keep every figure (and its label) inside the sky
-          const minX = Math.min(...pts.map(p => p[0])), maxX = Math.max(...pts.map(p => p[0]));
-          const minY = Math.min(...pts.map(p => p[1])), maxY = Math.max(...pts.map(p => p[1]));
-          const sx0 = minX < 50 ? 50 - minX : maxX > W - 50 ? W - 50 - maxX : 0;
-          const sy0 = minY < 40 ? 40 - minY : maxY > H - 52 ? H - 52 - maxY : 0;
-          pts = pts.map(([x, y]) => [x + sx0, y + sy0]);
-          members.forEach((b, i) => {
-            pos[b.title] = i < pts.length ? pts[i] : [cx + Math.cos(i * 2.4) * sx * 1.1, cy + Math.sin(i * 2.4) * sy * 1.1];
-          });
-          const bottom = Math.max(...pts.map(p => p[1]));
-          figs.push({ t, pts, edges: fig.edges, used: members.length, label: [cx + sx0, Math.min(H - 16, bottom + 22)] });
-        });
-
-        const trim = (a, b, ga, gb) => {
-          const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
-          return { x1: a[0] + dx / L * ga, y1: a[1] + dy / L * ga, x2: b[0] - dx / L * gb, y2: b[1] - dy / L * gb };
+        const SPARE_HOMES = [[0.68, 0.45], [0.36, 0.92], [0.92, 0.88], [0.08, 0.9], [0.66, 0.06]];
+        // soft pastel land, a deeper ink of the same hue for outlines and books
+        const COLORS = {
+          'The Absurd': ['#e6ddf3', '#8a72b8'], 'What War Leaves Behind': ['#dfe8d4', '#6f8f5e'],
+          'Eileen Chang': ['#d6e9df', '#4f8a74'], 'Pages from Home': ['#f6d9dd', '#c06476'],
+          'Futures That Warn': ['#d8e5f2', '#5b84ad'], 'Teenage Worlds': ['#f8dfcd', '#cc7f55'],
+          'Fate and Conscience': ['#f5e8c6', '#b8923a'], 'Quiet Seekers': ['#dcecef', '#5a95a1'],
+          'Big Questions': ['#efdde8', '#a5688b']
         };
-        const brightOf = b => b.bright || (b.note || b.quote ? 2 : 1);
-
-        // threads between constellations ("this book led me to that one")
-        const themeOf = Object.fromEntries(BOOKS.map(b => [b.title, b.theme]));
-        const threads = BOOKS.filter(b => b.ledTo && pos[b.ledTo] && themeOf[b.ledTo] !== b.theme)
-          .map(b => trim(pos[b.title], pos[b.ledTo], 12, 12));
-        stage.append('g').selectAll('path').data(threads).join('path')
-          .attr('d', d => { const mx = (d.x1 + d.x2) / 2, my = (d.y1 + d.y2) / 2 - 40; return `M${d.x1},${d.y1} Q${mx},${my} ${d.x2},${d.y2}`; })
-          .attr('fill', 'none').attr('stroke', '#f0c896').attr('stroke-opacity', 0.32).attr('stroke-width', 0.6).attr('stroke-dasharray', '1 6').attr('stroke-linecap', 'round');
-
-        const consts = stage.selectAll('g.const').data(figs).join('g').attr('class', f => 'const' + (f.t === 'Now Reading' ? ' now' : ''))
-          .on('mouseenter', function () { stage.classed('focus', true); d3.select(this).classed('on', true); })
-          .on('mouseleave', function () { stage.classed('focus', false); d3.select(this).classed('on', false); });
-        consts.each(function (f) {
-          const g = d3.select(this);
-          const books = BOOKS.filter(b => b.theme === f.t);
-          g.append('g').selectAll('line').data(f.edges).join('line').attr('class', 'c-line')
-            .each(function ([i, j]) {
-              const d = trim(f.pts[i], f.pts[j], i < f.used ? 11 : 4, j < f.used ? 11 : 4);
-              d3.select(this).attr('x1', d.x1).attr('y1', d.y1).attr('x2', d.x2).attr('y2', d.y2);
-            })
-            .attr('stroke', '#ffe1ea').attr('stroke-opacity', 0.2).attr('stroke-width', 0.6).attr('stroke-linecap', 'round');
-          g.append('g').selectAll('circle').data(f.pts.slice(f.used)).join('circle')
-            .attr('cx', d => d[0]).attr('cy', d => d[1]).attr('r', () => 0.8 + rand() * 0.5).attr('fill', '#ffe9f0').attr('opacity', 0.42);
-          // a transparent hit area so the whole figure reacts to hover
-          const xs = f.pts.map(p => p[0]), ys = f.pts.map(p => p[1]);
-          g.insert('rect', ':first-child').attr('x', Math.min(...xs) - 24).attr('y', Math.min(...ys) - 24)
-            .attr('width', Math.max(...xs) - Math.min(...xs) + 48).attr('height', f.label[1] - Math.min(...ys) + 34).attr('fill', 'transparent');
-          const label = g.append('text').attr('class', 'theme-name' + (THEME_NOTES[f.t] ? ' has-note' : ''))
-            .attr('text-anchor', 'middle').attr('x', f.label[0]).attr('y', f.label[1]).text(f.t);
-          if (THEME_NOTES[f.t]) label.append('tspan').attr('class', 'theme-mark').attr('dx', 6).text('✦');
-          f.books = books;
-        });
+        const SPARE_COLORS = [['#e8e0d4', '#94816a'], ['#dfe0f3', '#6c71b3'], ['#f3dfe0', '#b5666b']];
+        // a little doodle for each island
+        const LANDMARKS = {
+          'The Absurd': 'sisyphus', 'What War Leaves Behind': 'poppy', 'Eileen Chang': 'moonroof',
+          'Pages from Home': 'pagoda', 'Futures That Warn': 'rocket', 'Teenage Worlds': 'castle',
+          'Fate and Conscience': 'cathedral', 'Quiet Seekers': 'sunriver', 'Big Questions': 'globe'
+        };
 
         const asCard = b => ({
-          name: b.title, country: (b.author || '') + (b.theme === 'Now Reading' ? ' · reading now' : ''), note: b.note, book: true, quote: b.quote, quoteSource: b.quoteSource,
+          name: b.title, country: (b.author || '') + (b.theme === 'Now Reading' ? ' · reading now' : ''), note: b.note, book: true,
+          quote: b.quote, quoteSource: b.quoteSource,
           photos: (b.covers || (b.cover ? [b.cover] : [])).map(src => ({ src })), emptyIcon: '✦', emptyText: b.theme || ''
         });
-        const openTheme = t => openCity({ name: t, country: 'a constellation', note: THEME_NOTES[t].note, book: true,
+        const openTheme = t => openCity({ name: t, country: t === 'Eileen Chang' ? 'a special collection · Pages from Home' : 'an island of books', note: THEME_NOTES[t].note, book: true,
           photos: (THEME_NOTES[t].covers || []).map(src => ({ src })), emptyIcon: '✦', emptyText: t });
-        consts.select('.theme-name.has-note').attr('tabindex', 0).attr('role', 'button')
-          .on('click', (e, f) => openTheme(f.t))
-          .on('keydown', (e, f) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openTheme(f.t); } });
 
-        // Book stars: a soft halo, a bright core, and diffraction spikes on the brightest ones
-        consts.each(function (f) {
-          const stars = d3.select(this).append('g').selectAll('g').data(f.books).join('g')
-            .attr('class', 'star').attr('transform', b => `translate(${pos[b.title]})`)
-            .attr('tabindex', 0).attr('role', 'button').attr('aria-label', b => `${b.title}${b.author ? ' by ' + b.author : ''}`)
-            .on('click', (e, b) => openCity(asCard(b)))
-            .on('keydown', (e, b) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCity(asCard(b)); } });
-          stars.append('circle').attr('r', 18).attr('fill', 'transparent');
-          const body = stars.append('g').attr('class', 's-body');
-          body.append('circle').attr('class', 'twinkle').attr('r', b => 4 + brightOf(b) * 2.6).attr('fill', 'url(#starHalo)')
-            .style('--tw', () => `${(3 + rand() * 3).toFixed(1)}s`).style('--td', () => `${(rand() * 4).toFixed(1)}s`).style('--lo', 0.55);
-          const spikes = body.filter(b => brightOf(b) >= 3).append('g').attr('class', 's-spikes');
-          spikes.append('rect').attr('x', -13).attr('y', -0.3).attr('width', 26).attr('height', 0.6).attr('fill', 'url(#spikeGrad)');
-          spikes.append('rect').attr('x', -0.3).attr('y', -13).attr('width', 0.6).attr('height', 26)
-            .attr('fill', 'url(#spikeGrad)').attr('transform', 'rotate(0)');
-          body.append('circle').attr('r', b => 1.2 + brightOf(b) * 0.45).attr('fill', '#fffafc');
-          stars.append('text').attr('class', 'star-title').attr('text-anchor', 'middle').attr('y', -18).text(b => b.title);
-        });
-        // vertical spikes need their own gradient direction
-        const vspike = defs.append('linearGradient').attr('id', 'spikeGradV').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
-        [[0, 0], [0.5, 1], [1, 0]].forEach(([o, a]) => vspike.append('stop').attr('offset', o).attr('stop-color', '#fff8fa').attr('stop-opacity', a));
-        stage.selectAll('.s-spikes rect:nth-of-type(2)').attr('fill', 'url(#spikeGradV)');
+        function render() {
+          box.innerHTML = '<div class="sky-hint">hover an island · tap a book</div>';
+          const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+          const C = dark
+            ? { paper: '#1f1d24', sea: '#232a33', wave: '#3d4a58', ink: '#ddd5e2', soft: '#8e889a', fade: 0.55 }
+            : { paper: '#fbf7f1', sea: '#ebf2f2', wave: '#b9d0d3', ink: '#5d5566', soft: '#9b94a3', fade: 1 };
+          let seed = 5;
+          const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+          const svg = d3.select(box).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img')
+            .attr('aria-label', 'A hand-drawn map of the books I have read: every theme is an island');
+          const rc = rough.svg(svg.node());
+          const put = (g, node) => { g.node().appendChild(node); return node; };
+          let sid = 1;
+          const R = extra => ({ seed: sid++, roughness: 1.3, bowing: 1.1, stroke: C.ink, strokeWidth: 1.1, ...extra });
 
-        if (!BOOKS.length) stage.append('text').attr('class', 'theme-name').attr('text-anchor', 'middle')
-          .attr('x', W / 2).attr('y', H / 2).style('font-size', '16px').text('my bookshelf is on its way');
+          // ---- layout ----
+          const themes = [...new Set(BOOKS.map(b => b.theme))];
+          let spare = 0;
+          const isles = themes.filter(t => t !== 'Now Reading').map((t, i) => {
+            const books = BOOKS.filter(b => b.theme === t);
+            const [fx, fy] = HOMES[t] || SPARE_HOMES[spare++ % SPARE_HOMES.length];
+            const r = 38 + Math.sqrt(books.length) * 21, ry = 0.78;
+            const cx = Math.min(W - r - 18, Math.max(r + 18, W * fx));
+            const cy = Math.min(H - r * ry - 40, Math.max(r * ry + 22, H * fy));
+            const [land, ink] = COLORS[t] || SPARE_COLORS[i % SPARE_COLORS.length];
+            const p1 = rand() * 6, p2 = rand() * 6;
+            const shape = d3.range(20).map(k => {
+              const a = k / 20 * Math.PI * 2;
+              const m = 1 + 0.15 * Math.sin(2 * a + p1) + 0.08 * Math.sin(3 * a + p2) + (rand() - 0.5) * 0.07;
+              return [cx + Math.cos(a) * r * m, cy + Math.sin(a) * r * m * ry];
+            });
+            const mark = [cx + r * 0.34, cy - r * ry * 0.36];
+            // scatter the books inside the island, keeping clear of the landmark and of each other
+            const spots = [];
+            books.forEach(b => {
+              let best = null, bestD = -1;
+              for (let k = 0; k < 120; k++) {
+                const a = rand() * Math.PI * 2, d = Math.sqrt(rand()) * 0.62;
+                const p = [cx + Math.cos(a) * r * d, cy + Math.sin(a) * r * ry * d];
+                const dMin = Math.min(Math.hypot(p[0] - mark[0], p[1] - mark[1]) - 10, ...spots.map(q => Math.hypot(p[0] - q[0], p[1] - q[1])));
+                if (dMin > bestD) { bestD = dMin; best = p; }
+                if (dMin > 26) break;
+              }
+              spots.push(best);
+            });
+            return { t, books, r, ry, cx, cy, land, ink, shape, mark, spots };
+          });
+          const pos = {};
+          isles.forEach(I => I.books.forEach((b, i) => { pos[b.title] = I.spots[i]; }));
 
-        // Gentle parallax: the far sky drifts a little with the pointer
-        sky.addEventListener('pointermove', e => {
-          const r = sky.getBoundingClientRect();
-          const dx = ((e.clientX - r.left) / r.width - 0.5) * -14, dy = ((e.clientY - r.top) / r.height - 0.5) * -10;
-          back.attr('transform', `translate(${dx.toFixed(1)} ${dy.toFixed(1)})`);
-        });
-        sky.addEventListener('pointerleave', () => back.attr('transform', null));
+          // ---- sea and waves ----
+          svg.append('rect').attr('width', W).attr('height', H).attr('fill', C.sea);
+          const waves = svg.append('g').attr('class', 'waves');
+          for (let i = 0; i < 46; i++) {
+            const x = 20 + rand() * (W - 60), y = 20 + rand() * (H - 40);
+            put(waves, rc.path(`M${x},${y} q5,-5 10,0 q5,-5 10,0`, R({ stroke: C.wave, roughness: 0.8, strokeWidth: 1 })));
+          }
+
+          // sea routes: this book led me to that one
+          const routes = svg.append('g');
+          BOOKS.forEach(b => {
+            const a = pos[b.title], z = b.ledTo && pos[b.ledTo];
+            if (!a || !z || BOOKS.find(x => x.title === b.ledTo).theme === b.theme) return;
+            const mid = [(a[0] + z[0]) / 2, Math.min(a[1], z[1]) - 46];
+            put(routes, rc.curve([a, mid, z], R({ stroke: C.soft, strokeLineDash: [5, 7], roughness: 0.9, strokeWidth: 1.2 })));
+          });
+
+          const world = svg.append('g').attr('class', 'world');
+
+          // ---- islands ----
+          isles.forEach(I => {
+            const g = world.append('g').attr('class', 'region')
+              .on('mouseenter', function () { world.classed('focus', true); d3.select(this).classed('on', true); })
+              .on('mouseleave', function () { world.classed('focus', false); d3.select(this).classed('on', false); });
+            // a faint dashed coastline echo, like old maps
+            put(g, rc.polygon(I.shape.map(([x, y]) => [I.cx + (x - I.cx) * 1.13, I.cy + (y - I.cy) * 1.13]),
+              R({ stroke: C.wave, strokeWidth: 1, strokeLineDash: [3, 6], roughness: 1 })));
+            const landNode = put(g, rc.polygon(I.shape, R({ fill: I.land, fillStyle: 'solid', stroke: I.ink, strokeWidth: 1.4, roughness: 1.5 })));
+            landNode.style.opacity = C.fade;
+            drawLandmark(g, LANDMARKS[I.t] || 'tree', I.mark[0], I.mark[1], I.ink, I.land);
+            // the island's name
+            const ly = Math.min(H - 10, I.cy + I.r * I.ry + 24);
+            const label = g.append('text').attr('class', 'r-label' + (THEME_NOTES[I.t] ? ' has-note' : ''))
+              .attr('x', I.cx).attr('y', ly).attr('text-anchor', 'middle')
+              .attr('fill', I.ink).attr('stroke', C.sea).text(I.t + (THEME_NOTES[I.t] ? ' ✦' : ''));
+            if (THEME_NOTES[I.t]) label.attr('tabindex', 0).attr('role', 'button')
+              .on('click', () => openTheme(I.t))
+              .on('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openTheme(I.t); } });
+            I.books.forEach((b, i) => b.special === 'eileen' ? drawEileen(g, I.spots[i][0], I.spots[i][1]) : drawBook(g, b, I.spots[i][0], I.spots[i][1], I.ink));
+          });
+
+          // ---- the little boat carrying what I'm reading now ----
+          const reading = BOOKS.filter(b => b.theme === 'Now Reading');
+          if (reading.length) {
+            const [fx, fy] = HOMES['Now Reading'];
+            const bx = Math.max(70, W * fx), by = H * fy;
+            const wrap = world.append('g').attr('class', 'boat-wrap').attr('transform', `translate(${bx},${by})`)
+              .on('mouseenter', function () { world.classed('focus', true); d3.select(this).classed('on', true); })
+              .on('mouseleave', function () { world.classed('focus', false); d3.select(this).classed('on', false); });
+            const boat = wrap.append('g').attr('class', 'boat');
+            put(boat, rc.path('M-38,0 L38,0 L27,16 L-27,16 Z', R({ fill: '#ecd2b4', fillStyle: 'solid', stroke: C.ink, roughness: 1.2 })));
+            put(boat, rc.line(8, 0, 8, -58, R({ strokeWidth: 1.3 })));
+            put(boat, rc.polygon([[10, -56], [10, -10], [36, -12]], R({ fill: C.paper, fillStyle: 'solid', roughness: 1 })));
+            put(boat, rc.polygon([[8, -58], [8, -50], [-6, -54]], R({ fill: '#e59aa8', fillStyle: 'solid', roughness: 0.8 })));
+            reading.forEach((b, i) => drawBook(boat, b, -30 + i * 12, -9, '#c58b4f', true));
+            wrap.append('text').attr('class', 'r-label').attr('x', 0).attr('y', 44).attr('text-anchor', 'middle')
+              .attr('fill', '#b07a45').attr('stroke', C.sea).text('now reading');
+          }
+
+          // ---- a compass, a whale and a title, just for fun ----
+          const comp = svg.append('g').attr('transform', `translate(${W - 58},${H - 58})`);
+          put(comp, rc.circle(0, 0, 54, R({ stroke: C.soft, roughness: 1 })));
+          put(comp, rc.polygon([[0, -30], [6, 0], [0, 30], [-6, 0]], R({ fill: C.soft, fillStyle: 'hachure', hachureGap: 3, stroke: C.soft, roughness: 0.8 })));
+          put(comp, rc.line(-30, 0, 30, 0, R({ stroke: C.soft, roughness: 0.6 })));
+          comp.append('text').attr('class', 'doodle-text').attr('y', -36).attr('text-anchor', 'middle').attr('fill', C.soft).attr('font-size', 15).text('N');
+          const whale = svg.append('g').attr('transform', `translate(${W * 0.33},${H - 30})`);
+          put(whale, rc.path('M0,0 C8,-16 36,-16 44,-2 C36,8 10,9 0,0 Z', R({ fill: '#cfe0ea', fillStyle: 'solid', stroke: C.soft, roughness: 1 })));
+          put(whale, rc.path('M44,-2 l10,-8 M44,-2 l10,6 M14,-14 q-2,-10 -8,-12 M14,-14 q2,-10 8,-12', R({ stroke: C.soft, roughness: 0.8 })));
+          whale.append('circle').attr('cx', 10).attr('cy', -5).attr('r', 1.3).attr('fill', C.soft);
+          svg.append('text').attr('class', 'doodle-text').attr('x', 26).attr('y', 40).attr('fill', C.ink).attr('font-size', 30).attr('font-weight', 600).text('Bookland');
+          svg.append('text').attr('class', 'doodle-text').attr('x', 28).attr('y', 62).attr('fill', C.soft).attr('font-size', 17).text('places I have lived in, one page at a time');
+
+          // ---- helpers ----
+          function drawBook(g, b, x, y, ink, standing) {
+            const bk = g.append('g').attr('class', 'book').attr('transform', `translate(${x},${y}) rotate(${standing ? 0 : (rand() - 0.5) * 22})`)
+              .attr('tabindex', 0).attr('role', 'button').attr('aria-label', `${b.title}${b.author ? ' by ' + b.author : ''}`)
+              .on('click', () => openCity(asCard(b)))
+              .on('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCity(asCard(b)); } });
+            bk.append('rect').attr('x', -12).attr('y', -14).attr('width', 24).attr('height', 26).attr('fill', 'transparent');
+            const shape = bk.append('g').attr('class', 'b-shape');
+            put(shape, rc.rectangle(-5.5, -8, 11, 15, R({ fill: ink, fillStyle: 'solid', stroke: ink, roughness: 0.7, strokeWidth: 1 })));
+            put(shape, rc.line(-3, -4.5, 3, -4.5, R({ stroke: C.paper, roughness: 0.4, strokeWidth: 1 })));
+            if (b.bright >= 3) put(shape, rc.path('M8,-13 l1.5,3.5 3.5,1.5 -3.5,1.5 -1.5,3.5 -1.5,-3.5 -3.5,-1.5 3.5,-1.5 Z',
+              R({ fill: '#e8b04a', fillStyle: 'solid', stroke: '#e8b04a', roughness: 0.4 })));
+            bk.append('text').attr('class', 'b-title').attr('y', -16).attr('text-anchor', 'middle')
+              .attr('fill', C.ink).attr('stroke', C.paper).text(b.title);
+          }
+          function drawEileen(g, x, y) {
+            const jade = '#4f8a74', ink = C.ink;
+            const e = g.append('g').attr('class', 'eileen').attr('transform', `translate(${x},${y - 6})`)
+              .attr('tabindex', 0).attr('role', 'button').attr('aria-label', 'Eileen Chang: all her books I have read')
+              .on('click', () => openTheme('Eileen Chang'))
+              .on('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openTheme('Eileen Chang'); } });
+            e.append('rect').attr('x', -20).attr('y', -30).attr('width', 40).attr('height', 56).attr('fill', 'transparent');
+            const f = e.append('g').attr('class', 'e-fig');
+            const o = extra => R({ stroke: ink, roughness: 0.8, strokeWidth: 1, ...extra });
+            // qipao: fitted, high collar, flaring slightly to the hem
+            put(f, rc.path('M-6,-8 L6,-8 L7,4 L9,20 L-9,20 L-7,4 Z', o({ fill: '#cfe6da', fillStyle: 'solid', stroke: jade })));
+            put(f, rc.path('M-3,-8 L-3,-11 L3,-11 L3,-8', o({ stroke: jade })));                         // mandarin collar
+            put(f, rc.path('M0,-8 q3,3 6,2 M-4,6 l0,14', o({ stroke: jade, strokeWidth: 0.8 })));        // frog closure, side slit
+            put(f, rc.path('M-6,-6 q-5,8 -3,14 M6,-6 q6,4 9,0', o({ stroke: ink })));                  // arms
+            put(f, rc.path('M15,-6 l-2,-7 a6,6 0 0,1 7,2 Z', o({ fill: '#f2c6cf', fillStyle: 'solid', stroke: '#c06476' }))); // little fan
+            put(f, rc.path('M-3,20 l0,5 M3,20 l0,5', o()));                                             // legs
+            // head with a sleek 1940s bob
+            put(f, rc.circle(0, -17, 11, o({ fill: '#fbf1ea', fillStyle: 'solid' })));
+            put(f, rc.path('M-6,-14 C-8,-24 8,-26 6,-14 C5,-19 0,-20 -6,-14 Z', o({ fill: '#3f3a44', fillStyle: 'solid', stroke: '#3f3a44' })));
+            f.append('circle').attr('cx', -2).attr('cy', -16.5).attr('r', 0.7).attr('fill', ink);
+            f.append('circle').attr('cx', 2).attr('cy', -16.5).attr('r', 0.7).attr('fill', ink);
+            f.append('path').attr('d', 'M-1.5,-13.6 q1.5,1 3,0').attr('stroke', '#c06476').attr('stroke-width', 0.8).attr('fill', 'none');
+            e.append('text').attr('class', 'e-label').attr('y', 40).attr('text-anchor', 'middle')
+              .attr('fill', jade).attr('stroke', C.paper).text('Eileen');
+          }
+          function drawLandmark(g, kind, x, y, ink, land) {
+            const d = g.append('g').attr('transform', `translate(${x},${y})`).attr('pointer-events', 'none');
+            const o = extra => R({ stroke: ink, roughness: 1, strokeWidth: 1.1, ...extra });
+            const fillL = { fill: '#fbf7f1', fillStyle: 'solid' };   // cream, so doodles read well on light and dark maps
+            if (kind === 'sisyphus') {          // a hill, a boulder, a tiny figure pushing it
+              put(d, rc.path('M-26,12 Q-4,-14 22,12', o()));
+              put(d, rc.circle(6, -8, 13, o({ fill: land, fillStyle: 'hachure', hachureGap: 2.5 })));
+              put(d, rc.path('M-6,-2 l-4,8 M-6,-2 l3,8 M-6,-2 l0,-8 M-6,-8 l6,-1', o({ strokeWidth: 1 })));
+              put(d, rc.circle(-6, -11, 4, o({ fill: ink, fillStyle: 'solid' })));
+            } else if (kind === 'poppy') {      // two poppies in the grass
+              [[-6, 0], [8, 4]].forEach(([px, py]) => {
+                put(d, rc.path(`M${px},${py} q2,10 0,16`, o()));
+                put(d, rc.circle(px, py - 2, 11, o({ fill: '#e88d86', fillStyle: 'solid', stroke: '#c96b64' })));
+                d.append('circle').attr('cx', px).attr('cy', py - 2).attr('r', 1.6).attr('fill', '#4d4148');
+              });
+            } else if (kind === 'moonroof') {   // a crescent moon over an old Shanghai roofline
+              put(d, rc.path('M-4,-24 a10,10 0 1,0 12,14 a8,8 0 1,1 -12,-14 Z', o({ fill: '#f3e3a8', fillStyle: 'solid', stroke: '#c9a646' })));
+              put(d, rc.path('M-22,10 L-16,2 L-8,2 L-2,-4 L4,2 L14,2 L20,10', o()));
+              put(d, rc.rectangle(-16, 10, 32, 8, o(fillL)));
+            } else if (kind === 'pagoda') {
+              put(d, rc.path('M-14,4 q14,-6 28,0 M-11,-6 q11,-6 22,0 M-8,-15 q8,-5 16,0 M0,-15 l0,-8', o()));
+              put(d, rc.rectangle(-9, 4, 18, 12, o(fillL)));
+              put(d, rc.rectangle(-7, -6, 14, 10, o(fillL)));
+            } else if (kind === 'rocket') {
+              put(d, rc.path('M0,-22 C9,-12 9,2 6,10 L-6,10 C-9,2 -9,-12 0,-22 Z', o(fillL)));
+              put(d, rc.circle(0, -6, 6, o({ fill: '#a9c6e6', fillStyle: 'solid' })));
+              put(d, rc.path('M-6,4 l-6,8 l6,-2 M6,4 l6,8 l-6,-2 M-3,12 q3,8 6,0', o()));
+            } else if (kind === 'castle') {
+              put(d, rc.path('M-16,14 V-4 H-11 V-9 H-6 V-4 H-2 V-9 H2 V-4 H6 V-9 H11 V-4 H16 V14 Z', o(fillL)));
+              put(d, rc.path('M-2,14 V6 q2,-4 4,0 V14 M0,-9 V-20 l7,3 -7,3', o()));
+            } else if (kind === 'cathedral') {
+              put(d, rc.path('M-15,14 V-4 L-10,-14 L-5,-4 V14 M5,14 V-4 L10,-14 L15,-4 V14 M-5,2 H5', o()));
+              put(d, rc.rectangle(-15, 2, 30, 12, o(fillL)));
+              put(d, rc.circle(0, -1, 7, o({ fill: '#f2d38a', fillStyle: 'solid' })));
+            } else if (kind === 'sunriver') {
+              put(d, rc.circle(0, -8, 12, o({ fill: '#f3d27a', fillStyle: 'solid', stroke: '#c9a646' })));
+              put(d, rc.path('M0,-20 v-4 M10,-14 l3,-3 M-10,-14 l-3,-3 M12,-6 h4 M-12,-6 h-4', o({ stroke: '#c9a646' })));
+              put(d, rc.path('M-18,8 q4,-4 9,0 t9,0 t9,0 t9,0', o({ stroke: '#7fb0bb' })));
+            } else if (kind === 'globe') {
+              put(d, rc.circle(0, -4, 22, o(fillL)));
+              put(d, rc.path('M-11,-4 H11 M0,-15 q-7,11 0,22 M0,-15 q7,11 0,22', o({ strokeWidth: 0.9 })));
+              put(d, rc.line(0, 7, 0, 13, o())); put(d, rc.line(-6, 13, 6, 13, o()));
+            } else {
+              put(d, rc.circle(0, -6, 18, o({ fill: '#cfe3c4', fillStyle: 'solid' })));
+              put(d, rc.line(0, 3, 0, 12, o()));
+            }
+          }
+        }
+        render();
+        new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        // on phones the map is wider than the screen: start with the middle of Bookland in view
+        const centre = () => { if (box.scrollWidth > box.clientWidth) box.scrollLeft = (box.scrollWidth - box.clientWidth) / 2; };
+        document.querySelectorAll('.map-switch button').forEach(b => b.addEventListener('click', () => requestAnimationFrame(centre)));
       })();
 
       if (!mapEl || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
@@ -2212,7 +2280,7 @@
         const travelG = g.append('g').attr('class', 'layer-travel');
 
         // Soft watercolour blush around everywhere I've been, kept on land
-        const blushes = travelG.append('g').attr('clip-path', 'url(#landClip)')
+        const blushes = travelG.append('g').attr('class', 'blush-layer').attr('clip-path', 'url(#landClip)')
           .selectAll('circle').data([...CITIES.map(c => ({ at: c.at, r: 30 })), ...PLACES.map(p => ({ at: p.at, r: 18 }))])
           .join('circle')
           .attr('cx', d => projection(d.at)[0]).attr('cy', d => projection(d.at)[1])
@@ -2292,9 +2360,36 @@
           .attr('fill', colorOf).attr('stroke-width', 1).attr('stroke-linejoin', 'round');
         marker.filter(c => !c.star && !c.heart).append('circle').attr('class', 'core').attr('r', 4).attr('fill', colorOf).attr('stroke-width', 1.4);
 
+        // ---- My Journey layer: numbered stops and the route between them ----
+        const jLayer = g.append('g').attr('class', 'journey-layer');
+        const jLegs = jLayer.append('g').selectAll('path').data(JOURNEY.slice(1)).join('path')
+          .attr('fill', 'none').attr('stroke-linecap', 'round')
+          .attr('d', (c, i) => {
+            const [x1, y1] = projection(JOURNEY[i].at), [x2, y2] = projection(c.at);
+            // a return leg bows the other way so the two don't overlap
+            const back = JOURNEY.slice(1, i + 1).some((p, k) => p.city === JOURNEY[i].city && JOURNEY[k].city === c.city);
+            const span = Math.hypot(x2 - x1, y2 - y1), lift = Math.min(90, span * 0.2) * (back ? -0.6 : 1);
+            return `M${x1},${y1} Q${(x1 + x2) / 2},${(y1 + y2) / 2 - lift} ${x2},${y2}`;
+          });
+        // one marker per city, numbered with every step that happened there (Pittsburgh is 4 · 6)
+        const jCities = [...new Set(JOURNEY.map(j => j.city))].map(name => ({
+          name, at: JOURNEY.find(j => j.city === name).at,
+          steps: JOURNEY.map((j, i) => j.city === name ? i : -1).filter(i => i >= 0)
+        }));
+        const jStops = jLayer.append('g').selectAll('g').data(jCities).join('g').attr('class', 'j-stop')
+          .attr('tabindex', 0).attr('role', 'button').attr('aria-label', d => `${d.name}: stop ${d.steps.map(i => i + 1).join(' and ')}`)
+          .on('click', (e, d) => { pause(); const nxt = d.steps.find(i => i > jIdx); showStep(nxt !== undefined ? nxt : d.steps[0], false); })
+          .on('keydown', (e, d) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.dispatchEvent(new MouseEvent('click')); } });
+        jStops.append('circle').attr('r', 14).attr('fill', 'transparent');
+        const jRing = jStops.append('circle').attr('class', 'j-ring').attr('r', 7).attr('fill', 'none').attr('stroke-width', 1.2);
+        const jDot = jStops.append('circle').attr('class', 'j-dot').attr('r', 4.5).attr('stroke-width', 1.4);
+        const jNum = jStops.append('text').attr('class', 'j-num').attr('x', 9).attr('y', -8).text(d => d.steps.map(i => i + 1).join(' · '));
+
         function place(k) {
           cities.attr('transform', c => `translate(${projection(c.at)}) scale(${1 / k})`);
           places.attr('transform', p => `translate(${projection(p.at)}) scale(${1 / k})`);
+          jStops.attr('transform', d => `translate(${projection(d.at)}) scale(${1 / k})`);
+          jLegs.attr('stroke-width', 1.4 / k);
         }
         place(1);
 
@@ -2305,6 +2400,10 @@
           blushStops[1].attr('stop-color', css('--rose')).attr('stop-opacity', 0.22);
           blushStops[2].attr('stop-color', css('--rose')).attr('stop-opacity', 0);
           cities.select('.core').attr('stroke', paper);
+          jLegs.attr('stroke', css('--accent-dark'));
+          jDot.attr('fill', paper).attr('stroke', css('--accent-dark'));
+          jRing.attr('stroke', css('--accent-dark'));
+          jNum.attr('fill', css('--accent-dark')).attr('stroke', paper).attr('stroke-width', 3).attr('paint-order', 'stroke');
           placeDot.attr('fill', paper).attr('stroke', css('--accent-dark'));
           minorAreas.attr('fill', css('--rose')).attr('stroke', css('--accent-dark'));
         }
@@ -2327,6 +2426,57 @@
         document.getElementById('travelZoomIn').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 1.6);
         document.getElementById('travelZoomOut').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 1 / 1.6);
         document.getElementById('travelReset').onclick = () => svg.transition().duration(400).call(zoom.transform, d3.zoomIdentity);
+
+        // ---- My Journey playback ----
+        const jBox = document.querySelector('.travel-map-box');
+        const jToggle = document.getElementById('journeyToggle');
+        const jCard = document.getElementById('journeyCard');
+        const jPlayBtn = document.getElementById('jcPlay');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let jIdx = -1, jTimer = null, jPlaying = false;
+        function drawLegs(upto, animateLast) {
+          jLegs.each(function (d, i) {
+            const path = d3.select(this), len = this.getTotalLength();
+            path.interrupt().attr('stroke-dasharray', `${len} ${len}`);
+            if (i < upto - 1 || (i === upto - 1 && (!animateLast || reduceMotion))) path.attr('stroke-dashoffset', 0);
+            else if (i === upto - 1) path.attr('stroke-dashoffset', len).transition().duration(1300).ease(d3.easeCubicInOut).attr('stroke-dashoffset', 0);
+            else path.attr('stroke-dashoffset', len);
+          });
+        }
+        function showStep(i, animate = true) {
+          const step = JOURNEY[i];
+          drawLegs(i, animate && i === jIdx + 1);
+          jIdx = i;
+          jStops.classed('past', d => d.steps.some(s => s < i)).classed('now', d => d.steps.includes(i));
+          document.getElementById('jcStep').textContent = `${String(i + 1).padStart(2, '0')} / ${String(JOURNEY.length).padStart(2, '0')} · ${step.city}`;
+          document.getElementById('jcLogo').innerHTML = step.logo ? `<img src="${esc(step.logo)}" alt="">` : '♡';
+          document.getElementById('jcRole').textContent = step.role;
+          document.getElementById('jcPlace').textContent = step.place;
+          document.getElementById('jcNote').textContent = step.note || '';
+          document.getElementById('jcYears').textContent = step.years;
+          jCard.hidden = false;
+          jCard.style.animation = 'none'; void jCard.offsetWidth; jCard.style.animation = '';
+        }
+        function schedule() {
+          clearTimeout(jTimer);
+          if (jPlaying && jIdx < JOURNEY.length - 1) jTimer = setTimeout(() => { showStep(jIdx + 1); schedule(); }, 3000);
+          else if (jIdx >= JOURNEY.length - 1) pause();
+        }
+        function play() { jPlaying = true; jPlayBtn.textContent = '❚❚'; jPlayBtn.setAttribute('aria-label', 'Pause'); if (jIdx >= JOURNEY.length - 1) showStep(0, false); schedule(); }
+        function pause() { jPlaying = false; clearTimeout(jTimer); jPlayBtn.textContent = '▶'; jPlayBtn.setAttribute('aria-label', 'Play'); }
+        jPlayBtn.onclick = () => (jPlaying ? pause() : play());
+        document.getElementById('jcPrev').onclick = () => { pause(); showStep(Math.max(0, jIdx - 1), false); };
+        document.getElementById('jcNext').onclick = () => { pause(); if (jIdx < JOURNEY.length - 1) showStep(jIdx + 1); };
+        function setJourney(on) {
+          jBox.classList.toggle('journey-on', on);
+          jToggle.setAttribute('aria-pressed', on);
+          hideTip();
+          if (on) { svg.transition().duration(500).call(zoom.transform, d3.zoomIdentity); jIdx = -1; showStep(0); jPlaying = true; jPlayBtn.textContent = '❚❚'; schedule(); }
+          else { pause(); jCard.hidden = true; jIdx = -1; }
+        }
+        jToggle.onclick = () => setJourney(!jBox.classList.contains('journey-on'));
+        // leaving the travel view switches the story off
+        document.querySelectorAll('.map-switch button').forEach(b => b.addEventListener('click', () => { if (b.dataset.mode !== 'travel') setJourney(false); }));
       }).catch(() => {
         mapEl.innerHTML = '<div class="travel-map-loading">map could not load</div>';
       });
