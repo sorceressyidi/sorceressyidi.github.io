@@ -1808,11 +1808,11 @@
       //   { title: '…', author: '…', theme: 'minds & machines', note: 'one line', cover: 'images/books/….jpg',
       //     ledTo: 'Another Title' }   // optional: draws a faint thread to the book this one led you to
       const BOOKS = [
-        { title: 'The Plague', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/plague.jpg',
+        { title: 'The Plague', author: 'Albert Camus', theme: 'The Absurd', bright: 3, cover: 'images/books/plague.jpg',
           quote: 'At midnight, sometimes, in the deep silence of the deserted town, as he went to bed for too short a sleep, the doctor would turn on his radio. And from the ends of the earth, across thousands of miles, unknown and fraternal voices tried clumsily to speak their solidarity — and did speak it, yet showed at the same time the terrible powerlessness of every man to truly share a pain he cannot see. “Oran! Oran!” … No, thought the doctor: to love or to die together — there is no other way. They are too far.',
           note: 'I read this during the pandemic. From outside the storm, sympathy at a distance is never quite enough; from inside it, all you can do is keep pushing the rock — and imagine Sisyphus happy.', },
         { title: 'The Stranger', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/stranger.jpg' },
-        { title: 'The Myth of Sisyphus', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/sisyphus.jpg',
+        { title: 'The Myth of Sisyphus', author: 'Albert Camus', theme: 'The Absurd', bright: 3, cover: 'images/books/sisyphus.jpg',
           note: 'I read it too young, in high school, and I mean to return to it as I grow older. Still, it gave me something I have kept ever since: every moment I am living, here and now, is all that I am.' },
         { title: 'All Quiet on the Western Front', author: 'Erich Maria Remarque', theme: 'What War Leaves Behind', cover: 'images/books/allquiet.jpg',
           note: 'I have only ever known peace, and still this book left me with a cold, quiet ache. When bombs become part of everyday life and everything is slipping away, what can we hold on to that still means something?' },
@@ -1830,7 +1830,8 @@
         { title: 'Siddhartha', author: 'Hermann Hesse', theme: 'Quiet Seekers', cover: 'images/books/siddhartha.jpg',
           quote: 'He could no longer tell the many voices apart — not the glad from the weeping, not the child’s from the man’s; they all belonged together: the lament of longing and the laughter of the one who knows, the cry of anger and the moaning of the dying. Everything was one, everything woven and knotted together, entwined a thousand times over. And all of it together, all the voices, all the goals, all the yearning, all the sorrow, all the joy, all the good and the evil — all of it together was the world. All of it together was the river of what happens, the music of life. … And in that hour Siddhartha ceased to fight his fate, and ceased to suffer.',
           note: 'I read it young, in high school, and fell in love with this moment by the river.' },
-        { title: 'Harry Potter', author: 'J. K. Rowling', theme: 'Teenage Worlds', cover: 'images/books/harrypotter.jpg' },
+        { title: 'Harry Potter', author: 'J. K. Rowling', theme: 'Teenage Worlds', bright: 3, cover: 'images/books/harrypotter.jpg',
+          note: 'Almost certainly the favorite book of my childhood.' },
         { title: 'The Wuxia Novels of Jin Yong', author: 'Jin Yong (Louis Cha)', theme: 'Teenage Worlds', cover: 'images/books/jinyong.jpg' },
         { title: 'Warriors', author: 'Erin Hunter', theme: 'Teenage Worlds', cover: 'images/books/warriors.jpg' },
         { title: 'Jane Eyre', author: 'Charlotte Brontë', theme: 'Teenage Worlds', cover: 'images/books/janeeyre.jpg',
@@ -1845,9 +1846,11 @@
         { title: 'The Hunchback of Notre-Dame', author: 'Victor Hugo', theme: 'Fate and Conscience', cover: 'images/books/notredame.jpg' },
         { title: 'Resurrection', author: 'Leo Tolstoy', theme: 'Fate and Conscience', cover: 'images/books/resurrection.jpg' },
         { title: 'The Gadfly', author: 'Ethel Lilian Voynich', theme: 'Fate and Conscience', cover: 'images/books/gadfly.jpg' },
-        { title: 'Rashōmon', author: 'Ryūnosuke Akutagawa', theme: 'Fate and Conscience', cover: 'images/books/rashomon.jpg' },
+        { title: 'Rashōmon', author: 'Ryūnosuke Akutagawa', theme: 'Cruelty', cover: 'images/books/rashomon.jpg' },
         { title: 'The Dancing Girl', author: 'Mori Ōgai', theme: 'Fate and Conscience', cover: 'images/books/dancinggirl.jpg' },
-        { title: 'Sapiens: A Brief History of Humankind', author: 'Yuval Noah Harari', theme: 'Big Questions', cover: 'images/books/sapiens.jpg' },
+        { title: 'Swindled: The Dark History of Food Fraud', author: 'Bee Wilson', theme: 'Fun Facts', cover: 'images/books/swindled.jpg' },
+        { title: 'Little Red Riding Hood Uncloaked', author: 'Catherine Orenstein', theme: 'Fun Facts', cover: 'images/books/redridinghood.jpg' },
+        { title: 'Sapiens: A Brief History of Humankind', author: 'Yuval Noah Harari', theme: 'Fun Facts', cover: 'images/books/sapiens.jpg' },
         { title: 'From the Soil: The Foundations of Chinese Society', author: 'Fei Xiaotong', theme: 'Pages from Home', cover: 'images/books/xiangtu.jpg',
           note: 'A fascinating way to understand where so much of our culture comes from — what makes it so particular, and so much our own.' },
         // Currently reading — drawn as faint, breathing stars that have not fully lit up yet
@@ -1860,6 +1863,8 @@
         { title: 'Memories of Peking: South Side Stories', author: 'Lin Haiyin', theme: 'Pages from Home', cover: 'images/books/chengnan.jpg' },
         { title: 'Border Town', author: 'Shen Congwen', theme: 'Pages from Home', cover: 'images/books/biancheng.jpg',
           note: 'A small, lovely hill town by the river, the sound of a bamboo flute drifting over the water, and a story that trails off as softly as the music.' },
+        { title: "Fang Si-Chi's First Love Paradise", author: 'Lin Yi-han', theme: 'Cruelty', cover: 'images/books/fangsiqi.jpg',
+          note: 'A moment of silence.' },
         // Eileen Chang: one special figure on the island; tapping her opens all her covers and my note
         { title: 'Eileen Chang', theme: 'Pages from Home', special: 'eileen' }
       ];
@@ -1995,7 +2000,7 @@
         // where each island sits (fractions of the map); new themes drift into the open sea
         const HOMES = {
           'Pages from Home': [0.5, 0.47], 'The Absurd': [0.21, 0.27], 'What War Leaves Behind': [0.48, 0.15],
-          'Futures That Warn': [0.76, 0.21], 'Teenage Worlds': [0.76, 0.7],
+          'Futures That Warn': [0.76, 0.21], 'Teenage Worlds': [0.76, 0.7], 'Cruelty': [0.7, 0.46], 'Fun Facts': [0.27, 0.53],
           'Fate and Conscience': [0.53, 0.82], 'Quiet Seekers': [0.24, 0.78], 'Big Questions': [0.93, 0.44],
           'Now Reading': [0.08, 0.47]
         };
@@ -2006,13 +2011,13 @@
           'Eileen Chang': ['#d6e9df', '#4f8a74'], 'Pages from Home': ['#f6d9dd', '#c06476'],
           'Futures That Warn': ['#d8e5f2', '#5b84ad'], 'Teenage Worlds': ['#f8dfcd', '#cc7f55'],
           'Fate and Conscience': ['#f5e8c6', '#b8923a'], 'Quiet Seekers': ['#dcecef', '#5a95a1'],
-          'Big Questions': ['#efdde8', '#a5688b']
+          'Big Questions': ['#efdde8', '#a5688b'], 'Cruelty': ['#e4e1e6', '#7d7486'], 'Fun Facts': ['#d4efe6', '#3f8f78']
         };
         const SPARE_COLORS = [['#e8e0d4', '#94816a'], ['#dfe0f3', '#6c71b3'], ['#f3dfe0', '#b5666b']];
         // a little doodle for each island
         const LANDMARKS = {
           'The Absurd': 'sisyphus', 'What War Leaves Behind': 'poppy', 'Eileen Chang': 'moonroof',
-          'Pages from Home': 'pagoda', 'Futures That Warn': 'rocket', 'Teenage Worlds': 'castle',
+          'Pages from Home': 'pagoda', 'Futures That Warn': 'rocket', 'Teenage Worlds': 'castle', 'Cruelty': 'candle', 'Fun Facts': 'bulb',
           'Fate and Conscience': 'cathedral', 'Quiet Seekers': 'sunriver', 'Big Questions': 'globe'
         };
 
@@ -2224,6 +2229,15 @@
               put(d, rc.circle(0, -8, 12, o({ fill: '#f3d27a', fillStyle: 'solid', stroke: '#c9a646' })));
               put(d, rc.path('M0,-20 v-4 M10,-14 l3,-3 M-10,-14 l-3,-3 M12,-6 h4 M-12,-6 h-4', o({ stroke: '#c9a646' })));
               put(d, rc.path('M-18,8 q4,-4 9,0 t9,0 t9,0 t9,0', o({ stroke: '#7fb0bb' })));
+            } else if (kind === 'bulb') {      // a little light bulb: aha!
+              put(d, rc.path('M0,-20 C9,-20 11,-10 6,-4 C4,-2 4,0 4,3 L-4,3 C-4,0 -4,-2 -6,-4 C-11,-10 -9,-20 0,-20 Z', o({ fill: '#f7e7a4', fillStyle: 'solid', stroke: ink })));
+              put(d, rc.path('M-4,6 L4,6 M-3,9 L3,9 M-2,-8 l2,-4 2,4', o({ strokeWidth: 0.9 })));
+              put(d, rc.path('M-14,-20 l-4,-3 M14,-20 l4,-3 M-15,-10 h-5 M15,-10 h5', o({ stroke: '#d9a441', strokeWidth: 0.9 })));
+            } else if (kind === 'candle') {    // a single candle, for remembrance
+              put(d, rc.rectangle(-4, -6, 8, 18, o({ fill: '#fbf7f1', fillStyle: 'solid' })));
+              put(d, rc.path('M0,-6 l0,-3', o({ strokeWidth: 0.9 })));
+              put(d, rc.path('M0,-17 C3,-13 3,-10 0,-9 C-3,-10 -3,-13 0,-17 Z', o({ fill: '#f2c46a', fillStyle: 'solid', stroke: '#d9a441' })));
+              put(d, rc.path('M-9,12 L9,12', o()));
             } else if (kind === 'globe') {
               put(d, rc.circle(0, -4, 22, o(fillL)));
               put(d, rc.path('M-11,-4 H11 M0,-15 q-7,11 0,22 M0,-15 q7,11 0,22', o({ strokeWidth: 0.9 })));
