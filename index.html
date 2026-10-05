@@ -875,6 +875,251 @@
       .nav-links a { font-size: 0.65rem; }
       .floating-badges, .floating-badges-left { display: none; }
     }
+
+    /* Travels map */
+    #travels { background: var(--cream); }
+    .travel-intro b { font-family: 'Playfair Display', serif; font-style: normal; font-weight: 500; color: var(--accent-dark); font-size: 1.25rem; }
+    .travel-intro {
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--slate);
+      margin: -0.8rem auto 1.4rem;
+    }
+    .map-switch {
+      display: flex; width: fit-content; margin: -0.6rem auto 1.2rem; padding: 4px;
+      background: var(--paper); border-radius: 999px; box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+    }
+    .map-switch button {
+      font: inherit; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--slate);
+      border: none; background: none; cursor: pointer; padding: 0.4rem 1.1rem; border-radius: 999px;
+      transition: background 0.25s, color 0.25s;
+    }
+    .map-switch button.active { background: var(--blush); color: var(--accent-dark); }
+    .map-switch button:hover:not(.active) { color: var(--ink); }
+    .travel-map-box .for-reading { display: none; }
+    .travel-map-box.mode-reading .for-reading { display: flex; }
+    .travel-map-box.mode-reading .travel-badges,
+    .travel-map-box.mode-reading .for-travel,
+    .travel-map-box.mode-reading #travelMap,
+    .travel-map-box.mode-reading .travel-map-controls { display: none; }
+    #readingSky { display: none; position: relative; border-radius: 14px; overflow: hidden; background: #140f22; }
+    .travel-map-box.mode-reading #readingSky { display: block; }
+    #readingSky svg { display: block; width: 100%; height: auto; }
+    #readingSky .drift { transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+    #readingSky .twinkle { animation: twinkle var(--tw, 4s) ease-in-out infinite; animation-delay: var(--td, 0s); }
+    @keyframes twinkle { 0%, 100% { opacity: var(--lo, 0.25); } 50% { opacity: 1; } }
+    #readingSky .const { transition: opacity 0.5s ease; }
+    #readingSky .const .c-line { transition: stroke-opacity 0.4s ease, stroke-width 0.4s ease; }
+    #readingSky .sky-stage.focus .const:not(.on) { opacity: 0.4; }
+    #readingSky .const.on .c-line { stroke-opacity: 0.6; stroke-width: 0.8; }
+    #readingSky .star { cursor: pointer; outline: none; }
+    #readingSky .star .s-body { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+    #readingSky .star:hover .s-body, #readingSky .star:focus-visible .s-body { transform: scale(1.25); }
+    #readingSky .star .s-spikes { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    #readingSky .star:hover .s-spikes, #readingSky .star:focus-visible .s-spikes { transform: rotate(45deg) scale(1.15); }
+    #readingSky .star-title {
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; fill: #fff4f6;
+      paint-order: stroke; stroke: rgba(20, 15, 34, 0.85); stroke-width: 4px;
+      pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    }
+    #readingSky .star:hover .star-title, #readingSky .star:focus-visible .star-title { opacity: 1; }
+    #readingSky .theme-name {
+      font-family: 'Cormorant Garamond', serif; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+      fill: rgba(255, 226, 236, 0.46); transition: fill 0.4s;
+    }
+    #readingSky .const.on .theme-name { fill: rgba(255, 236, 243, 0.85); }
+    #readingSky .theme-name.has-note { cursor: pointer; outline: none; }
+    #readingSky .theme-mark { fill: rgba(240, 200, 150, 0.7); font-size: 9px; letter-spacing: 0; }
+    #readingSky .const.now .c-line { stroke-dasharray: 2 5; stroke: #f0c896; stroke-opacity: 0.4; }
+    #readingSky .const.now .theme-name { fill: rgba(240, 200, 150, 0.6); }
+    #readingSky .const.now .s-body > circle:first-of-type { fill: none; stroke: #f0c896; stroke-width: 0.8; animation: breathe 3.6s ease-in-out infinite; }
+    #readingSky .const.now .s-body > circle:last-of-type { fill: #f6dcb8; }
+    @keyframes breathe { 0%, 100% { opacity: 0.35; transform: scale(0.85); } 50% { opacity: 0.9; transform: scale(1.15); } }
+    #readingSky .meteor { opacity: 0; }
+    #readingSky .meteor.fly { animation: meteor 1.4s ease-out forwards; }
+    @keyframes meteor {
+      0% { opacity: 0; transform: translate(0, 0); }
+      12% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-260px, 150px); }
+    }
+    #readingSky .sky-hint {
+      position: absolute; right: 14px; top: 12px; pointer-events: none;
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; color: rgba(255, 226, 236, 0.55);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #readingSky .twinkle, #readingSky .meteor.fly, #readingSky .const.now .s-body > circle { animation: none; }
+      #readingSky .drift { transition: none; }
+    }
+    @media (max-width: 640px) { #readingSky .sky-hint { display: none; } }
+    .travel-map-box {
+      position: relative;
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 0.8rem;
+      background: var(--paper);
+      border-radius: 18px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.8) inset;
+    }
+    [data-theme="dark"] .travel-map-box { box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+    #travelMap svg { display: block; width: 100%; height: auto; cursor: grab; touch-action: none; }
+    #travelMap svg:active { cursor: grabbing; }
+    #travelMap .city { cursor: pointer; outline: none; }
+    #travelMap .area { fill-opacity: 0.22; stroke-width: 0.8; stroke-opacity: 0.75; cursor: pointer; transition: fill-opacity 0.25s; }
+    #travelMap .area:hover { fill-opacity: 0.38; }
+    #travelMap .area-country { fill-opacity: 0.16; stroke: none; }
+    #travelMap .area-minor { fill-opacity: 0.2; stroke-width: 0.6; stroke-opacity: 0.55; transition: fill-opacity 0.25s; }
+    #travelMap .area-minor:hover { fill-opacity: 0.34; }
+    #travelMap .marker { transition: transform 0.3s var(--ease-out); }
+    #travelMap .city:hover .marker,
+    #travelMap .city:focus-visible .marker { transform: scale(1.25); }
+    #travelMap .pearl { transition: r 0.25s var(--ease-out); }
+    #travelMap .place:hover .pearl { r: 3.4; }
+    .travel-map-loading {
+      display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 2 / 1;
+      font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--slate);
+    }
+    .travel-badges {
+      position: absolute; left: 1.4rem; bottom: 1.2rem;
+      display: flex; flex-direction: column; gap: 0.4rem; pointer-events: none;
+    }
+    .travel-badges .floating-badge:nth-child(2) { animation-delay: 0.5s; }
+    .travel-map-controls {
+      position: absolute; right: 1.4rem; bottom: 1.2rem;
+      display: flex; background: var(--paper); border-radius: 18px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.06); overflow: hidden;
+    }
+    .travel-map-btn {
+      width: 32px; height: 30px; border: none; background: none; color: var(--ink);
+      font-size: 0.9rem; cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .travel-map-btn:hover { background: var(--blush); color: var(--accent-dark); }
+    .travel-tooltip {
+      position: fixed; z-index: 9999; pointer-events: none; opacity: 0;
+      background: var(--paper); color: var(--ink);
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem;
+      padding: 0.25rem 0.75rem; border-radius: 18px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+      white-space: nowrap; transition: opacity 0.15s;
+    }
+    .travel-credit {
+      text-align: center; margin-top: 1.2rem;
+      font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95rem; color: var(--slate);
+    }
+    .travel-credit a { color: var(--accent-dark); }
+    @media (max-width: 640px) {
+      .travel-badges { display: none; }
+      .travel-map-controls { right: 0.9rem; bottom: 0.9rem; }
+    }
+
+    /* City photo viewer — a polaroid */
+    .city-modal {
+      position: fixed; inset: 0; z-index: 10000;
+      display: none; align-items: center; justify-content: center; padding: 16px;
+      background: color-mix(in srgb, var(--block-dark) 55%, transparent);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .city-modal.open { display: flex; }
+    .city-polaroid {
+      position: relative; width: fit-content; max-width: min(560px, 100%);
+      background: var(--paper); color: var(--ink);
+      padding: 14px 14px 18px; border-radius: 4px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+      transform: rotate(-1.2deg);
+      animation: polaroidIn 0.5s var(--ease-out);
+    }
+    @keyframes polaroidIn {
+      from { opacity: 0; transform: translateY(20px) rotate(-4deg) scale(0.96); }
+      to { opacity: 1; transform: rotate(-1.2deg); }
+    }
+    .city-close {
+      position: absolute; top: -14px; right: -14px; width: 32px; height: 32px; border-radius: 50%;
+      border: none; background: var(--paper); color: var(--ink); font-size: 1.1rem; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+    .city-modal .city-polaroid { overflow: visible; }
+    .city-stage { position: relative; background: var(--blush); overflow: hidden; }
+    .city-track {
+      display: flex; overflow-x: auto; overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory; scrollbar-width: none;
+    }
+    .city-track::-webkit-scrollbar { display: none; }
+    .city-slide { flex: 0 0 100%; margin: 0; scroll-snap-align: center; scroll-snap-stop: always; }
+    .city-slide img { display: block; width: auto; height: auto; max-width: 100%; max-height: 62vh; margin: 0 auto; }
+    .city-polaroid.multi { width: min(600px, calc(100vw - 32px)); }
+    .multi .city-slide {
+      position: relative; overflow: hidden;
+      height: min(58vh, 420px); display: flex; align-items: center; justify-content: center;
+    }
+    /* soft blurred copy of the photo fills the frame around it */
+    .multi .city-slide::before {
+      content: ''; position: absolute; inset: -30px;
+      background: var(--bg) center / cover; filter: blur(22px) saturate(1.1); opacity: 0.6;
+    }
+    .multi .city-slide img { position: relative; max-height: 100%; box-shadow: 0 4px 18px rgba(0,0,0,0.12); }
+    .city-empty {
+      width: min(480px, calc(100vw - 60px)); aspect-ratio: 4 / 3; display: flex; flex-direction: column; gap: 0.3rem; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--slate); font-size: 1.1rem;
+    }
+    .city-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer;
+      background: color-mix(in srgb, var(--paper) 85%, transparent); color: var(--ink); font-size: 1.1rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    }
+    .city-nav.prev { left: 10px; }
+    .city-nav.next { right: 10px; }
+    .city-text { text-align: center; padding: 0.9rem 0.4rem 0; width: 0; min-width: 100%; box-sizing: border-box; }
+    .city-text h3 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: 1.45rem; }
+    .city-meta { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent-dark); margin-top: 0.15rem; }
+    .city-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--ink); margin-top: 0.45rem; }
+    .city-caption { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--slate); margin-top: 0.25rem; min-height: 1.2em; }
+    .city-polaroid.book-card {
+      width: min(640px, calc(100vw - 32px)); max-width: none;
+      display: grid; grid-template-columns: 190px 1fr; gap: 1.3rem; align-items: center; padding: 16px 22px 16px 16px;
+    }
+    .book-card .city-stage { background: none; box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+    .book-card .city-slide img { max-height: none; width: 100%; }
+    .city-polaroid.book-card.multi .city-slide { height: auto; }
+    .book-card.multi .city-slide::before { display: none; }
+    .book-card .city-nav { width: 28px; height: 28px; font-size: 0.95rem; }
+    .book-card .city-text { width: auto; min-width: 0; text-align: left; padding: 0; }
+    .book-card .city-note { font-size: 1.05rem; line-height: 1.55; }
+    .book-card .city-thumbs { display: none; }
+    .bq-label {
+      display: block; font-family: 'DM Sans', sans-serif; font-style: normal;
+      font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent-dark);
+    }
+    .book-quote + .city-note { margin-top: 0.9rem; }
+    .book-quote {
+      margin-top: 0.8rem; padding: 0.6rem 0.85rem; border-radius: 10px;
+      background: color-mix(in srgb, var(--blush) 60%, var(--paper)); border-left: 2px solid var(--accent);
+    }
+    .book-quote summary { cursor: pointer; list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .book-quote summary::-webkit-details-marker { display: none; }
+    .book-quote summary .bq-label::after { content: ' ＋'; letter-spacing: 0; }
+    .book-quote[open] summary .bq-label::after { content: ' －'; }
+    .bq-preview { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--slate); }
+    .book-quote[open] .bq-preview { display: none; }
+    .book-quote blockquote {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.02rem; line-height: 1.55; color: var(--ink);
+      margin-top: 0.35rem; max-height: 34vh; overflow-y: auto; padding-right: 0.3rem;
+    }
+    .bq-source { font-size: 0.68rem; color: var(--slate); margin-top: 0.4rem; text-align: right; }
+    @media (max-width: 560px) {
+      .city-polaroid.book-card { grid-template-columns: 1fr; }
+      .book-card .city-stage { width: 150px; margin: 0 auto; }
+      .book-card .city-text { text-align: center; }
+    }
+    .city-thumbs { width: 0; min-width: 100%; display: flex; justify-content: center; gap: 6px; margin-top: 0.7rem; flex-wrap: wrap; }
+    .city-thumbs button {
+      width: 44px; height: 44px; padding: 0; border: 2px solid transparent; border-radius: 6px;
+      overflow: hidden; cursor: pointer; background: none; opacity: 0.6; transition: opacity 0.2s, border-color 0.2s;
+    }
+    .city-thumbs button.active { opacity: 1; border-color: var(--accent); }
+    .city-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
   </style>
 </head>
 <body>
@@ -883,6 +1128,7 @@
       <a href="#news">News</a>
       <a href="#research">Research</a>
       <a href="#journey">Journey</a>
+      <a href="#travels">Life Maps</a>
       <a href="PDF/CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
     </div>
     <div class="theme-switcher" aria-label="Color style">
@@ -901,7 +1147,7 @@
       <h1 class="hero-name">Yidi Zhang</h1>
       <p class="hero-name-cn">张 祎 迪</p>
       <div class="hero-tagline">
-        <p>I am a Master's student in Robotics at <a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a> (Fall 2026–2028). I recently graduated from <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a> with a B.Eng. in Computer Science and Technology, advised by <a href="https://pengsida.net/">Prof. Sida Peng</a>. I spent Spring 2025 as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a>, and previously interned at CMU with <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a> on Real2Sim transformation for training and evaluating VLA models.</p>
+        <p>I am a Master's student in Robotics at <a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a> (Fall 2026–2028), advised by <a href="https://msimchowitz.github.io/">Prof. Max Simchowitz</a>. I recently graduated from <a href="http://ckc.zju.edu.cn/ckcen/main.htm">Chu Kochen Honors College, Zhejiang University</a> with a B.Eng. in Computer Science and Technology. I spent Spring 2025 as an exchange student at <a href="https://www.berkeley.edu/">UC Berkeley</a>, and previously interned at CMU with <a href="https://www.cs.cmu.edu/~katef/">Prof. Katerina Fragkiadaki</a> on Real2Sim transformation for training and evaluating VLA models.</p>
         <p>Broadly, I am interested in building generalist agents that can perceive, reason, and act intelligently across digital and physical worlds. I'm always happy to chat about research or exchange ideas—please feel free to say hi!</p>
       </div>
       <div class="hero-links">
@@ -922,12 +1168,6 @@
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
           </svg>
           GitHub
-        </a>
-        <a href="https://note.zhangyidi.tech/" class="hero-link" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-          </svg>
-          Notebook
         </a>
         <a href="PDF/CV.pdf" class="hero-link" target="_blank" rel="noopener noreferrer">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -1046,7 +1286,7 @@
             <h3 class="timeline-title"><a href="https://www.ri.cmu.edu/">Carnegie Mellon University</a></h3>
           </div>
           <p class="timeline-role">M.S. in Robotics</p>
-          <p class="timeline-desc">Robotics Institute, School of Computer Science.</p>
+          <p class="timeline-desc">Robotics Institute, School of Computer Science, advised by Prof. Max Simchowitz.</p>
         </div>
       </div>
       <div class="timeline-item reveal">
@@ -1092,6 +1332,57 @@
           <p class="timeline-role">B.Eng. Computer Science · Turing Class</p>
           <p class="timeline-desc">Chu Kochen Honors College, advised by Prof. Sida Peng.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="travels">
+    <div class="section-header reveal">
+      <p class="section-label">Places &amp; Pages</p>
+      <h2 class="section-title">Life Maps</h2>
+    </div>
+    <p class="travel-intro reveal" id="travelStats"></p>
+    <div class="map-switch reveal" role="tablist" aria-label="Choose a map">
+      <button type="button" role="tab" class="active" data-mode="travel" aria-selected="true">Travel</button>
+      <button type="button" role="tab" data-mode="reading" aria-selected="false">Reading</button>
+    </div>
+    <div class="travel-map-box reveal">
+      <div id="travelMap"><div class="travel-map-loading">drawing the map…</div></div>
+      <div id="readingSky"></div>
+      <div class="travel-badges for-travel" aria-hidden="true">
+        <div class="floating-badge"><span class="dot dot-rose"></span>places I've been</div>
+        <div class="floating-badge"><span class="dot dot-accent"></span>tap a city for photos</div>
+      </div>
+      <div class="travel-badges for-reading" aria-hidden="true">
+        <div class="floating-badge"><span class="dot dot-accent"></span>each star is a book</div>
+        <div class="floating-badge"><span class="dot dot-rose"></span>tap a star to open it</div>
+      </div>
+
+      <div class="travel-map-controls">
+        <button type="button" class="travel-map-btn" id="travelZoomOut" aria-label="Zoom out">&minus;</button>
+        <button type="button" class="travel-map-btn" id="travelReset" aria-label="Reset view">&#8634;</button>
+        <button type="button" class="travel-map-btn" id="travelZoomIn" aria-label="Zoom in">+</button>
+      </div>
+    </div>
+    <p class="travel-credit">map idea inspired by <a href="https://pandaliza.github.io/travels/" target="_blank" rel="noopener noreferrer">Liza Dahiya</a></p>
+    <div class="travel-tooltip" id="travelTooltip"></div>
+    <div class="city-modal" id="cityModal" role="dialog" aria-modal="true" aria-labelledby="cityTitle">
+      <div class="city-polaroid">
+        <button type="button" class="city-close" id="cityClose" aria-label="Close">&times;</button>
+        <div class="city-stage" id="cityStage"></div>
+        <div class="city-text">
+          <h3 id="cityTitle"></h3>
+          <p class="city-meta" id="cityMeta"></p>
+          <details class="book-quote" id="cityQuote" hidden>
+            <summary><span class="bq-label">From the book</span><span class="bq-preview" id="cityQuotePreview"></span></summary>
+            <blockquote id="cityQuoteText"></blockquote>
+            <p class="bq-source" id="cityQuoteSource"></p>
+          </details>
+          <p class="city-note" id="cityNote"></p>
+          <p class="city-caption" id="cityCaption"></p>
+        </div>
+        <div class="city-thumbs" id="cityThumbs"></div>
       </div>
     </div>
   </section>
@@ -1366,6 +1657,680 @@
       }
     }
     window.addEventListener('scroll', updateParallax, { passive: true });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <script>
+    // Travels map — soft blush where I've been, click a city for photos
+    (function() {
+      // ---- Edit your travels here ----
+      // Each city: [lon, lat], a short note, and photos (put files in images/travel/), e.g.
+      //   photos: [{ src: 'images/travel/hangzhou-2.jpg', caption: 'West Lake at dusk' }]
+      // area: outline keys from data/regions.json. Dots are coloured by country; optional color: '#hex' overrides it; star: true draws a sparkle (places I've lived), heart: true a heart (home), instead of a dot.
+      const CITIES = [
+        { name: 'Tianjin', country: 'China', at: [117.20, 39.13], note: 'my beloved hometown',
+          photos: [{ src: 'images/travel/tianjin.jpg' }, { src: 'images/travel/tianjin2.jpg' },
+                   { src: 'images/travel/tianjin3.jpg', caption: 'My beautiful high school!' }], heart: true, area: ['tianjin'] },
+        { name: 'Hangzhou', country: 'China', at: [120.16, 30.27], note: 'where I spent my wonderful undergrad',
+          photos: [{ src: 'images/travel/hangzhou.jpg' }, { src: 'images/travel/hangzhou2.jpg' }, { src: 'images/travel/hangzhou3.jpg' }], star: true, area: ['hangzhou'] },
+        { name: 'Chengdu · Jiuzhaigou', country: 'China', at: [104.07, 30.67], note: 'love the dish of 夫妻肺片',
+          photos: [{ src: 'images/travel/chengdu.jpg' }], area: ['chengdu', 'jiuzhaigou'] },
+        { name: 'Guilin', country: 'China', at: [110.29, 25.27],
+          photos: [{ src: 'images/travel/guilin.jpg' }], area: ['guilin'] },
+        { name: 'Fujian', country: 'China', at: [119.30, 26.08],
+          photos: [{ src: 'images/travel/fujian1.jpg' }, { src: 'images/travel/fujian2.jpg' }], area: ['fujian'] },
+        { name: 'Yunnan', country: 'China', at: [102.71, 25.04],
+          photos: [{ src: 'images/travel/yunan1.jpg' }], area: ['yunnan'] },
+        { name: 'Xinjiang', country: 'China', at: [87.62, 43.83], note: '平阔疆野，遍漫山河',
+          photos: [{ src: 'images/travel/xinijang1.jpg' }, { src: 'images/travel/xinjiang2.jpg' }, { src: 'images/travel/xinjiang3.jpg' }], area: ['xinjiang'] },
+        { name: 'Dunhuang', country: 'China', at: [94.66, 40.14],
+          photos: [{ src: 'images/travel/dunhuang.jpg' }], area: ['dunhuang'] },
+        { name: 'Qinghai', country: 'China', at: [101.78, 36.62],
+          photos: [{ src: 'images/travel/qinghai1.jpg' }, { src: 'images/travel/qinghai2.jpg' }], area: ['qinghai'] },
+        { name: 'Mexico City', country: 'Mexico', at: [-99.13, 19.43],
+          photos: [{ src: 'images/travel/mexico/mexico%20city.jpg' }, { src: 'images/travel/mexico/mexico2.jpg' }, { src: 'images/travel/mexico/mexico3.jpg' }, { src: 'images/travel/mexico/mexico4.jpg' }], area: ['mexicocity'] },
+        { name: 'Cancún · Tulum', country: 'Mexico', at: [-87.15, 20.70],
+          photos: [{ src: 'images/travel/mexico/cancun.jpg' }, { src: 'images/travel/mexico/cancum2.jpg' }, { src: 'images/travel/mexico/tulum.jpg' }], area: ['cancun', 'tulum'] },
+        { name: 'Rio de Janeiro', country: 'Brazil', at: [-43.20, -22.91], note: 'visited for ICLR 2026',
+          photos: [{ src: 'images/travel/brazil/rio.jpg' }, { src: 'images/travel/brazil/rio2.jpg' }], area: ['rio'] },
+        { name: 'São Paulo', country: 'Brazil', at: [-46.63, -23.55],
+          photos: [{ src: 'images/travel/brazil/san.jpg' }], area: ['saopaulo'] },
+        { name: 'New Zealand', country: 'New Zealand', at: [172.80, -41.80], note: 'my graduation trip — a road trip with friends, windows down, the whole world ahead',
+          photos: [{ src: 'images/travel/newzealand/875835cd367d190d1295a8c6057fc3bc.jpg' },
+                   { src: 'images/travel/newzealand/cb8fdfc5de010969a92680730348a8a6.jpg' },
+                   { src: 'images/travel/newzealand/532e4711f234bcf638e19088beb64438.jpg' },
+                   { src: 'images/travel/newzealand/c3183565ef32c1f8ddd0cffe16606801.jpg' },
+                   { src: 'images/travel/newzealand/4915a109bce26c2f38b74122c3af40b6.jpg' },
+                   { src: 'images/travel/newzealand/8be0b43009b2637bebdfe48ff8f570d1.jpg' },
+                   { src: 'images/travel/newzealand/29458574acc614d64a743e04c6acb92c.jpg' },
+                   { src: 'images/travel/newzealand/c7f9a0357263dcc53f46832c951a8fef.jpg' },
+                   { src: 'images/travel/newzealand/1b545d3ea6a94202c2b35eed4d4bbc77.jpg' },
+                   { src: 'images/travel/newzealand/52ead3765846378c998e0faffe4cbd03.jpg' },
+                   { src: 'images/travel/newzealand/965c66a6ed3a9a46df6b18ef4d0bb5c1.jpg' }], star: true, area: ['newzealand'] },
+        { name: 'Melbourne', country: 'Australia', at: [144.96, -37.81],
+          photos: [{ src: 'images/travel/melbourn.jpg' }], area: ['victoria'] },
+        { name: 'Istanbul', country: 'Türkiye', at: [28.98, 41.01], note: 'such a cat city!',
+          photos: [{ src: 'images/travel/istanbul.jpg' }, { src: 'images/travel/istanbul2.jpg' }], area: ['istanbul'] },
+        { name: 'Singapore', country: 'Singapore', at: [103.82, 1.35],
+          photos: [{ src: 'images/travel/singapore.jpg' }], area: ['singapore'] },
+        { name: 'Berkeley', country: 'United States', at: [-122.27, 37.87], note: 'I spent Spring 2025 as an exchange student',
+          photos: [{ src: 'images/travel/berkeley1.jpg' }, { src: 'images/travel/berkely2.jpg' }], star: true, area: ['california'] },
+        { name: 'Chicago', country: 'United States', at: [-87.63, 41.88],
+          photos: [{ src: 'images/travel/chicago.jpg' }], area: ['illinois'] },
+        { name: 'New York', country: 'United States', at: [-74.00, 40.71],
+          photos: [{ src: 'images/travel/newyork.jpg' }], area: ['newyork'] },
+        { name: 'Princeton', country: 'United States', at: [-74.66, 40.35], note: 'such a big campus!',
+          photos: [{ src: 'images/travel/princeton.jpg' }], area: ['newjersey'] },
+        { name: 'Pittsburgh', country: 'United States', at: [-79.99, 40.44], note: 'where I spent Summer 2025 as a research intern, and now home for grad school — looking forward to the years ahead',
+          photos: [{ src: 'images/travel/pittsburgh/358e8d60be641f2e146d3fab38114f80.jpg' }, { src: 'images/travel/pittsburgh/cab529d5daff90dbba1707fb4468296a.jpg' }, { src: 'images/travel/pittsburgh/8c6aa4d704adf8de09149edac005e990.jpg' }], star: true, area: ['pennsylvania'] }
+      ];
+      // Whole-country outlines (drawn faintly under the city outlines)
+      const COUNTRY_AREAS = { 'Mexico': 'country-mexico', 'Singapore': 'country-singapore', 'Brazil': 'country-brazil',
+                              'Japan': 'country-japan', 'South Korea': 'country-korea', 'Australia': 'country-australia', 'Türkiye': 'country-turkey' };
+      // Other places I've been — small dots, no photos
+      const PLACES = [
+        { name: 'Hong Kong', country: 'China', at: [114.17, 22.32], area: ['hongkong'] },
+        { name: 'Chengde',   country: 'China', at: [117.96, 40.95], area: ['chengde'] },
+        { name: 'Shaoxing',  country: 'China', at: [120.58, 30.00], area: ['shaoxing'] },
+        { name: 'Jinhua',    country: 'China', at: [119.65, 29.08], area: ['jinhua'] },
+        { name: 'Shanghai',  country: 'China', at: [121.47, 31.23], area: ['shanghai'] },
+        { name: 'Beijing',   country: 'China', at: [116.40, 39.90], area: ['beijing'] },
+        { name: 'Nanjing',   country: 'China', at: [118.80, 32.06], area: ['nanjing'] },
+        { name: 'Jinan',     country: 'China', at: [117.00, 36.65], area: ['jinan'] },
+        { name: 'San Francisco', country: 'United States', at: [-122.42, 37.77], area: ['sanfrancisco'] },
+        { name: 'Tokyo',     country: 'Japan', at: [139.69, 35.69], area: ['tokyo'] },
+        { name: 'Seoul',     country: 'South Korea', at: [126.98, 37.57], area: ['seoul'] },
+        { name: 'Suzhou',    country: 'China', at: [120.62, 31.30], area: ['suzhou'] },
+        { name: 'Xitang',    country: 'China', at: [120.89, 30.94], area: ['xitang'] },
+        { name: 'Huangshan', country: 'China', at: [118.17, 30.13], area: ['huangshan'] },
+        { name: 'Xiamen',    country: 'China', at: [118.09, 24.48], area: ['xiamen'] },
+        { name: 'Gansu',     country: 'China', at: [103.83, 36.06], area: ['gansu'] },
+        { name: 'Lijiang',   country: 'China', at: [100.23, 26.87], area: ['lijiang'] },
+        { name: 'Dali',      country: 'China', at: [100.23, 25.61], area: ['dali'] },
+        { name: 'Dalian',    country: 'China', at: [121.61, 38.91], area: ['dalian'] },
+        { name: 'Qiandao Lake', country: 'China', at: [119.04, 29.61], area: ['qiandaohu'] },
+        { name: 'Moganshan', country: 'China', at: [119.87, 30.56], area: ['moganshan'] },
+        { name: 'Zhangjiakou', country: 'China', at: [115.28, 40.97], area: ['zhangjiakou'] },
+        { name: 'Hainan',    country: 'China', at: [109.51, 18.25], area: ['hainan'] },
+        { name: 'Qinghai Lake', country: 'China', at: [100.15, 36.95] },
+        { name: 'Jiayuguan', country: 'China', at: [98.29, 39.77], area: ['jiayuguan'] },
+        { name: 'Christchurch',  country: 'New Zealand', at: [172.64, -43.53] },
+        { name: 'Oamaru',        country: 'New Zealand', at: [170.97, -45.10] },
+        { name: 'Dunedin',       country: 'New Zealand', at: [170.50, -45.87] },
+        { name: 'Queenstown',    country: 'New Zealand', at: [168.66, -45.03] },
+        { name: 'Wanaka',        country: 'New Zealand', at: [169.13, -44.70] },
+        { name: 'Milford Sound', country: 'New Zealand', at: [167.93, -44.67] },
+        { name: 'Lake Tekapo',   country: 'New Zealand', at: [170.48, -44.00] }
+      ];
+      // ---------------------------------
+
+      const mapEl = document.getElementById('travelMap');
+
+      // Books as stars, grouped into constellations by theme (in the order themes first appear):
+      //   { title: '…', author: '…', theme: 'minds & machines', note: 'one line', cover: 'images/books/….jpg',
+      //     ledTo: 'Another Title' }   // optional: draws a faint thread to the book this one led you to
+      const BOOKS = [
+        { title: 'The Plague', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/plague.jpg',
+          quote: 'At midnight, sometimes, in the deep silence of the deserted town, as he went to bed for too short a sleep, the doctor would turn on his radio. And from the ends of the earth, across thousands of miles, unknown and fraternal voices tried clumsily to speak their solidarity — and did speak it, yet showed at the same time the terrible powerlessness of every man to truly share a pain he cannot see. “Oran! Oran!” … No, thought the doctor: to love or to die together — there is no other way. They are too far.',
+          note: 'I read this during the pandemic. From outside the storm, sympathy at a distance is never quite enough; from inside it, all you can do is keep pushing the rock — and imagine Sisyphus happy.',
+          ledTo: 'The English Patient' },   // The Plague is also read as an allegory of the occupation
+        { title: 'The Stranger', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/stranger.jpg' },
+        { title: 'The Myth of Sisyphus', author: 'Albert Camus', theme: 'The Absurd', cover: 'images/books/sisyphus.jpg',
+          note: 'I read it too young, in high school, and I mean to return to it as I grow older. Still, it gave me something I have kept ever since: every moment I am living, here and now, is all that I am.' },
+        { title: 'All Quiet on the Western Front', author: 'Erich Maria Remarque', theme: 'What War Leaves Behind', cover: 'images/books/allquiet.jpg',
+          note: 'I have only ever known peace, and still this book left me with a cold, quiet ache. When bombs become part of everyday life and everything is slipping away, what can we hold on to that still means something?' },
+        { title: 'The English Patient', author: 'Michael Ondaatje', theme: 'What War Leaves Behind', bright: 3, cover: 'images/books/englishpatient.jpg',
+          note: 'I love its language — it reads like poetry. Another quietly told story: a half-ruined villa in the Italian hills, four strangers, simple conversations night after night, and out of them a whole war, a desert, and a love story slowly take shape.' },
+        { title: 'The Diary of a Young Girl', author: 'Anne Frank', theme: 'What War Leaves Behind', cover: 'images/books/annefrank.jpg', },
+        { title: 'The Book Thief', author: 'Markus Zusak', theme: 'What War Leaves Behind', cover: 'images/books/bookthief.jpg',
+          note: 'I love the way Death narrates this book — blunt, almost cruel, and yet strangely warm. In the plainest days and the plainest people, there is always a touch of warm color, even in the middle of a war.' },
+        { title: 'Marcovaldo, or The Seasons in the City', author: 'Italo Calvino', theme: 'The Absurd', cover: 'images/books/marcovaldo.jpg',
+          note: 'A little absurd, a little tender. I closed the book feeling, for no clear reason, that everything around me had become a little dearer.' },
+        { title: 'The Little Prince', author: 'Antoine de Saint-Exupéry', theme: 'The Absurd', cover: 'images/books/littleprince.jpg',
+          note: 'I have read it as a child and again and again as I grew up, and every time it is a different book.' },
+        { title: 'Klara and the Sun', author: 'Kazuo Ishiguro', theme: 'Quiet Seekers', cover: 'images/books/klara.jpg',
+          note: 'I picked it up expecting robot science fiction, and found instead one of the warmest books I know — a story about companionship, and the quiet, patient ways we love someone.' },
+        { title: 'Siddhartha', author: 'Hermann Hesse', theme: 'Quiet Seekers', cover: 'images/books/siddhartha.jpg',
+          quote: 'He could no longer tell the many voices apart — not the glad from the weeping, not the child’s from the man’s; they all belonged together: the lament of longing and the laughter of the one who knows, the cry of anger and the moaning of the dying. Everything was one, everything woven and knotted together, entwined a thousand times over. And all of it together, all the voices, all the goals, all the yearning, all the sorrow, all the joy, all the good and the evil — all of it together was the world. All of it together was the river of what happens, the music of life. … And in that hour Siddhartha ceased to fight his fate, and ceased to suffer.',
+          note: 'I read it young, in high school, and fell in love with this moment by the river.' },
+        { title: 'Harry Potter', author: 'J. K. Rowling', theme: 'Teenage Worlds', cover: 'images/books/harrypotter.jpg' },
+        { title: 'The Wuxia Novels of Jin Yong', author: 'Jin Yong (Louis Cha)', theme: 'Teenage Worlds', cover: 'images/books/jinyong.jpg' },
+        { title: 'Warriors', author: 'Erin Hunter', theme: 'Teenage Worlds', cover: 'images/books/warriors.jpg' },
+        { title: 'Jane Eyre', author: 'Charlotte Brontë', theme: 'Teenage Worlds', cover: 'images/books/janeeyre.jpg',
+          note: 'Half-jokingly: my very first lesson in love.' },
+        { title: 'Nineteen Eighty-Four', author: 'George Orwell', theme: 'Futures That Warn', cover: 'images/books/1984.jpg' },
+        { title: 'Brave New World', author: 'Aldous Huxley', theme: 'Futures That Warn', cover: 'images/books/bravenewworld.jpg' },
+        { title: 'The Three-Body Problem', author: 'Liu Cixin', theme: 'Futures That Warn', cover: 'images/books/threebody.jpg' },
+        { title: 'The Gods Themselves', author: 'Isaac Asimov', theme: 'Futures That Warn', cover: 'images/books/godsthemselves.jpg' },
+        { title: 'Frankenstein', author: 'Mary Shelley', theme: 'Futures That Warn', cover: 'images/books/frankenstein.jpg',
+          note: 'The first time, it simply frightened me. Then it stayed with me as a question: what it means to create something — and what we owe to what we have created.' },
+        { title: 'No Longer Human', author: 'Osamu Dazai', theme: 'The Absurd', cover: 'images/books/nolongerhuman.jpg' },
+        { title: 'The Hunchback of Notre-Dame', author: 'Victor Hugo', theme: 'Fate and Conscience', cover: 'images/books/notredame.jpg' },
+        { title: 'Resurrection', author: 'Leo Tolstoy', theme: 'Fate and Conscience', cover: 'images/books/resurrection.jpg' },
+        { title: 'The Gadfly', author: 'Ethel Lilian Voynich', theme: 'Fate and Conscience', cover: 'images/books/gadfly.jpg' },
+        { title: 'Sapiens: A Brief History of Humankind', author: 'Yuval Noah Harari', theme: 'Big Questions', cover: 'images/books/sapiens.jpg' },
+        { title: 'From the Soil: The Foundations of Chinese Society', author: 'Fei Xiaotong', theme: 'Big Questions', cover: 'images/books/xiangtu.jpg',
+          note: 'A fascinating way to understand where so much of our culture comes from — what makes it so particular, and so much our own.' },
+        // Currently reading — drawn as faint, breathing stars that have not fully lit up yet
+        { title: 'Thinking, Fast and Slow', author: 'Daniel Kahneman', theme: 'Now Reading', cover: 'images/books/thinkingfast.jpg' },
+        { title: 'Gödel, Escher, Bach', author: 'Douglas R. Hofstadter', theme: 'Now Reading', cover: 'images/books/geb.jpg' },
+        { title: 'The Remains of the Day', author: 'Kazuo Ishiguro', theme: 'Now Reading', cover: 'images/books/remainsday.jpg' },
+        { title: 'Dream of the Red Chamber', author: 'Cao Xueqin', theme: 'Pages from Home', bright: 3, cover: 'images/books/redchamber.jpg',
+          note: 'Such a masterpiece, and one of my favorite books; I will certainly read it again as I grow older. As Lu Xun once wrote of it: a mist of sorrow lies over the whole flowering grove.' },
+        { title: 'Call to Arms', author: 'Lu Xun', theme: 'Pages from Home', cover: 'images/books/luxun.jpg' },
+        { title: 'Memories of Peking: South Side Stories', author: 'Lin Haiyin', theme: 'Pages from Home', cover: 'images/books/chengnan.jpg' },
+        { title: 'Border Town', author: 'Shen Congwen', theme: 'Pages from Home', cover: 'images/books/biancheng.jpg',
+          note: 'A small, lovely hill town by the river, the sound of a bamboo flute drifting over the water, and a story that trails off as softly as the music.' },
+        // Eileen Chang — her own constellation. The Golden Cangue, Aloeswood Incense and Jasmine Tea
+        // are collected in the same volume as Love in a Fallen City, so they share its cover.
+        { title: 'Love in a Fallen City', author: 'Eileen Chang', theme: 'Eileen Chang', bright: 3, cover: 'images/books/fallencity.jpg' },
+        { title: 'The Golden Cangue', author: 'Eileen Chang', theme: 'Eileen Chang', bright: 3, cover: 'images/books/fallencity.jpg' },
+        { title: 'Red Rose, White Rose', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/redrose.jpg' },
+        { title: 'Half a Lifelong Romance', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/halflifelong.jpg' },
+        { title: 'Lust, Caution', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/lustcaution.jpg' },
+        { title: 'Aloeswood Incense: The First Brazier', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/fallencity.jpg' },
+        { title: 'The Rouge of the North', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/rouge.jpg' },
+        { title: 'Little Reunions', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/littlereunions.jpg' },
+        { title: 'Jasmine Tea', author: 'Eileen Chang', theme: 'Eileen Chang', cover: 'images/books/fallencity.jpg' }
+      ];
+      // A few words about a whole constellation — shown when its name is tapped
+      const THEME_NOTES = {
+        'Eileen Chang': {
+          covers: ['images/books/fallencity.jpg', 'images/books/redrose.jpg', 'images/books/halflifelong.jpg', 'images/books/littlereunions.jpg', 'images/books/rouge.jpg', 'images/books/lustcaution.jpg'],
+          note: 'I have read almost everything she wrote. Her colors, the dim, greenish shade her pages always leave on me, her precise irony about feeling and about the Chinese society of her time — an enormous cruelty, with just a little tenderness left at the very end. And no, these are not love stories.'
+        }
+      };
+
+      // Stats line under the title — counted from the lists above
+      const countries = new Set([...CITIES, ...PLACES].map(p => p.country));
+      const STATS = {
+        travel: `<b>${countries.size}</b> countries · <b>${CITIES.length + PLACES.length}</b> cities &amp; regions — and counting`,
+        reading: 'read a lot in high school, paused in undergrad, now slowly catching up'
+      };
+      const statsEl = document.getElementById('travelStats');
+      const mapBox = document.querySelector('.travel-map-box');
+      function setMode(mode) {
+        mapBox.classList.toggle('mode-reading', mode === 'reading');
+        document.querySelector('.travel-credit').hidden = mode === 'reading';
+        statsEl.innerHTML = STATS[mode];
+        document.querySelectorAll('.map-switch button').forEach(b => {
+          const on = b.dataset.mode === mode;
+          b.classList.toggle('active', on); b.setAttribute('aria-selected', on);
+        });
+      }
+      document.querySelectorAll('.map-switch button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+      setMode('travel');
+      const tip = document.getElementById('travelTooltip');
+      const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+      // ---- Polaroid photo viewer ----
+      const modal = document.getElementById('cityModal');
+      const stage = document.getElementById('cityStage');
+      const thumbs = document.getElementById('cityThumbs');
+      const caption = document.getElementById('cityCaption');
+      let current = null, idx = 0, lastFocus = null;
+      // Photos sit in a swipeable strip: swipe, trackpad-scroll, arrows, keys or thumbnails
+      const thumbOf = src => src.startsWith('images/travel/') ? src.replace('images/travel/', 'images/travel/thumbs/') : src;
+      // warm the cache: start fetching a city's first photo as soon as the pointer reaches it
+      const prefetched = new Set();
+      function prefetch(item) {
+        const first = item && item.photos && item.photos[0];
+        if (first && !prefetched.has(first.src)) { prefetched.add(first.src); new Image().src = first.src; }
+      }
+      let track = null;
+      function renderPhotos() {
+        const photos = current.photos || [];
+        const card = modal.querySelector('.city-polaroid');
+        card.classList.toggle('multi', photos.length > 1);
+        card.classList.toggle('book-card', !!current.book && photos.length > 0);
+        thumbs.innerHTML = '';
+        caption.textContent = '';
+        track = null;
+        if (!photos.length) {
+          stage.innerHTML = `<div class="city-empty"><span>${current.emptyIcon || '✿'}</span>${esc(current.emptyText || 'photos coming soon')}</div>`;
+          return;
+        }
+        // full photos load lazily (first one right away); the blurred backdrop and the strip use small thumbnails
+        stage.innerHTML = '<div class="city-track">' + photos.map((p, i) =>
+          `<figure class="city-slide" style="--bg:url('${esc(thumbOf(p.src))}')"><img src="${esc(p.src)}" alt="${esc(p.caption || current.name)}" decoding="async"${i ? ' loading="lazy"' : ''}></figure>`).join('') + '</div>' +
+          (photos.length > 1 ? '<button type="button" class="city-nav prev" aria-label="Previous photo">&#8249;</button><button type="button" class="city-nav next" aria-label="Next photo">&#8250;</button>' : '');
+        track = stage.querySelector('.city-track');
+        stage.querySelectorAll('.city-nav').forEach(btn => btn.onclick = () => step(btn.classList.contains('next') ? 1 : -1));
+        if (photos.length > 1) {
+          thumbs.innerHTML = photos.map((p, i) =>
+            `<button type="button" data-i="${i}" aria-label="Photo ${i + 1}"><img src="${esc(thumbOf(p.src))}" alt="" loading="lazy"></button>`).join('');
+          thumbs.querySelectorAll('button').forEach(b => b.onclick = () => goTo(+b.dataset.i));
+          let raf = 0;
+          track.addEventListener('scroll', () => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+              const i = Math.round(track.scrollLeft / track.clientWidth);
+              if (i !== idx) { idx = i; syncPhoto(); }
+            });
+          }, { passive: true });
+        }
+        syncPhoto();
+      }
+      function syncPhoto() {
+        const photos = current.photos || [];
+        caption.textContent = (photos[idx] && photos[idx].caption) || '';
+        thumbs.querySelectorAll('button').forEach((b, i) => b.classList.toggle('active', i === idx));
+      }
+      function goTo(i) {
+        if (!track) return;
+        idx = i; syncPhoto();
+        track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+      }
+      function step(d) {
+        const n = (current.photos || []).length;
+        if (n > 1) goTo((idx + d + n) % n);
+      }
+      function openCity(city) {
+        current = city; idx = 0; lastFocus = document.activeElement;
+        document.getElementById('cityTitle').textContent = city.name;
+        document.getElementById('cityMeta').textContent = city.country;
+        document.getElementById('cityNote').textContent = city.note || '';
+        // Books: the original passage in its own expandable box, my own thoughts below it
+        const qBox = document.getElementById('cityQuote');
+        qBox.hidden = !city.quote;
+        qBox.open = false;
+        if (city.quote) {
+          document.getElementById('cityQuoteText').textContent = city.quote;
+          document.getElementById('cityQuotePreview').textContent = city.quote.split(/\s+/).slice(0, 7).join(' ') + '…';
+          document.getElementById('cityQuoteSource').textContent = city.quoteSource || '';
+        }
+        modal.classList.add('open');
+        renderPhotos();
+        document.getElementById('cityClose').focus();
+      }
+      function closeCity() {
+        modal.classList.remove('open');
+        if (lastFocus) lastFocus.focus();
+      }
+      document.getElementById('cityClose').onclick = closeCity;
+      modal.addEventListener('click', e => { if (e.target === modal) closeCity(); });
+      document.addEventListener('keydown', e => {
+        if (!modal.classList.contains('open')) return;
+        if (e.key === 'Escape') closeCity();
+        if (e.key === 'ArrowRight') step(1);
+        if (e.key === 'ArrowLeft') step(-1);
+      });
+
+      // ---- Reading sky: a real night sky — every book a star, every theme a constellation ----
+      (function drawSky() {
+        const sky = document.getElementById('readingSky');
+        if (!sky || typeof d3 === 'undefined') return;
+        const W = 1000, H = 600;
+        let seed = 11;
+        const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+        const svg = d3.select(sky).append('svg').attr('viewBox', `0 0 ${W} ${H}`)
+          .attr('role', 'img').attr('aria-label', 'A night sky of books I have read, grouped into constellations by theme');
+        sky.insertAdjacentHTML('beforeend', '<div class="sky-hint">hover a constellation · tap a star</div>');
+        const defs = svg.append('defs');
+
+        // Night gradient: plum-indigo overhead, a dusky rose glow along the horizon
+        const night = defs.append('linearGradient').attr('id', 'nightGrad').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
+        [[0, '#100c1f'], [0.45, '#1d1533'], [0.78, '#33223f'], [1, '#5b3850']].forEach(([o, c]) => night.append('stop').attr('offset', o).attr('stop-color', c));
+        const horizon = defs.append('radialGradient').attr('id', 'horizonGlow').attr('cx', '50%').attr('cy', '100%').attr('r', '70%');
+        horizon.append('stop').attr('offset', 0).attr('stop-color', '#d99aa8').attr('stop-opacity', 0.2);
+        horizon.append('stop').attr('offset', 1).attr('stop-color', '#d99aa8').attr('stop-opacity', 0);
+        // Milky Way: soft nebula texture, shaped into a diagonal band
+        const neb = defs.append('filter').attr('id', 'nebula').attr('x', 0).attr('y', 0).attr('width', '100%').attr('height', '100%');
+        neb.append('feTurbulence').attr('type', 'fractalNoise').attr('baseFrequency', '0.012 0.03').attr('numOctaves', 4).attr('seed', 7).attr('result', 'n');
+        neb.append('feColorMatrix').attr('in', 'n').attr('type', 'matrix')
+          .attr('values', '0 0 0 0 0.93  0 0 0 0 0.80  0 0 0 0 0.90  0 0 0 1.35 -0.42');
+        const band = defs.append('linearGradient').attr('id', 'bandMask').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
+        [[0, 0], [0.38, 0.85], [0.5, 1], [0.62, 0.85], [1, 0]].forEach(([o, a]) => band.append('stop').attr('offset', o).attr('stop-color', '#fff').attr('stop-opacity', a));
+        defs.append('mask').attr('id', 'milkyMask').append('rect')
+          .attr('x', -200).attr('y', 120).attr('width', W + 400).attr('height', 300).attr('fill', 'url(#bandMask)')
+          .attr('transform', `rotate(-17 ${W / 2} ${H / 2})`);
+        defs.append('filter').attr('id', 'softBlur').attr('x', '-50%').attr('y', '-50%').attr('width', '200%').attr('height', '200%')
+          .append('feGaussianBlur').attr('stdDeviation', 22);
+        defs.append('filter').attr('id', 'starBlur').attr('x', '-150%').attr('y', '-150%').attr('width', '400%').attr('height', '400%')
+          .append('feGaussianBlur').attr('stdDeviation', 3.2);
+        const halo = defs.append('radialGradient').attr('id', 'starHalo');
+        [[0, '#fff3f6', 0.7], [0.3, '#f6c6d3', 0.22], [1, '#f6c6d3', 0]].forEach(([o, c, a]) => halo.append('stop').attr('offset', o).attr('stop-color', c).attr('stop-opacity', a));
+        const spike = defs.append('linearGradient').attr('id', 'spikeGrad');
+        [[0, 0], [0.5, 1], [1, 0]].forEach(([o, a]) => spike.append('stop').attr('offset', o).attr('stop-color', '#fff8fa').attr('stop-opacity', a));
+
+        svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'url(#nightGrad)');
+        svg.append('rect').attr('width', W).attr('height', H).attr('fill', 'url(#horizonGlow)');
+
+        const back = svg.append('g').attr('class', 'drift');      // slow parallax layer
+        back.append('rect').attr('width', W).attr('height', H).attr('filter', 'url(#nebula)').attr('mask', 'url(#milkyMask)').attr('opacity', 0.26);
+        back.append('ellipse').attr('cx', W * 0.46).attr('cy', H * 0.47).attr('rx', 420).attr('ry', 70)
+          .attr('transform', `rotate(-17 ${W * 0.46} ${H * 0.47})`).attr('fill', '#e9b8cc').attr('opacity', 0.06).attr('filter', 'url(#softBlur)');
+        back.append('ellipse').attr('cx', W * 0.62).attr('cy', H * 0.40).attr('rx', 200).attr('ry', 46)
+          .attr('transform', `rotate(-17 ${W * 0.62} ${H * 0.40})`).attr('fill', '#b9a8e6').attr('opacity', 0.05).attr('filter', 'url(#softBlur)');
+
+        // Faint star-atlas arcs, like an old celestial chart
+        const grid = back.append('g').attr('fill', 'none').attr('stroke', '#ffe3ec').attr('stroke-opacity', 0.045).attr('stroke-width', 0.6);
+        [760].forEach(r => grid.append('circle').attr('cx', W / 2).attr('cy', H + 380).attr('r', r));
+
+        // Background stars: many faint, a few bright; denser inside the Milky Way band
+        const tilt = -17 * Math.PI / 180;
+        const bgStars = d3.range(230).map(i => {
+          let x = rand() * W, y = rand() * H;
+          if (i < 90) {                                    // pull these into the band
+            const t = rand() * 1.3 - 0.15, off = (rand() + rand() + rand() - 1.5) * 70;
+            x = W * t; y = H * 0.47 + (x - W * 0.46) * Math.tan(tilt) + off;
+          }
+          const m = Math.pow(rand(), 3);
+          const tint = rand();
+          return { x, y, r: 0.3 + m * 1.05, o: 0.18 + m * 0.6, c: tint < 0.12 ? '#d6defc' : tint < 0.24 ? '#ffe0e8' : '#ffffff', tw: rand() < 0.18 };
+        }).filter(d => d.y > -5 && d.y < H + 5);
+        back.append('g').selectAll('circle').data(bgStars).join('circle')
+          .attr('class', d => d.tw ? 'twinkle' : null)
+          .attr('cx', d => d.x).attr('cy', d => d.y).attr('r', d => d.r).attr('fill', d => d.c).attr('opacity', d => d.o)
+          .style('--tw', () => `${(2.5 + rand() * 4).toFixed(1)}s`).style('--td', () => `${(rand() * 5).toFixed(1)}s`)
+          .style('--lo', d => (d.o * 0.35).toFixed(2));
+
+        // A shooting star, now and then
+        const meteor = svg.append('g').attr('class', 'meteor');
+        const meteorLine = meteor.append('line').attr('stroke', 'url(#spikeGrad)').attr('stroke-width', 0.9).attr('stroke-linecap', 'round');
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          (function shoot() {
+            const x = W * (0.45 + Math.random() * 0.5), y = H * (0.04 + Math.random() * 0.25);
+            meteorLine.attr('x1', x).attr('y1', y).attr('x2', x + 90).attr('y2', y - 52);
+            const el = meteor.node(); el.classList.remove('fly'); void el.getBBox(); el.classList.add('fly');
+            setTimeout(shoot, 14000 + Math.random() * 16000);
+          })();
+        }
+
+        const stage = svg.append('g').attr('class', 'sky-stage');
+
+        // ---- Constellations: organic placement, figure templates, sized by how many books ----
+        const FIGURES = [
+          { nodes: [[-0.05, -0.05], [0.55, -0.55], [-0.75, 0.35], [0.25, 0.5], [-0.45, -0.7], [0.95, -0.1], [-1, -0.2], [0.6, 0.85], [0.05, -1]],
+            edges: [[6, 2], [2, 0], [0, 4], [4, 8], [0, 1], [1, 5], [0, 3], [3, 7]] },                                 // a swan in flight
+          { nodes: [[-0.6, -0.3], [0.1, 0.05], [0.7, -0.45], [-1, 0.45], [0.35, 0.75], [1, 0.2], [-0.2, -0.85], [-0.25, 0.65], [0.8, 0.95]],
+            edges: [[3, 0], [0, 1], [1, 2], [2, 5], [0, 6], [1, 7], [7, 4], [4, 8]] },                                 // a little dipper
+          { nodes: [[0, -0.3], [-0.55, 0.35], [0.55, 0.35], [0, -1], [-0.95, -0.15], [0.95, -0.15], [-0.3, 0.95], [0.3, 0.95], [0, 0.2]],
+            edges: [[3, 0], [0, 4], [0, 5], [0, 8], [8, 1], [8, 2], [1, 6], [2, 7]] },                                 // a lyre
+          { nodes: [[-0.85, 0.1], [-0.35, -0.45], [0.2, 0.05], [0.75, -0.5], [1, 0.3], [-0.15, 0.75], [0.45, 0.85], [-1, -0.75], [0.5, -1]],
+            edges: [[7, 0], [0, 1], [1, 2], [2, 3], [3, 4], [2, 5], [5, 6], [3, 8]] },                                  // a winding river
+          { nodes: [[0, 0], [-0.5, -0.5], [0.5, -0.5], [0.5, 0.5], [-0.5, 0.5], [0, -1], [1, 0], [0, 1], [-1, 0]],
+            edges: [[5, 1], [1, 8], [8, 4], [4, 7], [7, 3], [3, 6], [6, 2], [2, 5], [1, 0], [0, 3]] },                  // a crown
+          { nodes: [[-0.2, 0.1], [0.4, -0.3], [-0.7, -0.4], [0.9, -0.75], [-0.95, 0.5], [0.15, 0.7], [0.7, 0.45], [-0.35, -0.95], [0.05, -0.55]],
+            edges: [[4, 0], [0, 1], [1, 3], [0, 2], [2, 7], [7, 8], [8, 1], [0, 5], [5, 6], [6, 1]] }                   // a kite
+        ];
+        // loosely scattered anchors, most prominent first; bigger constellations get the central ones
+        const SLOTS = [[0.44, 0.52], [0.16, 0.27], [0.8, 0.25], [0.49, 0.17], [0.82, 0.7], [0.16, 0.74], [0.63, 0.83], [0.92, 0.47], [0.37, 0.87], [0.07, 0.5]];
+        // fixed homes, so the sky stays put as books are added; new themes take the free slots
+        const HOMES = {
+          'Eileen Chang': [0.5, 0.47], 'The Absurd': [0.3, 0.36], 'What War Leaves Behind': [0.5, 0.2],
+          'Futures That Warn': [0.7, 0.3], 'Teenage Worlds': [0.71, 0.58], 'Pages from Home': [0.29, 0.63],
+          'Fate and Conscience': [0.5, 0.75], 'Quiet Seekers': [0.13, 0.5], 'Big Questions': [0.12, 0.22],
+          'Now Reading': [0.88, 0.78]
+        };
+        const themes = [...new Set(BOOKS.map(b => b.theme))];
+        const freeSlots = SLOTS.filter(([x, y]) => !Object.values(HOMES).some(([hx, hy]) => Math.hypot(hx - x, hy - y) < 0.12));
+        let nextFree = 0;
+        const pos = {}, figs = [];
+        themes.forEach((t, ti) => {
+          const [ax, ay] = HOMES[t] || freeSlots[nextFree++ % Math.max(freeSlots.length, 1)] || SLOTS[ti % SLOTS.length];
+          const members = BOOKS.filter(b => b.theme === t);
+          const grow = Math.min(1.3, 0.62 + members.length * 0.075);
+          const cx = W * ax, cy = H * ay, sx = 70 * grow, sy = 46 * grow;
+          const fig = FIGURES[ti % FIGURES.length];
+          const rot = (rand() - 0.5) * 0.7, cs = Math.cos(rot), sn = Math.sin(rot);
+          let pts = fig.nodes.map(([x, y]) => [cx + (x * cs - y * sn) * sx, cy + (x * sn + y * cs) * sy]);
+          // keep every figure (and its label) inside the sky
+          const minX = Math.min(...pts.map(p => p[0])), maxX = Math.max(...pts.map(p => p[0]));
+          const minY = Math.min(...pts.map(p => p[1])), maxY = Math.max(...pts.map(p => p[1]));
+          const sx0 = minX < 50 ? 50 - minX : maxX > W - 50 ? W - 50 - maxX : 0;
+          const sy0 = minY < 40 ? 40 - minY : maxY > H - 52 ? H - 52 - maxY : 0;
+          pts = pts.map(([x, y]) => [x + sx0, y + sy0]);
+          members.forEach((b, i) => {
+            pos[b.title] = i < pts.length ? pts[i] : [cx + Math.cos(i * 2.4) * sx * 1.1, cy + Math.sin(i * 2.4) * sy * 1.1];
+          });
+          const bottom = Math.max(...pts.map(p => p[1]));
+          figs.push({ t, pts, edges: fig.edges, used: members.length, label: [cx + sx0, Math.min(H - 16, bottom + 22)] });
+        });
+
+        const trim = (a, b, ga, gb) => {
+          const dx = b[0] - a[0], dy = b[1] - a[1], L = Math.hypot(dx, dy) || 1;
+          return { x1: a[0] + dx / L * ga, y1: a[1] + dy / L * ga, x2: b[0] - dx / L * gb, y2: b[1] - dy / L * gb };
+        };
+        const brightOf = b => b.bright || (b.note || b.quote ? 2 : 1);
+
+        // threads between constellations ("this book led me to that one")
+        const themeOf = Object.fromEntries(BOOKS.map(b => [b.title, b.theme]));
+        const threads = BOOKS.filter(b => b.ledTo && pos[b.ledTo] && themeOf[b.ledTo] !== b.theme)
+          .map(b => trim(pos[b.title], pos[b.ledTo], 12, 12));
+        stage.append('g').selectAll('path').data(threads).join('path')
+          .attr('d', d => { const mx = (d.x1 + d.x2) / 2, my = (d.y1 + d.y2) / 2 - 40; return `M${d.x1},${d.y1} Q${mx},${my} ${d.x2},${d.y2}`; })
+          .attr('fill', 'none').attr('stroke', '#f0c896').attr('stroke-opacity', 0.32).attr('stroke-width', 0.6).attr('stroke-dasharray', '1 6').attr('stroke-linecap', 'round');
+
+        const consts = stage.selectAll('g.const').data(figs).join('g').attr('class', f => 'const' + (f.t === 'Now Reading' ? ' now' : ''))
+          .on('mouseenter', function () { stage.classed('focus', true); d3.select(this).classed('on', true); })
+          .on('mouseleave', function () { stage.classed('focus', false); d3.select(this).classed('on', false); });
+        consts.each(function (f) {
+          const g = d3.select(this);
+          const books = BOOKS.filter(b => b.theme === f.t);
+          g.append('g').selectAll('line').data(f.edges).join('line').attr('class', 'c-line')
+            .each(function ([i, j]) {
+              const d = trim(f.pts[i], f.pts[j], i < f.used ? 11 : 4, j < f.used ? 11 : 4);
+              d3.select(this).attr('x1', d.x1).attr('y1', d.y1).attr('x2', d.x2).attr('y2', d.y2);
+            })
+            .attr('stroke', '#ffe1ea').attr('stroke-opacity', 0.2).attr('stroke-width', 0.6).attr('stroke-linecap', 'round');
+          g.append('g').selectAll('circle').data(f.pts.slice(f.used)).join('circle')
+            .attr('cx', d => d[0]).attr('cy', d => d[1]).attr('r', () => 0.8 + rand() * 0.5).attr('fill', '#ffe9f0').attr('opacity', 0.42);
+          // a transparent hit area so the whole figure reacts to hover
+          const xs = f.pts.map(p => p[0]), ys = f.pts.map(p => p[1]);
+          g.insert('rect', ':first-child').attr('x', Math.min(...xs) - 24).attr('y', Math.min(...ys) - 24)
+            .attr('width', Math.max(...xs) - Math.min(...xs) + 48).attr('height', f.label[1] - Math.min(...ys) + 34).attr('fill', 'transparent');
+          const label = g.append('text').attr('class', 'theme-name' + (THEME_NOTES[f.t] ? ' has-note' : ''))
+            .attr('text-anchor', 'middle').attr('x', f.label[0]).attr('y', f.label[1]).text(f.t);
+          if (THEME_NOTES[f.t]) label.append('tspan').attr('class', 'theme-mark').attr('dx', 6).text('✦');
+          f.books = books;
+        });
+
+        const asCard = b => ({
+          name: b.title, country: (b.author || '') + (b.theme === 'Now Reading' ? ' · reading now' : ''), note: b.note, book: true, quote: b.quote, quoteSource: b.quoteSource,
+          photos: (b.covers || (b.cover ? [b.cover] : [])).map(src => ({ src })), emptyIcon: '✦', emptyText: b.theme || ''
+        });
+        const openTheme = t => openCity({ name: t, country: 'a constellation', note: THEME_NOTES[t].note, book: true,
+          photos: (THEME_NOTES[t].covers || []).map(src => ({ src })), emptyIcon: '✦', emptyText: t });
+        consts.select('.theme-name.has-note').attr('tabindex', 0).attr('role', 'button')
+          .on('click', (e, f) => openTheme(f.t))
+          .on('keydown', (e, f) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openTheme(f.t); } });
+
+        // Book stars: a soft halo, a bright core, and diffraction spikes on the brightest ones
+        consts.each(function (f) {
+          const stars = d3.select(this).append('g').selectAll('g').data(f.books).join('g')
+            .attr('class', 'star').attr('transform', b => `translate(${pos[b.title]})`)
+            .attr('tabindex', 0).attr('role', 'button').attr('aria-label', b => `${b.title}${b.author ? ' by ' + b.author : ''}`)
+            .on('click', (e, b) => openCity(asCard(b)))
+            .on('keydown', (e, b) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCity(asCard(b)); } });
+          stars.append('circle').attr('r', 18).attr('fill', 'transparent');
+          const body = stars.append('g').attr('class', 's-body');
+          body.append('circle').attr('class', 'twinkle').attr('r', b => 4 + brightOf(b) * 2.6).attr('fill', 'url(#starHalo)')
+            .style('--tw', () => `${(3 + rand() * 3).toFixed(1)}s`).style('--td', () => `${(rand() * 4).toFixed(1)}s`).style('--lo', 0.55);
+          const spikes = body.filter(b => brightOf(b) >= 3).append('g').attr('class', 's-spikes');
+          spikes.append('rect').attr('x', -13).attr('y', -0.3).attr('width', 26).attr('height', 0.6).attr('fill', 'url(#spikeGrad)');
+          spikes.append('rect').attr('x', -0.3).attr('y', -13).attr('width', 0.6).attr('height', 26)
+            .attr('fill', 'url(#spikeGrad)').attr('transform', 'rotate(0)');
+          body.append('circle').attr('r', b => 1.2 + brightOf(b) * 0.45).attr('fill', '#fffafc');
+          stars.append('text').attr('class', 'star-title').attr('text-anchor', 'middle').attr('y', -18).text(b => b.title);
+        });
+        // vertical spikes need their own gradient direction
+        const vspike = defs.append('linearGradient').attr('id', 'spikeGradV').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
+        [[0, 0], [0.5, 1], [1, 0]].forEach(([o, a]) => vspike.append('stop').attr('offset', o).attr('stop-color', '#fff8fa').attr('stop-opacity', a));
+        stage.selectAll('.s-spikes rect:nth-of-type(2)').attr('fill', 'url(#spikeGradV)');
+
+        if (!BOOKS.length) stage.append('text').attr('class', 'theme-name').attr('text-anchor', 'middle')
+          .attr('x', W / 2).attr('y', H / 2).style('font-size', '16px').text('my bookshelf is on its way');
+
+        // Gentle parallax: the far sky drifts a little with the pointer
+        sky.addEventListener('pointermove', e => {
+          const r = sky.getBoundingClientRect();
+          const dx = ((e.clientX - r.left) / r.width - 0.5) * -14, dy = ((e.clientY - r.top) / r.height - 0.5) * -10;
+          back.attr('transform', `translate(${dx.toFixed(1)} ${dy.toFixed(1)})`);
+        });
+        sky.addEventListener('pointerleave', () => back.attr('transform', null));
+      })();
+
+      if (!mapEl || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+
+      function showTip(e, text) {
+        tip.textContent = text;
+        tip.style.left = (e.clientX + 14) + 'px';
+        tip.style.top = (e.clientY - 30) + 'px';
+        tip.style.opacity = 1;
+      }
+      function hideTip() { tip.style.opacity = 0; }
+
+      Promise.all([
+        d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'),
+        d3.json('data/regions.json')
+      ]).then(([world, regions]) => {
+        // One borderless land shape (no country outlines), without Antarctica
+        const land = topojson.merge(world, world.objects.countries.geometries
+          .filter(gm => gm.properties.name !== 'Antarctica'));
+        const W = 960;
+        // Pacific-centred so Asia and North America sit side by side; crop to the land
+        const projection = d3.geoNaturalEarth1().rotate([-170, 0]);
+        projection.fitWidth(W - 20, land);
+        const path = d3.geoPath(projection);
+        const [[, y0], [, y1]] = path.bounds(land);
+        const H = Math.ceil(y1 - y0 + 20);
+        projection.translate([projection.translate()[0], projection.translate()[1] - y0 + 10]);
+
+        const svg = d3.select(mapEl).html('').append('svg')
+          .attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img')
+          .attr('aria-label', 'World map of places I have been; cities with photos are marked');
+        const defs = svg.append('defs');
+        const blush = defs.append('radialGradient').attr('id', 'blushGrad');
+        const blushStops = [0, 0.55, 1].map(o => blush.append('stop').attr('offset', o));
+        defs.append('clipPath').attr('id', 'landClip').append('path').datum(land).attr('d', path);
+
+        const g = svg.append('g');
+        const landPath = g.append('path').datum(land).attr('d', path);
+        const travelG = g.append('g').attr('class', 'layer-travel');
+
+        // Soft watercolour blush around everywhere I've been, kept on land
+        const blushes = travelG.append('g').attr('clip-path', 'url(#landClip)')
+          .selectAll('circle').data([...CITIES.map(c => ({ at: c.at, r: 30 })), ...PLACES.map(p => ({ at: p.at, r: 18 }))])
+          .join('circle')
+          .attr('cx', d => projection(d.at)[0]).attr('cy', d => projection(d.at)[1])
+          .attr('r', d => d.r).attr('fill', 'url(#blushGrad)');
+
+        // One colour per country; a city can still override with its own `color`
+        const COUNTRY_COLORS = { 'China': '#c8565f', 'United States': '#86a9cf', 'Singapore': '#d6b06a', 'Mexico': '#86b59a', 'Brazil': '#e0987c', 'Australia': '#a993cf', 'New Zealand': '#6fb1b8', 'Türkiye': '#b48ead' };
+        const SPARE_COLORS = ['#86b59a', '#a993cf', '#e0987c', '#d98ca3'];
+        const countryColor = {};
+        CITIES.forEach(c => {
+          if (!countryColor[c.country]) {
+            countryColor[c.country] = COUNTRY_COLORS[c.country] ||
+              SPARE_COLORS[Object.keys(countryColor).filter(k => !COUNTRY_COLORS[k]).length % SPARE_COLORS.length];
+          }
+          c.dotColor = c.color || countryColor[c.country];
+        });
+        const colorOf = c => c.dotColor;
+
+        // Real outlines for photo places (a province like Xinjiang, or a city like Hangzhou),
+        // tinted in the place's colour; only visited areas are drawn
+        const areaOf = {}, minorOf = {};
+        CITIES.forEach(c => (c.area || []).forEach(k => { areaOf[k] = c; }));
+        PLACES.forEach(p => (p.area || []).forEach(k => { minorOf[k] = p; }));
+        const areaG = travelG.append('g');
+        // Whole countries: a faint borderless wash in the country's colour
+        const countryKeys = {};
+        Object.entries(COUNTRY_AREAS).forEach(([name, key]) => { countryKeys[key] = name; });
+        // countries without photo cities (e.g. Japan, Korea) use the quiet rose
+        areaG.selectAll('path.area-country').data(regions.features.filter(f => countryKeys[f.properties.key])).join('path')
+          .attr('class', 'area-country').attr('d', path)
+          .attr('fill', f => countryColor[countryKeys[f.properties.key]] || css('--rose'))
+          .on('mousemove', (e, f) => showTip(e, countryKeys[f.properties.key])).on('mouseleave', hideTip);
+        // Places without photos: a quieter rose outline
+        const minorAreas = areaG.selectAll('path.area-minor').data(regions.features.filter(f => minorOf[f.properties.key])).join('path')
+          .attr('class', 'area-minor').attr('d', path)
+          .attr('vector-effect', 'non-scaling-stroke')
+          .on('mousemove', (e, f) => showTip(e, minorOf[f.properties.key].name)).on('mouseleave', hideTip);
+        // Photo places: tinted in their colour, click to open photos
+        const areas = areaG.selectAll('path.area').data(regions.features.filter(f => areaOf[f.properties.key])).join('path')
+          .attr('class', 'area').attr('d', path)
+          .attr('fill', f => areaOf[f.properties.key].dotColor)
+          .attr('stroke', f => areaOf[f.properties.key].dotColor)
+          .attr('vector-effect', 'non-scaling-stroke')
+          .on('mousemove', (e, f) => showTip(e, areaOf[f.properties.key].name)).on('mouseleave', hideTip)
+          .on('click', (e, f) => { hideTip(); openCity(areaOf[f.properties.key]); });
+
+        // Small pearls for places without photos (drawn under the city markers)
+        const places = travelG.append('g').selectAll('g').data(PLACES).join('g')
+          .attr('class', 'place')
+          .on('mousemove', (e, p) => showTip(e, p.name)).on('mouseleave', hideTip);
+        places.append('circle').attr('r', 7).attr('fill', 'transparent'); // easier to hover
+        const placeDot = places.append('circle').attr('class', 'pearl').attr('r', 2.4).attr('stroke-width', 1.1);
+
+        // City markers: a fine halo ring around a soft-coloured dot, with a breathing glow
+        const cities = travelG.append('g').selectAll('g').data(CITIES).join('g')
+          .attr('class', 'city')
+          .attr('tabindex', 0).attr('role', 'button').attr('aria-label', c => `${c.name}: see photos`)
+          .on('click', (e, c) => { hideTip(); openCity(c); })
+          .on('keydown', (e, c) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCity(c); } })
+          .on('mousemove', (e, c) => showTip(e, c.name)).on('mouseleave', hideTip)
+          .on('mouseenter focus', (e, c) => prefetch(c));
+        const glow = cities.append('circle').attr('class', 'glow').attr('r', 5).attr('fill', colorOf);
+        const marker = cities.append('g').attr('class', 'marker');
+        marker.append('circle').attr('r', 12).attr('fill', 'transparent'); // easier to tap
+        marker.append('circle').attr('class', 'halo')
+          .attr('r', c => (c.star || c.heart) ? 12 : 8.5).attr('fill', 'none')
+          .attr('stroke', colorOf).attr('stroke-width', 0.9).attr('stroke-opacity', 0.7);
+        // A four-point sparkle for the special one (undergrad home), a soft dot for the rest
+        const R = 10, r = 1.6;
+        const sparkle = `M0,${-R} C${r},${-r} ${r},${-r} ${R},0 C${r},${r} ${r},${r} 0,${R} C${-r},${r} ${-r},${r} ${-R},0 C${-r},${-r} ${-r},${-r} 0,${-R} Z`;
+        marker.filter(c => c.star).append('path').attr('class', 'core')
+          .attr('d', sparkle).attr('fill', colorOf).attr('stroke-width', 1).attr('stroke-linejoin', 'round');
+        marker.filter(c => c.star).append('circle').attr('r', 1.4).attr('fill', '#fff').attr('fill-opacity', 0.9);
+        // A small heart for home
+        marker.filter(c => c.heart).append('path').attr('class', 'core')
+          .attr('d', 'M0,6.5 C-7.5,1.5 -8.5,-4 -4.8,-6.4 C-2.4,-7.8 0,-6 0,-3.8 C0,-6 2.4,-7.8 4.8,-6.4 C8.5,-4 7.5,1.5 0,6.5 Z')
+          .attr('fill', colorOf).attr('stroke-width', 1).attr('stroke-linejoin', 'round');
+        marker.filter(c => !c.star && !c.heart).append('circle').attr('class', 'core').attr('r', 4).attr('fill', colorOf).attr('stroke-width', 1.4);
+
+        function place(k) {
+          cities.attr('transform', c => `translate(${projection(c.at)}) scale(${1 / k})`);
+          places.attr('transform', p => `translate(${projection(p.at)}) scale(${1 / k})`);
+        }
+        place(1);
+
+        function paint() {
+          const paper = css('--paper');
+          landPath.attr('fill', `color-mix(in srgb, ${css('--mist')} 70%, ${paper})`);
+          blushStops[0].attr('stop-color', css('--rose')).attr('stop-opacity', 0.55);
+          blushStops[1].attr('stop-color', css('--rose')).attr('stop-opacity', 0.22);
+          blushStops[2].attr('stop-color', css('--rose')).attr('stop-opacity', 0);
+          cities.select('.core').attr('stroke', paper);
+          placeDot.attr('fill', paper).attr('stroke', css('--accent-dark'));
+          minorAreas.attr('fill', css('--rose')).attr('stroke', css('--accent-dark'));
+        }
+        paint();
+        new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+        // Soft breathing glow, echoing the constellation in the hero
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          (function breathe() {
+            glow.attr('r', 4).attr('fill-opacity', 0.3)
+              .transition().duration(2200).ease(d3.easeSinOut)
+              .attr('r', 15).attr('fill-opacity', 0)
+              .on('end', (d, i) => { if (i === 0) breathe(); });
+          })();
+        }
+
+        const zoom = d3.zoom().scaleExtent([1, 10]).translateExtent([[0, 0], [W, H]])
+          .on('zoom', e => { g.attr('transform', e.transform); place(e.transform.k); });
+        svg.call(zoom).on('wheel.zoom', null); // keep page scroll; use buttons, drag or pinch
+        document.getElementById('travelZoomIn').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 1.6);
+        document.getElementById('travelZoomOut').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 1 / 1.6);
+        document.getElementById('travelReset').onclick = () => svg.transition().duration(400).call(zoom.transform, d3.zoomIdentity);
+      }).catch(() => {
+        mapEl.innerHTML = '<div class="travel-map-loading">map could not load</div>';
+      });
+    })();
   </script>
 </body>
 </html>
