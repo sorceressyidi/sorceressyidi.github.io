@@ -960,6 +960,85 @@
       #readingSky svg { width: 780px; max-width: none; }
       .reading-swipe { display: block !important; }
     }
+    #joysRoom { display: none; border-radius: 14px; overflow: hidden; }
+    .travel-map-box.mode-joys #readingSky { display: none; }
+    .travel-map-box.mode-joys #joysRoom { display: block; }
+    #joysRoom svg { display: block; width: 100%; height: auto; }
+    #joysRoom .joy { cursor: pointer; outline: none; }
+    #joysRoom .joy .j-art { transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); transform-box: fill-box; transform-origin: center bottom; }
+    #joysRoom .joy:hover .j-art, #joysRoom .joy:focus-visible .j-art { transform: translateY(-3px) rotate(-1.5deg); }
+    #joysRoom .j-label { font-family: 'Caveat', cursive; font-size: 19px; opacity: 0.85; transition: opacity 0.25s; pointer-events: none; }
+    #joysRoom .joy:hover .j-label { opacity: 1; }
+    #joysRoom .j-sub { font-family: 'Caveat', cursive; font-size: 14px; pointer-events: none; }
+    #joysRoom .notes { animation: floatNotes 3.2s ease-in-out infinite; }
+    @keyframes floatNotes { 0%, 100% { transform: translateY(0); opacity: 0.55; } 50% { transform: translateY(-6px); opacity: 1; } }
+    #joysRoom .steam { animation: steam 2.8s ease-in-out infinite; }
+    @keyframes steam { 0% { transform: translateY(4px); opacity: 0; } 40% { opacity: 0.7; } 100% { transform: translateY(-8px); opacity: 0; } }
+    #joysRoom .disc { animation: spin 6s linear infinite; transform-box: fill-box; transform-origin: center; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { #joysRoom .notes, #joysRoom .steam, #joysRoom .disc { animation: none; } }
+    /* floating mini player */
+    .mini-player {
+      position: fixed; right: 20px; bottom: 20px; z-index: 9000;
+      width: min(360px, calc(100vw - 32px)); display: grid; grid-template-columns: 48px 1fr auto; gap: 0.75rem; align-items: center;
+      padding: 0.7rem 0.8rem 0.7rem 0.7rem; border-radius: 16px;
+      background: color-mix(in srgb, var(--paper) 88%, transparent); border: 1px solid var(--mist);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.14);
+      opacity: 0; transform: translateY(16px); transition: opacity 0.3s, transform 0.35s var(--ease-out);
+    }
+    .mini-player.show { opacity: 1; transform: translateY(0); }
+    .mp-art {
+      width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      background: radial-gradient(circle, var(--rose) 0 18%, #3c3742 19% 100%); color: transparent; position: relative;
+    }
+    .mp-art::after { content: ''; position: absolute; inset: 5px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12); }
+    .mp-art.spinning { animation: spin 4s linear infinite; }
+    .mp-info { min-width: 0; }
+    .mp-title { font-family: 'Playfair Display', serif; font-size: 0.98rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mp-sub { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-dark); margin-top: 0.1rem; }
+    .mp-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.82rem; color: var(--slate); line-height: 1.2; margin-top: 0.1rem; }
+    .mp-note:empty { display: none; }
+    .mp-bar { height: 4px; border-radius: 4px; background: var(--mist); margin-top: 0.5rem; cursor: pointer; position: relative; outline: none; }
+    .mp-bar:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+    .mp-bar span { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 4px; background: var(--accent-dark); }
+    .mp-times { display: flex; justify-content: space-between; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.78rem; color: var(--slate); margin-top: 0.15rem; }
+    .mp-controls { display: flex; align-items: center; gap: 0.15rem; }
+    .mp-controls button { width: 30px; height: 30px; border: none; border-radius: 50%; background: none; color: var(--ink); cursor: pointer; font-size: 0.8rem; transition: background 0.2s; }
+    .mp-controls button:hover { background: var(--blush); }
+    .mp-controls .mp-main { width: 38px; height: 38px; background: var(--accent-dark); color: var(--paper); font-size: 0.75rem; }
+    .mp-controls .mp-main:hover { background: var(--ink); }
+    .mp-close { position: absolute; top: -9px; right: -9px; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--mist);
+      background: var(--paper); color: var(--slate); font-size: 0.85rem; line-height: 1; cursor: pointer; }
+    @media (prefers-reduced-motion: reduce) { .mp-art.spinning { animation: none; } .mini-player { transition: none; } }
+    /* song list inside a card */
+    .city-tracks { display: flex; flex-direction: column; gap: 0.35rem; margin: 0.7rem auto 0; max-width: 22rem; }
+    .city-tracks:empty { display: none; }
+    .city-embed { margin-top: 0.8rem; }
+    .city-embed:empty { display: none; }
+    .also-on { display: block; margin-top: 0.45rem; text-align: center; font-size: 0.72rem; color: var(--slate); text-decoration: none; }
+    .also-on:hover { color: var(--accent-dark); }
+    .city-embed { display: flex; flex-direction: column; gap: 0.45rem; }
+    .city-embed iframe { width: 100%; max-width: 660px; border: 0; border-radius: 12px; overflow: hidden; display: block; }
+    .city-polaroid.no-photo { width: min(420px, calc(100vw - 32px)); padding-top: 22px; }
+    .track {
+      display: flex; align-items: center; gap: 0.65rem; width: 100%;
+      font: inherit; text-align: left; padding: 0.5rem 0.8rem; border-radius: 999px; cursor: pointer;
+      border: 1px solid var(--mist); background: var(--paper); color: var(--ink); transition: background 0.2s, border-color 0.2s;
+    }
+    .track:hover { border-color: var(--accent); }
+    .track.on { background: var(--blush); border-color: var(--accent); }
+    .t-icon { width: 1.2rem; font-size: 0.7rem; color: var(--accent-dark); text-align: center; }
+    .t-title { flex: 1; font-size: 0.95rem; letter-spacing: 0.05em; }
+    .t-time { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; color: var(--slate); }
+    .back-room {
+      display: none; position: absolute; left: 1.4rem; bottom: 1.2rem; z-index: 3;
+      font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--ink);
+      background: var(--paper); border: 1px solid var(--mist); border-radius: 999px; padding: 0.25rem 0.9rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08); cursor: pointer;
+    }
+    .back-room:hover { border-color: var(--accent); }
+    .travel-map-box.mode-reading:not(.mode-joys) .back-room { display: block; }
     .reading-swipe { display: none; text-align: center; margin-top: 0.6rem; font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--slate); }
     .travel-map-box:not(.mode-reading) + .reading-swipe { display: none !important; }
     .travel-map-box {
@@ -1345,11 +1424,13 @@
     <p class="travel-intro reveal" id="travelStats"></p>
     <div class="map-switch reveal" role="tablist" aria-label="Choose a map">
       <button type="button" role="tab" class="active" data-mode="travel" aria-selected="true">Travel</button>
-      <button type="button" role="tab" data-mode="reading" aria-selected="false">Reading</button>
+      <button type="button" role="tab" data-mode="joys" aria-selected="false">Little Joys</button>
     </div>
     <div class="travel-map-box reveal">
       <div id="travelMap"><div class="travel-map-loading">drawing the map…</div></div>
       <div id="readingSky"></div>
+      <button type="button" class="back-room" id="backToRoom">← back to my room</button>
+      <div id="joysRoom"></div>
       <button type="button" class="journey-toggle for-travel" id="journeyToggle" aria-pressed="false">✦ My Journey</button>
       <div class="journey-card" id="journeyCard" hidden aria-live="polite">
         <div class="jc-top">
@@ -1388,6 +1469,22 @@
     <p class="reading-swipe" aria-hidden="true">← swipe to explore Bookland →</p>
     <p class="travel-credit">map idea inspired by <a href="https://pandaliza.github.io/travels/" target="_blank" rel="noopener noreferrer">Liza Dahiya</a></p>
     <div class="travel-tooltip" id="travelTooltip"></div>
+    <div class="mini-player" id="miniPlayer" hidden aria-label="Music player">
+      <div class="mp-art" id="mpArt" aria-hidden="true"><span>♪</span></div>
+      <div class="mp-info">
+        <p class="mp-title" id="mpTitle"></p>
+        <p class="mp-sub" id="mpSub"></p>
+        <p class="mp-note" id="mpNote"></p>
+        <div class="mp-bar" id="mpBar" role="slider" aria-label="Seek" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="mpFill"></span></div>
+        <div class="mp-times"><span id="mpCur">0:00</span><span id="mpDur">0:00</span></div>
+      </div>
+      <div class="mp-controls">
+        <button type="button" id="mpPrev" aria-label="Previous song">⏮</button>
+        <button type="button" id="mpPlay" class="mp-main" aria-label="Pause">❚❚</button>
+        <button type="button" id="mpNext" aria-label="Next song">⏭</button>
+      </div>
+      <button type="button" class="mp-close" id="mpClose" aria-label="Close player">×</button>
+    </div>
     <div class="city-modal" id="cityModal" role="dialog" aria-modal="true" aria-labelledby="cityTitle">
       <div class="city-polaroid">
         <button type="button" class="city-close" id="cityClose" aria-label="Close">&times;</button>
@@ -1401,6 +1498,8 @@
             <p class="bq-source" id="cityQuoteSource"></p>
           </details>
           <p class="city-note" id="cityNote"></p>
+          <div class="city-tracks" id="cityTracks"></div>
+          <div class="city-embed" id="cityEmbed"></div>
           <p class="city-caption" id="cityCaption"></p>
         </div>
         <div class="city-thumbs" id="cityThumbs"></div>
@@ -1740,6 +1839,10 @@
           photos: [{ src: 'images/travel/melbourn.jpg' }], area: ['victoria'] },
         { name: 'Istanbul', country: 'Türkiye', at: [28.98, 41.01], note: 'such a cat city!',
           photos: [{ src: 'images/travel/istanbul.jpg' }, { src: 'images/travel/istanbul2.jpg' }], area: ['istanbul'] },
+        { name: 'Tokyo', country: 'Japan', at: [139.69, 35.69], area: ['tokyo'],
+          photos: [{ src: 'images/travel/tokyo1.jpg' }] },
+        { name: 'Seoul', country: 'South Korea', at: [126.98, 37.57], area: ['seoul'],
+          photos: [{ src: 'images/travel/seoul.jpg' }] },
         { name: 'Singapore', country: 'Singapore', at: [103.82, 1.35],
           photos: [{ src: 'images/travel/singapore.jpg' }], area: ['singapore'] },
         { name: 'Berkeley', country: 'United States', at: [-122.27, 37.87], note: 'I spent Spring 2025 as an exchange student',
@@ -1776,12 +1879,11 @@
         { name: 'Jinan',     country: 'China', at: [117.00, 36.65], area: ['jinan'] },
         { name: 'Beijing',   country: 'China', at: [116.40, 39.90], area: ['beijing'] },
         { name: 'San Francisco', country: 'United States', at: [-122.42, 37.77], area: ['sanfrancisco'] },
-        { name: 'Tokyo',     country: 'Japan', at: [139.69, 35.69], area: ['tokyo'] },
-        { name: 'Seoul',     country: 'South Korea', at: [126.98, 37.57], area: ['seoul'] },
         { name: 'Suzhou',    country: 'China', at: [120.62, 31.30], area: ['suzhou'] },
         { name: 'Xitang',    country: 'China', at: [120.89, 30.94], area: ['xitang'] },
         { name: 'Huangshan', country: 'China', at: [118.17, 30.13], area: ['huangshan'] },
         { name: 'Xiamen',    country: 'China', at: [118.09, 24.48], area: ['xiamen'] },
+        { name: 'Quanzhou',  country: 'China', at: [118.68, 24.87], area: ['quanzhou'] },
         { name: 'Gansu',     country: 'China', at: [103.83, 36.06], area: ['gansu'] },
         { name: 'Lijiang',   country: 'China', at: [100.23, 26.87], area: ['lijiang'] },
         { name: 'Dali',      country: 'China', at: [100.23, 25.61], area: ['dali'] },
@@ -1851,6 +1953,7 @@
         { title: 'Swindled: The Dark History of Food Fraud', author: 'Bee Wilson', theme: 'Fun Facts', cover: 'images/books/swindled.jpg' },
         { title: 'Little Red Riding Hood Uncloaked', author: 'Catherine Orenstein', theme: 'Fun Facts', cover: 'images/books/redridinghood.jpg' },
         { title: 'Sapiens: A Brief History of Humankind', author: 'Yuval Noah Harari', theme: 'Fun Facts', cover: 'images/books/sapiens.jpg' },
+        { title: 'Homo Deus: A Brief History of Tomorrow', author: 'Yuval Noah Harari', theme: 'Fun Facts', cover: 'images/books/homodeus.jpg' },
         { title: 'From the Soil: The Foundations of Chinese Society', author: 'Fei Xiaotong', theme: 'Pages from Home', cover: 'images/books/xiangtu.jpg',
           note: 'A fascinating way to understand where so much of our culture comes from — what makes it so particular, and so much our own.' },
         // Currently reading — drawn as faint, breathing stars that have not fully lit up yet
@@ -1876,24 +1979,55 @@
         }
       };
 
+      // Four records in the music cabinet. spotify: the track id from a Spotify share link
+      //   (open.spotify.com/track/<id>); leave it empty until there is one.
+      const RECORDS = [
+        { title: 'Bohemian Rhapsody', artist: 'Queen', kind: 'rock', color: '#86a9cf', spotify: '4u7EnebtmKWzUH433cf5Qv' },
+        { title: 'The Four Seasons — Spring', artist: 'Antonio Vivaldi', kind: 'classical', color: '#e0987c', spotify: '0BFJctGKh0cIb9bfVDTDuh' },       // Itzhak Perlman
+        { title: 'Nocturne Op. 48 No. 1', artist: 'Frédéric Chopin', kind: 'classical', color: '#a28fd6', spotify: '1vU8oht1BqabFD6A3cqS6M' },       // Arthur Rubinstein
+        { title: '特別的人', artist: 'Khalil Fong 方大同', kind: 'R&B', color: '#86b59a', spotify: '2omcGhapu59G8FxtsSd7RC' }
+      ];
+      const spotifyEmbed = id => `https://open.spotify.com/embed/track/${id}?utm_source=generator&theme=0`;
+
+      // Little Joys — a cozy room; every object opens a card
+      const JOYS = {
+        chorus: { name: 'Singing', byline: 'singing', country: 'singing', note: 'pieces from my undergrad choir', emptyIcon: '♪', emptyText: 'a few songs we sang together',
+          tracks: [
+            { title: '人世间', src: 'audio/chorus/renshijian.m4a' },
+            { title: '声声慢', src: 'audio/chorus/shengshengman.m4a' }
+          ] },
+        piano: { name: 'Piano', byline: 'me on the keys', country: 'what I play', note: 'lately obsessed with Chopin’s nocturnes', emptyIcon: '♩', emptyText: 'recordings coming soon',
+          tracks: [
+            { title: 'Nocturne — Chopin', src: 'audio/piano/pittsburgh-first.m4a' }
+          ] },
+        records: { name: 'Music', country: 'what I listen to', text: 'rock, classical and R&B' },
+        kitchen: { name: 'Kitchen', country: 'a new learner', note: 'still learning to make yummy things ✿',
+          photos: [{ src: 'images/food/dish3.jpg', caption: 'steak, mushrooms and asparagus' }, { src: 'images/food/dish2.jpg', caption: 'crispy chicken and potatoes' }, { src: 'images/food/dish1.jpg', caption: 'meatball spaghetti, snap peas and berries' }] },
+
+      };
+
       // Stats line under the title — counted from the lists above
       const countries = new Set([...CITIES, ...PLACES].map(p => p.country));
       const STATS = {
         travel: `<b>${countries.size}</b> countries · <b>${CITIES.length + PLACES.length}</b> cities &amp; regions — and counting`,
-        reading: 'read a lot in high school, paused in undergrad, now slowly catching up'
+        reading: 'read a lot in high school, paused in undergrad, now slowly catching up',
+        joys: 'the small things that make an ordinary day feel like mine'
       };
       const statsEl = document.getElementById('travelStats');
       const mapBox = document.querySelector('.travel-map-box');
       function setMode(mode) {
-        mapBox.classList.toggle('mode-reading', mode === 'reading');
-        document.querySelector('.travel-credit').hidden = mode === 'reading';
+        // Reading and Little Joys share the "not the travel map" layout
+        mapBox.classList.toggle('mode-reading', mode !== 'travel');
+        mapBox.classList.toggle('mode-joys', mode === 'joys');
+        document.querySelector('.travel-credit').hidden = mode !== 'travel';
         statsEl.innerHTML = STATS[mode];
         document.querySelectorAll('.map-switch button').forEach(b => {
-          const on = b.dataset.mode === mode;
+          const on = b.dataset.mode === (mode === 'reading' ? 'joys' : mode);   // Bookland lives inside the room
           b.classList.toggle('active', on); b.setAttribute('aria-selected', on);
         });
       }
       document.querySelectorAll('.map-switch button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+      document.getElementById('backToRoom').onclick = () => setMode('joys');
       setMode('travel');
       const tip = document.getElementById('travelTooltip');
       const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -1919,6 +2053,9 @@
         const card = modal.querySelector('.city-polaroid');
         card.classList.toggle('multi', photos.length > 1);
         card.classList.toggle('book-card', !!current.book && photos.length > 0);
+        // songs but no photo (Little Joys): skip the empty photo frame
+        stage.hidden = !photos.length && !!((current.tracks && current.tracks.length) || current.text || current.embed || current.embeds);
+        card.classList.toggle('no-photo', stage.hidden);
         thumbs.innerHTML = '';
         caption.textContent = '';
         track = null;
@@ -1965,7 +2102,10 @@
         current = city; idx = 0; lastFocus = document.activeElement;
         document.getElementById('cityTitle').textContent = city.name;
         document.getElementById('cityMeta').textContent = city.country;
-        document.getElementById('cityNote').textContent = city.note || '';
+        document.getElementById('cityNote').textContent = city.text || city.note || '';
+        const embeds = city.embeds || (city.embed ? [city.embed] : []);
+        document.getElementById('cityEmbed').innerHTML = embeds.map(u =>
+          `<iframe src="${esc(u)}" height="${embeds.length > 1 ? 80 : 152}" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Spotify player"></iframe>`).join('');
         // Books: the original passage in its own expandable box, my own thoughts below it
         const qBox = document.getElementById('cityQuote');
         qBox.hidden = !city.quote;
@@ -1979,7 +2119,80 @@
         renderPhotos();
         document.getElementById('cityClose').focus();
       }
+      // ---- floating mini player (like Spotify's): play a list, pause, skip, seek, keep browsing ----
+      const player = new Audio();
+      player.preload = 'metadata';
+      const mp = {
+        box: document.getElementById('miniPlayer'), title: document.getElementById('mpTitle'), sub: document.getElementById('mpSub'),
+        play: document.getElementById('mpPlay'), bar: document.getElementById('mpBar'), fill: document.getElementById('mpFill'),
+        cur: document.getElementById('mpCur'), dur: document.getElementById('mpDur'), art: document.getElementById('mpArt')
+      };
+      let queue = [], qi = 0, qName = '', qNote = '', qBy = '';
+      const fmt = s => isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
+      function loadTrack(i, autoplay = true) {
+        qi = (i + queue.length) % queue.length;
+        player.src = queue[qi].src;
+        mp.title.textContent = queue[qi].title;
+        mp.sub.textContent = queue.length > 1 ? `${qBy} · ${qi + 1} / ${queue.length}` : qBy;
+        document.getElementById('mpNote').textContent = qNote;
+        mp.fill.style.width = '0%'; mp.cur.textContent = '0:00'; mp.dur.textContent = '';
+        if (autoplay) player.play().catch(() => {});
+      }
+      function playList(list, name, start = 0, note = '', byline = name) {
+        queue = list; qName = name; qNote = note; qBy = byline;
+        mp.box.hidden = false;
+        requestAnimationFrame(() => mp.box.classList.add('show'));
+        loadTrack(start);
+      }
+      function syncPlay() {
+        const on = !player.paused;
+        mp.play.textContent = on ? '❚❚' : '▶';
+        mp.play.setAttribute('aria-label', on ? 'Pause' : 'Play');
+        mp.art.classList.toggle('spinning', on);
+      }
+      player.addEventListener('play', syncPlay);
+      player.addEventListener('pause', syncPlay);
+      player.addEventListener('loadedmetadata', () => { mp.dur.textContent = fmt(player.duration); });
+      player.addEventListener('timeupdate', () => {
+        const pct = player.duration ? player.currentTime / player.duration * 100 : 0;
+        mp.fill.style.width = pct + '%'; mp.bar.setAttribute('aria-valuenow', Math.round(pct));
+        mp.cur.textContent = fmt(player.currentTime);
+      });
+      player.addEventListener('ended', () => { if (qi < queue.length - 1) loadTrack(qi + 1); });
+      mp.play.onclick = () => (player.paused ? player.play().catch(() => {}) : player.pause());
+      document.getElementById('mpNext').onclick = () => loadTrack(qi + 1);
+      document.getElementById('mpPrev').onclick = () => (player.currentTime > 3 ? (player.currentTime = 0) : loadTrack(qi - 1));
+      document.getElementById('mpClose').onclick = () => {
+        player.pause(); mp.box.classList.remove('show');
+        setTimeout(() => { mp.box.hidden = true; }, 300);
+      };
+      const seek = e => { const r = mp.bar.getBoundingClientRect(); if (player.duration) player.currentTime = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * player.duration; };
+      mp.bar.addEventListener('click', seek);
+      mp.bar.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') player.currentTime = Math.min(player.duration || 0, player.currentTime + 5);
+        if (e.key === 'ArrowLeft') player.currentTime = Math.max(0, player.currentTime - 5);
+      });
+      // Little Joys objects: anything with songs plays in the mini player, the rest open a card
+      function openJoy(key) {
+        if (key === 'books') { setMode('reading'); return; }
+        if (key === 'records') {
+          openCity({ ...JOYS.records, embeds: RECORDS.filter(r => r.spotify).map(r => spotifyEmbed(r.spotify)) });
+          return;
+        }
+        if (key.startsWith('record-')) {
+          const r = RECORDS[+key.slice(7)];
+          openCity({ name: r.title, country: `${r.artist} · ${r.kind}`, text: r.spotify ? '' : 'coming soon',
+            embed: r.spotify ? spotifyEmbed(r.spotify) : '' });
+          return;
+        }
+        const j = JOYS[key];
+        if (j.tracks && j.tracks.length) {
+          if (qName === j.name && !mp.box.hidden) { player.paused ? player.play().catch(() => {}) : player.pause(); return; }
+          playList(j.tracks, j.name, 0, j.note || '', j.byline || j.name);
+        } else openCity(j);
+      }
       function closeCity() {
+        document.getElementById('cityEmbed').innerHTML = '';
         modal.classList.remove('open');
         if (lastFocus) lastFocus.focus();
       }
@@ -1991,6 +2204,155 @@
         if (e.key === 'ArrowRight') step(1);
         if (e.key === 'ArrowLeft') step(-1);
       });
+
+      // ---- Little Joys: a hand-drawn room; every object opens a card ----
+      (function drawRoom() {
+        const box = document.getElementById('joysRoom');
+        if (!box || typeof d3 === 'undefined' || typeof rough === 'undefined') return;
+        const W = 1000, H = 560;
+        function render() {
+          box.innerHTML = '';
+          const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+          const C = dark
+            ? { wall: '#26232c', floor: '#2e2a33', ink: '#ddd5e2', soft: '#8e889a', paper: '#1f1d24' }
+            : { wall: '#fbf4ef', floor: '#f1e4da', ink: '#5d5566', soft: '#a39aa8', paper: '#fffaf6' };
+          const svg = d3.select(box).append('svg').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img')
+            .attr('aria-label', 'A hand-drawn room of the little things I love: chorus, piano, music, cooking and swimming');
+          const rc = rough.svg(svg.node());
+          const put = (g, n) => { g.node().appendChild(n); return n; };
+          let sid = 3;
+          const R = extra => ({ seed: sid++, roughness: 1.2, bowing: 1, stroke: C.ink, strokeWidth: 1.15, ...extra });
+          const fill = (color, extra) => R({ fill: color, fillStyle: 'solid', ...extra });
+
+          // room
+          svg.append('rect').attr('width', W).attr('height', H).attr('fill', C.wall);
+          svg.append('rect').attr('y', 410).attr('width', W).attr('height', H - 410).attr('fill', C.floor);
+          const base = svg.append('g');
+          put(base, rc.line(0, 410, W, 410, R({ stroke: C.soft })));
+          for (let x = 40; x < W; x += 110) put(base, rc.line(x, 430, x - 30, H, R({ stroke: C.soft, strokeWidth: 0.7, roughness: 0.6 })));
+          svg.append('text').attr('x', 28).attr('y', 44).attr('fill', C.ink).attr('font-family', 'Caveat, cursive').attr('font-size', 30).attr('font-weight', 600).text('Little Joys');
+          svg.append('text').attr('x', 30).attr('y', 66).attr('fill', C.soft).attr('font-family', 'Caveat, cursive').attr('font-size', 17).text('a small room of things I love');
+
+          function joy(key, label, lx, ly, draw) {
+            const g = svg.append('g').attr('class', 'joy').attr('tabindex', 0).attr('role', 'button').attr('aria-label', label)
+              .on('click', () => openJoy(key))
+              .on('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openJoy(key); } });
+            const art = g.append('g').attr('class', 'j-art');
+            draw(art);
+            g.append('text').attr('class', 'j-label').attr('x', lx).attr('y', ly).attr('text-anchor', 'middle').attr('fill', C.ink).text(label);
+            return g;
+          }
+
+          // record player on a little cabinet → music
+          joy('records', 'music', 150, 478, a => {
+            put(a, rc.rectangle(90, 340, 120, 70, fill('#d9bfa8')));
+            put(a, rc.rectangle(82, 316, 136, 26, fill('#efe2d4')));
+            const d = a.append('g').attr('class', 'disc');
+            put(d, rc.circle(136, 312, 46, fill('#3c3742', { stroke: '#3c3742' })));
+            put(d, rc.circle(136, 312, 14, fill('#e59aa8', { stroke: '#e59aa8' })));
+            put(a, rc.line(190, 300, 162, 318, R({ strokeWidth: 1.6 })));
+          });
+          // each record sleeve in the cabinet is its own song
+          RECORDS.forEach((r, i) => {
+            const x = 102 + i * 20, y = 360;
+            const g = svg.append('g').attr('class', 'joy record').attr('tabindex', 0).attr('role', 'button')
+              .attr('aria-label', `${r.title} — ${r.artist}`)
+              .on('click', e => { e.stopPropagation(); openJoy('record-' + i); })
+              .on('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openJoy('record-' + i); } })
+              .on('mousemove', e => showTip(e, `${r.title} · ${r.artist}`)).on('mouseleave', hideTip);
+            const art = g.append('g').attr('class', 'j-art');
+            put(art, rc.rectangle(x, y, 14, 42, fill(r.color, { strokeWidth: 0.7 })));
+          });
+
+          // wall bookshelf → opens Bookland
+          joy('books', 'bookshelf', 680, 252, a => {
+            put(a, rc.rectangle(585, 96, 190, 132, fill('#e8d6c4')));
+            put(a, rc.line(585, 162, 775, 162, R()));
+            const spines = ['#a28fd6', '#86b59a', '#c06476', '#7fa3d1', '#e0987c', '#d6b06a', '#5fb3b6', '#c8565f', '#8a72b8', '#cc7f55', '#6f8f5e', '#ec97b0'];
+            let x = 592;
+            spines.forEach((c, i) => {
+              const w = 10 + (i * 7) % 6, h = 46 + (i * 13) % 12;
+              if (x + w > 768) return;
+              put(a, rc.rectangle(x, 160 - h, w, h, fill(c, { strokeWidth: 0.7, roughness: 0.6 })));
+              x += w + 2;
+            });
+            x = 592;
+            spines.slice().reverse().forEach((c, i) => {
+              const w = 10 + (i * 5) % 6, h = 44 + (i * 11) % 14;
+              if (x + w > 735) return;
+              put(a, rc.rectangle(x, 226 - h, w, h, fill(c, { strokeWidth: 0.7, roughness: 0.6 })));
+              x += w + 2;
+            });
+            put(a, rc.path('M742,226 l14,-40 l9,3 l-14,40 Z', fill('#86a9cf', { strokeWidth: 0.7 })));   // a leaning book
+          });
+
+          // framed choir photo on the wall → chorus (with audio)
+          joy('chorus', 'singing  ♪', 420, 236, a => {
+            // a framed photo of the choir on stage: two rows in concert dress holding black folders, a conductor in front
+            put(a, rc.rectangle(338, 92, 164, 126, fill('#e8d6c4')));
+            put(a, rc.rectangle(348, 102, 144, 106, fill('#f6efe6', { strokeWidth: 0.9 })));
+            put(a, rc.path('M348,102 h144 v20 q-18,10 -36,0 q-18,10 -36,0 q-18,10 -36,0 q-18,10 -36,0 Z', fill('#c96b74', { strokeWidth: 0.8, stroke: '#a95560' })));  // stage curtain
+            put(a, rc.rectangle(348, 186, 144, 22, fill('#d9c2a8', { strokeWidth: 0.8 })));                 // risers
+            const lo = { roughness: 0.55, strokeWidth: 0.8 };
+            const singer = (x, y, dress, hairLong) => {
+              put(a, rc.path(`M${x - 8},${y + 22} q0,-14 8,-14 q8,0 8,14 Z`, fill(dress, { ...lo, stroke: dress })));      // body
+              put(a, rc.circle(x, y, 10, fill('#f8dfcf', lo)));                                                            // face
+              put(a, rc.path(hairLong ? `M${x - 5},${y + 4} q-1,-10 5,-10 q6,0 5,10` : `M${x - 5},${y - 1} q0,-6 5,-6 q5,0 5,6`,
+                fill('#3f3a44', { ...lo, stroke: '#3f3a44' })));                                                         // hair
+              put(a, rc.rectangle(x - 5, y + 11, 10, 6, fill('#2c2830', { ...lo, stroke: '#2c2830' })));               // music folder
+            };
+            [366, 386, 406, 426, 446, 466].forEach((x, i) => singer(x + 4, 150, '#7d2f43', i % 2 === 0));                 // back row
+            [376, 396, 416, 436, 456].forEach((x, i) => singer(x + 4, 170, '#2f3a5c', i % 2 === 1));                      // front row
+            // conductor (seen from behind), baton raised
+            put(a, rc.path('M414,208 q0,-12 6,-12 q6,0 6,12 Z', fill('#26222b', { ...lo, stroke: '#26222b' })));
+            put(a, rc.circle(420, 192, 8, fill('#3f3a44', { ...lo, stroke: '#3f3a44' })));
+            put(a, rc.path('M425,199 l9,-10 M434,189 l6,-6', R({ strokeWidth: 1, roughness: 0.4 })));
+            // a karaoke mic, for the karaoke nights
+            put(a, rc.path('M520,206 l-12,-46', R({ strokeWidth: 3, stroke: '#4a4450', roughness: 0.4 })));
+            put(a, rc.circle(506, 152, 18, fill('#bfb8c6', { stroke: '#4a4450', fillStyle: 'cross-hatch', hachureGap: 3 })));
+            put(a, rc.path('M520,206 q10,10 2,22', R({ strokeWidth: 1, stroke: C.soft })));
+            const n = a.append('g').attr('class', 'notes');
+            put(n, rc.path('M512,98 l0,-18 l10,-3 l0,18 M512,98 a3,3 0 1,1 -1,-1 M522,95 a3,3 0 1,1 -1,-1', R({ stroke: '#c06476' })));
+            put(n, rc.path('M532,124 l0,-14 M532,124 a3,3 0 1,1 -1,-1 M532,110 q6,2 6,8', R({ stroke: '#c06476' })));
+          });
+
+          // piano
+          joy('piano', 'piano', 455, 478, a => {
+            put(a, rc.rectangle(330, 290, 250, 92, fill('#4a4450')));
+            put(a, rc.rectangle(340, 300, 230, 22, fill('#f7f1ea', { strokeWidth: 0.8 })));
+            for (let x = 340; x <= 570; x += 14.4) put(a, rc.line(x, 322, x, 340, R({ strokeWidth: 0.8, roughness: 0.4, stroke: '#4a4450' })));
+            put(a, rc.rectangle(340, 322, 230, 20, R({ fill: '#fdfaf6', fillStyle: 'solid', strokeWidth: 0.8 })));
+            for (let x = 349; x < 566; x += 14.4) if ([2, 6, 9, 13].indexOf(Math.round((x - 349) / 14.4) % 7) < 0) put(a, rc.rectangle(x, 322, 7, 11, fill('#3c3742', { strokeWidth: 0.4, roughness: 0.3 })));
+            put(a, rc.line(345, 382, 345, 410, R({ strokeWidth: 2 }))); put(a, rc.line(565, 382, 565, 410, R({ strokeWidth: 2 })));
+            put(a, rc.rectangle(420, 266, 70, 26, fill('#fffaf6', { strokeWidth: 0.8 })));            // sheet music
+            put(a, rc.path('M428,275 h54 M428,283 h54', R({ strokeWidth: 0.6 })));
+            put(a, rc.rectangle(395, 418, 120, 18, fill('#8a6f7d')));                                  // bench
+          });
+
+          // kitchen counter with a steaming pot → cooking
+          joy('kitchen', 'kitchen', 890, 478, a => {
+            put(a, rc.rectangle(810, 300, 170, 110, fill('#e9ddcf')));
+            put(a, rc.rectangle(805, 290, 180, 14, fill('#cdb8a6')));
+            put(a, rc.path('M850,290 l0,-30 q0,-8 8,-8 l52,0 q8,0 8,8 l0,30', fill('#c96b64')));
+            put(a, rc.line(838, 266, 850, 266, R({ strokeWidth: 2 }))); put(a, rc.line(918, 266, 930, 266, R({ strokeWidth: 2 })));
+            const s = a.append('g').attr('class', 'steam');
+            put(s, rc.path('M870,246 q-6,-10 0,-20 q6,-10 0,-20 M890,244 q-6,-10 0,-20 q6,-10 0,-20', R({ stroke: C.soft })));
+            put(a, rc.circle(950, 330, 14, fill('#fffaf6', { strokeWidth: 0.8 })));
+            put(a, rc.rectangle(822, 330, 40, 50, R({ stroke: C.soft, strokeWidth: 0.8 })));
+          });
+
+          // little details: a plant and a sleepy cat
+          const deco = svg.append('g');
+          put(deco, rc.rectangle(670, 370, 34, 40, fill('#d58f7a')));
+          put(deco, rc.path('M687,370 q-20,-30 -6,-56 M687,370 q4,-40 18,-50 M687,370 q-18,-20 -24,-26', R({ stroke: '#6f9e6a', strokeWidth: 1.4 })));
+          put(deco, rc.ellipse(255, 446, 74, 30, fill('#f2d0b4')));
+          put(deco, rc.path('M226,440 l4,-14 l8,10 M266,430 l6,-12 l4,14', R({})));
+          put(deco, rc.path('M290,452 q20,6 16,-10', R({})));
+          deco.append('text').attr('x', 216).attr('y', 420).attr('font-family', 'Caveat, cursive').attr('font-size', 16).attr('fill', C.soft).text('z z');
+        }
+        render();
+        new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+      })();
 
       // ---- Reading map: a hand-drawn world of books — every theme an island ----
       (function drawBookWorld() {
@@ -2301,8 +2663,12 @@
           .attr('r', d => d.r).attr('fill', 'url(#blushGrad)');
 
         // One colour per country; a city can still override with its own `color`
-        const COUNTRY_COLORS = { 'China': '#c8565f', 'United States': '#86a9cf', 'Singapore': '#d6b06a', 'Mexico': '#86b59a', 'Brazil': '#e0987c', 'Australia': '#a993cf', 'New Zealand': '#6fb1b8', 'Türkiye': '#b48ead' };
-        const SPARE_COLORS = ['#86b59a', '#a993cf', '#e0987c', '#d98ca3'];
+        const COUNTRY_COLORS = {
+          'China': '#c8565f', 'United States': '#7fa3d1', 'Singapore': '#d6b06a', 'Mexico': '#86b59a', 'Brazil': '#e0987c',
+          'Australia': '#a28fd6', 'New Zealand': '#5fb3b6', 'Türkiye': '#c08aa6', 'Japan': '#ec97b0', 'South Korea': '#a8b85a'
+        };
+        // new countries draw from colours nobody else uses yet
+        const SPARE_COLORS = ['#c49a6c', '#6f8fbf', '#d6795f', '#8fa39a', '#b07ad0'].filter(c => !Object.values(COUNTRY_COLORS).includes(c));
         const countryColor = {};
         CITIES.forEach(c => {
           if (!countryColor[c.country]) {
